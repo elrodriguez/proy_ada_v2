@@ -107,7 +107,9 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="asesor">Asesor</label>
-              <select name="combo_asesor" id="combo_asesor" class="form-control"></select>
+              <select name="combo_asesor" id="combo_asesor" class="form-control">
+
+              </select>
             </div>
           </div>
           <div class="col-md-6">

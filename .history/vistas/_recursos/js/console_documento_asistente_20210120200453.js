@@ -420,7 +420,8 @@ function Listar_asesor_combo() {
 	$.ajax({
 		url:'../controlador/area/controlador_combolistar_asesor.php',
 		type:'POST'
-	}).done(function(resp) {
+	})
+	.done(function(resp) {
 		var data = JSON.parse(resp);
 		if (data.length > 0) {
 			var cadena = "";

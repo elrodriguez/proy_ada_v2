@@ -420,7 +420,8 @@ function Listar_asesor_combo() {
 	$.ajax({
 		url:'../controlador/area/controlador_combolistar_asesor.php',
 		type:'POST'
-	}).done(function(resp) {
+	})
+	.done(function(resp) {
 		var data = JSON.parse(resp);
 		if (data.length > 0) {
 			var cadena = "";
@@ -434,7 +435,6 @@ function Listar_asesor_combo() {
 			var cadena = "<option value='otro'>no se encontraron Asesores</option>";
 			$("#combo_asesor").html(cadena);
 		}
-		$('#combo_asesor').select2();
 	})
 }
 function agregarDatosAsesor(){

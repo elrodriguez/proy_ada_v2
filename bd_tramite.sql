@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-01-2021 a las 02:38:02
+-- Tiempo de generación: 21-01-2021 a las 01:39:33
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.11
 
@@ -45,6 +45,19 @@ usuario
 INNER JOIN personal ON personal.usuario_cod = usuario.cod_usuario
 where personal.personal_cod = codigo;
 END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CAMBIARCAMPODOCUMENTO` (`_flag` INT, `_documento` VARCHAR(80), `_valor` VARCHAR(500))  BEGIN
+	if _flag = 1 then
+		UPDATE documento SET
+			anexo_catorce = _valor
+		WHERE  documento_cod =  _documento ;
+	end if;
+	IF _flag = 2 THEN
+		UPDATE documento SET
+			anexo_quince = _valor
+		WHERE  documento_cod =  _documento ;
+	END IF;
+    END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CORREOSUSTENTACIONDOCUMENTO` (`_iddocumento` VARCHAR(80), `_correo` VARCHAR(500), `_zoom` VARCHAR(500), `_lugar` VARCHAR(200), `_hora` VARCHAR(200))  BEGIN
 	UPDATE documento SET
@@ -289,12 +302,12 @@ IF cont = 0 THEN
 		doc_asunto,
 		doc_ticket,
 		tipoDocumento_cod,
-		asesor_cod,
 		area_cod,
 		usu_cod,
 		doc_estado,
 		num_proceso,
 		doc_tipo,
+		doc_documento,
 		grado,
 		anio
 	) VALUES (
@@ -307,6 +320,7 @@ IF cont = 0 THEN
 		'PENDIENTE',
 		'1',
 		opcion,
+		CONCAT(archivo,'/',_documento_cod,'/',_documento_cod,'.',iddocumento),
 		_modalidad,
 		year(now())
 	);
@@ -318,7 +332,6 @@ IF cont = 1 THEN
 		doc_asunto,
 		doc_ticket,
 		tipoDocumento_cod,
-		asesor_cod,
 		area_cod,
 		usu_cod,
 		doc_estado,
@@ -332,13 +345,12 @@ IF cont = 1 THEN
 		asunto,
 		idnumero,
 		idtipodocu,
-		idasesor,
 		idarea,
 		idusuario,
 		'PENDIENTE',
 		'1',
 		opcion,
-		archivo,
+		concat(archivo,'/',_documento_cod,'/',_documento_cod,'.',iddocumento),
 		_modalidad,
 		year(now())
 	);
@@ -349,6 +361,7 @@ IF opcion = 'C' THEN
 		DECLARE counter INT DEFAULT 1;
 		DECLARE total_asesor INT;
 		DECLARE counter_asesor INT DEFAULT 1;
+		declare itemasesor varchar(500);
 		
 		set total = (select LENGTH(idremitente) - LENGTH( REPLACE (idremitente, "*", "") )+1);
 		SET total_asesor = (SELECT LENGTH(idasesor) - LENGTH( REPLACE (idasesor, "*", "") )+1);
@@ -359,11 +372,12 @@ IF opcion = 'C' THEN
 		END WHILE;
 		
 		WHILE counter_asesor<= total_asesor DO
-			INSERT INTO documento_asesor (documento_cod,asesor_cod,fecha_registro) VALUES (_documento_cod,f_explode(idasesor,'*',counter_asesor),now());
+			set itemasesor = (select f_explode(idasesor,'*',counter_asesor));
+			INSERT INTO documento_asesor (documento_cod,asesor_cod,fecha_registro,tipo,modalidad) VALUES (_documento_cod,f_explode(itemasesor,'|',1),now(),f_explode(itemasesor,'|',2),f_explode(itemasesor,'|',3));
 			SET counter_asesor = counter_asesor + 1;
 		END WHILE;
 		
-		
+		select _documento_cod as 'iddocumento';
 	end;
 END IF;
 IF opcion = 'I' THEN
@@ -402,6 +416,11 @@ INSERT INTO tipo_documento (tipodo_descripcion,tipodo_estado) VALUES (NOMBRE,"AC
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOANEXOS` (`_flag` INT, `_documento` VARCHAR(80), `_p_ruta_anexo` VARCHAR(500), `_s_ruta_anexo` VARCHAR(500), `_t_ruta_anexo` VARCHAR(500), `_c_ruta_anexo` VARCHAR(500))  BEGIN
+	IF _flag = 1 THEN
+		UPDATE documento SET
+			doc_documento = _p_ruta_anexo
+		WHERE  documento_cod =  _documento ;
+	END IF;
 	if _flag = 3 then
 		UPDATE documento SET
 			anexo_seis = if(_p_ruta_anexo = '0',anexo_seis,_p_ruta_anexo),
@@ -462,6 +481,57 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOANEXOS` (`_flag` INT
 	IF _flag = 13 THEN
 		UPDATE documento SET
 			anexo_dies = IF(_p_ruta_anexo = '0',anexo_dies,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 14 THEN
+		UPDATE documento SET
+			anexo_dies_dos = IF(_p_ruta_anexo = '0',anexo_dies_dos,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 15 THEN
+		UPDATE documento SET
+			anexo_dies_tres = IF(_p_ruta_anexo = '0',anexo_dies_tres,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 16 THEN
+		UPDATE documento SET
+			anexo_trece = IF(_p_ruta_anexo = '0',anexo_trece,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 17 THEN
+		UPDATE documento SET
+			archivo_uno = IF(_p_ruta_anexo = '0',archivo_uno,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 18 THEN
+		UPDATE documento SET
+			archivo_dos = IF(_p_ruta_anexo = '0',archivo_dos,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 19 THEN
+		UPDATE documento SET
+			archivo_tres = IF(_p_ruta_anexo = '0',archivo_tres,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 20 THEN
+		UPDATE documento SET
+			archivo_cuatro = IF(_p_ruta_anexo = '0',archivo_cuatro,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 21 THEN
+		UPDATE documento SET
+			archivo_turnitin_etapa_nueve = IF(_p_ruta_anexo = '0',archivo_turnitin_etapa_nueve,_p_ruta_anexo),
+			porcentaje_nueve = _s_ruta_anexo
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 22 THEN
+		UPDATE documento SET
+			repositorio = IF(_p_ruta_anexo = '0',repositorio,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 23 THEN
+		UPDATE documento SET
+			archivo_turnitin_dos_etapa_nueve = IF(_p_ruta_anexo = '0',archivo_turnitin_dos_etapa_nueve,_p_ruta_anexo)
 		WHERE  documento_cod =  _documento ;
 	END IF;
     END$$
@@ -698,7 +768,23 @@ INSERT INTO `detalle_ciudadano` (`detalleciudadano_cod`, `ciudadano_cod`, `docum
 (132, 13, 'PRE-62-2020-000000007'),
 (133, 13, 'PRE-62-2021-000000001'),
 (134, 16, 'PRE-62-2021-000000002'),
-(135, 13, 'PRE-62-2021-000000002');
+(135, 13, 'PRE-62-2021-000000002'),
+(136, 13, 'PRE-62-2021-000000003'),
+(137, 14, 'PRE-62-2021-000000003'),
+(138, 13, 'PRE-62-2021-000000004'),
+(139, 14, 'PRE-62-2021-000000004'),
+(140, 13, 'PRE-62-2021-000000005'),
+(141, 14, 'PRE-62-2021-000000005'),
+(142, 13, 'PRE-62-2021-000000006'),
+(143, 14, 'PRE-62-2021-000000006'),
+(144, 13, 'PRE-62-2021-000000007'),
+(145, 14, 'PRE-62-2021-000000007'),
+(146, 13, 'PRE-62-2021-000000008'),
+(147, 14, 'PRE-62-2021-000000008'),
+(148, 13, 'PRE-62-2021-000000009'),
+(149, 14, 'PRE-62-2021-000000009'),
+(150, 13, 'PRE-62-2021-000000010'),
+(151, 14, 'PRE-62-2021-000000010');
 
 -- --------------------------------------------------------
 
@@ -764,28 +850,50 @@ CREATE TABLE `documento` (
   `fecha_registro_jurado` date DEFAULT NULL,
   `fecha_final_jurado` date DEFAULT NULL,
   `anexo_dies` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_dies_dos` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_dies_tres` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
   `fecha_sustentacion` date DEFAULT NULL,
   `zoom` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL,
   `lugar` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `hora` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha_correo_etapa_siete` date DEFAULT NULL,
-  `correo_sustentacion` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL
+  `correo_sustentacion` varchar(500) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `anexo_trece` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_catorce` char(1) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_quince` char(1) COLLATE utf8_spanish_ci DEFAULT '0',
+  `archivo_uno` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `archivo_dos` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `archivo_tres` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `archivo_cuatro` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `retorno` char(1) COLLATE utf8_spanish_ci DEFAULT '0',
+  `archivo_turnitin_etapa_nueve` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `porcentaje_nueve` varchar(5) COLLATE utf8_spanish_ci DEFAULT '0',
+  `repositorio` text COLLATE utf8_spanish_ci DEFAULT '0',
+  `archivo_turnitin_dos_etapa_nueve` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `documento`
 --
 
-INSERT INTO `documento` (`documento_cod`, `doc_asunto`, `doc_ticket`, `doc_fecha_recepcion`, `tipoDocumento_cod`, `asesor_cod`, `area_cod`, `usu_cod`, `doc_estado`, `num_proceso`, `doc_tipo`, `doc_documento`, `archivo_etapa1_v2`, `archivo_etapa1_v3`, `grado`, `anio`, `porcentaje`, `archivo_turniting`, `paso`, `fecha_revisor_correo`, `fecha_final`, `anexo_uno`, `anexo_seis`, `anexo_seis_2`, `anexo_seis_3`, `estado_paso_tres`, `etica_anexo_uno`, `etica_anexo_cuatro`, `etica_anexo_cuatro_dos`, `etica_anexo_cuatro_tres`, `etica_comite`, `estado_paso_cuatro`, `resolucion_firmada`, `anexo_uno_etapa_tres`, `proyecto_etapa_tres`, `carta_etapa_tres`, `anexo_uno_etapa_cuatro`, `carta_etapa_cuatro`, `fecha_aprobada`, `fecha_entrega`, `anexo_siete`, `anexo_ocho`, `fecha_registro_jurado`, `fecha_final_jurado`, `anexo_dies`, `fecha_sustentacion`, `zoom`, `lugar`, `hora`, `fecha_correo_etapa_siete`, `correo_sustentacion`) VALUES
-('PRE-2020-000000001', 'TESIS DE PRUEBA', '123456', '2020-12-03 17:48:21', 4, '1', 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/5fc924e5efadc-123.pdf', '0', '0', '62', '2020', 12, 'Archivo/5fd8fdb7da547-constitucion.pdf', '3', '2020-12-15', '2021-01-04', 'Archivo/5fd8ba407f163-constitucion.pdf', 'Archivo/5fd8ba4080f10-Libro.pdf', NULL, NULL, 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL),
-('PRE-2020-000000002', 'PRUEBA', '5555', '2020-12-15 18:17:06', 4, '4', 1, 1, 'PENDIENTE', 6, 'C', 'Archivo/5fd8fda27dd5a-Libro.pdf', '0', '0', '62', '2020', 12, 'Archivo/5fd900a393279-constitucion.pdf', '2', '2020-12-22', '2021-01-11', 'Archivo/5fd900ca8118d-constitucion.pdf', 'Archivo/5fd900ca832ff-Libro.pdf', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, 'APROBADO', NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL),
-('PRE-2020-000000003', 'FFWERWERWE', '333', '2020-12-15 19:37:31', 4, '6', 1, 1, 'RECHAZADO', 3, 'C', 'Archivo/5fd9107b4e1b9-Libro.pdf', '0', '0', '62', '2020', 12, 'Archivo/5fd913bcc3f4e-Libro.pdf', NULL, '2020-12-22', '2021-01-11', 'Archivo/5fe0b5ec547bf-Libro.pdf', 'Archivo/5fe0b5ec57126-constitucion.pdf', '0', '0', 'APROBADO', 'Archivo/PRE-2020-000000003/5ff73bb8e81c9-PERU-INFO-ESP.pdf', 'Archivo/PRE-2020-000000003/5ff73bb8ecb6f-PeruOportunidadDesarrollo.pdf', '0', '0', 'H', 'APROBADO', 'Archivo/5fe254c3e8988-resolucion-doc-PRE-2020-000000002.pdf', '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL),
-('PRE-2020-000000004', 'TESIS DE PRUEBA  NUMERO 4', '334455', '2020-12-29 17:30:28', 4, '6', 1, 1, 'RECHAZADO', 4, 'C', 'Archivo/5feb67b4e7328-resolucion-doc-PRE-2020-000000002.pdf', 'Archivo/PRE-2020-000000004/5febb395bbd39-resolucion-doc-PRE-2020-000000002.pdf', 'Archivo/PRE-2020-000000004/5febb3b10a60f-constitucion.pdf', '62', '2020', 9, 'Archivo/5febc76be995f-resolucion-doc-PRE-2020-000000002.pdf', NULL, '2021-01-08', '2021-01-28', NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL),
-('PRE-62-2020-000000005', 'PROPUESTA DE UN SISTEMA DE INFORMACIóN PARA LA EJECUCIóN DE ENCARGOS DE\r\nINSPECCIóN DE UNA ENTIDAD PúBLICA\r\n', '66767', '2020-12-31 14:18:44', 4, '6', 1, 1, 'RECHAZADO', 7, 'C', 'Archivo/5fedddc4780cb-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/5ff0eaed39bb4-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/5ff0eafb7a4d4-resolucion-doc-PRE-2020-000000002.pdf', '62', '2020', 8, 'Archivo/5ff0eb23a7d5e-Chayan_SA.pdf', NULL, '2021-01-15', '2021-02-04', NULL, 'Archivo/PRE-62-2020-000000005/600237c4b934d-Const-peru-oficial.pdf', 'Archivo/PRE-62-2020-000000005/600237c4be9d0-Libro.pdf', 'Archivo/PRE-62-2020-000000005/600237c4c1eec-Chayan_SA.pdf', 'APROBADO', 'Archivo/PRE-62-2020-000000005/600238584a1aa-PERU-INFO-ESP.pdf', 'Archivo/PRE-62-2020-000000005/600238584f3e3-Libro.pdf', '0', '0', 'H', 'APROBADO', NULL, 'Archivo/PRE-62-2020-000000005/6002378d05909-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/6002378d0ca54-resolucion-doc-PRE-2020-000000002.pdf', 'Archivo/PRE-62-2020-000000005/6002378d0f8ee-Libro.pdf', 'Archivo/PRE-62-2020-000000005/600238806a2c4-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/6002388934377-constitucion.pdf', '2021-01-20', '2021-01-31', 'Archivo/PRE-62-2020-000000005/60023ab203d68-Libro.pdf', 'Archivo/PRE-62-2020-000000005/60023abe6f13c-constitucion.pdf', '2021-01-15', '2021-02-05', 'Archivo/PRE-62-2020-000000005/60023b4e95d4e-Chayan_SA.pdf', '2021-02-26', 'dddd', 'eee', 'ee', '2021-01-15', 'ddd'),
-('PRE-62-2020-000000006', 'DDD DDD DDD', '56566556', '2020-12-31 14:20:05', 4, '7', 1, 1, 'PENDIENTE', 1, 'C', 'Archivo/5fedde15c42b4-Chayan_SA.pdf', '0', '0', '62', '2020', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL),
-('PRE-62-2020-000000007', 'FFFF FFF  TTT', '8765435', '2020-12-31 14:29:44', 4, '6', 1, 1, 'PENDIENTE', 8, 'C', 'Archivo/5fede058955d5-Libro.pdf', '0', '0', '62', '2020', 9, 'Archivo/5fee30a1733c5-Chayan_SA.pdf', NULL, '2021-01-14', '2021-02-03', NULL, 'Archivo/PRE-62-2020-000000007/600043967c2b5-Const-peru-oficial.pdf', '0', '0', 'APROBADO', 'Archivo/PRE-62-2020-000000007/6000467f5d711-PERU-INFO-ESP.pdf', 'Archivo/PRE-62-2020-000000007/6000467f61221-PeruOportunidadDesarrollo.pdf', '0', '0', 'H', 'APROBADO', NULL, '0', '0', '0', 'Archivo/PRE-62-2020-000000007/60004f09852b3-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000007/60004fa152299-PERU-INFO-ESP.pdf', '2021-01-25', '2021-03-31', 'Archivo/PRE-62-2020-000000007/60007314b8de3-PeruOportunidadDesarrollo.pdf', 'Archivo/PRE-62-2020-000000007/6000732408d46-Const-peru-oficial.pdf', '2021-01-14', '2021-02-04', 'Archivo/PRE-62-2020-000000007/6000c38cba54b-constitucion.pdf', '2021-02-28', 'ewee', 'colegio', '12 pm', '2021-01-14', 'ddd@gmail.com'),
-('PRE-62-2021-000000001', 'NUEVA TESIS 1', '4445554', '2021-01-04 21:32:18', 4, '6', 1, 1, 'PENDIENTE', 6, 'C', 'Archivo/5ff389624660b-Chayan_SA.pdf', 'Archivo/PRE-62-2021-000000001/5ff38a6403260-Chayan_SA.pdf', '0', '62', '2021', 6, 'Archivo/5ff38ab77f3ff-Chayan_SA.pdf', NULL, '2021-01-13', '2021-02-02', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', '2021-01-20', '2021-02-15', '0', '0', NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL),
-('PRE-62-2021-000000002', 'NUEVA TESIS 2', '', '2021-01-04 21:33:02', 4, '6', 1, 1, 'PENDIENTE', 6, 'C', 'Archivo/5ff3898e8adb3-Chayan_SA.pdf', '0', '0', '62', '2021', 5, 'Archivo/5ff389aa19a37-constitucion.pdf', NULL, '2021-01-14', '2021-02-03', NULL, 'Archivo/PRE-62-2021-000000002/5ff5acde94775-PERU-INFO-ESP.pdf', 'Archivo/PRE-62-2021-000000002/5ff5acfc4f332-Const-peru-oficial.pdf', 'Archivo/PRE-62-2021-000000002/5ff8f63fb13de-Const-peru-oficial.pdf', 'APROBADO', 'Archivo/PRE-62-2021-000000002/5ff8f98957201-PeruOportunidadDesarrollo.pdf', '0', '0', '0', 'A', NULL, NULL, 'Archivo/PRE-62-2021-000000002/5ff5ef9a4dae0-PERU-INFO-ESP.pdf', 'Archivo/PRE-62-2021-000000002/5ff5ef9a51c9c-Const-peru-oficial.pdf', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `documento` (`documento_cod`, `doc_asunto`, `doc_ticket`, `doc_fecha_recepcion`, `tipoDocumento_cod`, `asesor_cod`, `area_cod`, `usu_cod`, `doc_estado`, `num_proceso`, `doc_tipo`, `doc_documento`, `archivo_etapa1_v2`, `archivo_etapa1_v3`, `grado`, `anio`, `porcentaje`, `archivo_turniting`, `paso`, `fecha_revisor_correo`, `fecha_final`, `anexo_uno`, `anexo_seis`, `anexo_seis_2`, `anexo_seis_3`, `estado_paso_tres`, `etica_anexo_uno`, `etica_anexo_cuatro`, `etica_anexo_cuatro_dos`, `etica_anexo_cuatro_tres`, `etica_comite`, `estado_paso_cuatro`, `resolucion_firmada`, `anexo_uno_etapa_tres`, `proyecto_etapa_tres`, `carta_etapa_tres`, `anexo_uno_etapa_cuatro`, `carta_etapa_cuatro`, `fecha_aprobada`, `fecha_entrega`, `anexo_siete`, `anexo_ocho`, `fecha_registro_jurado`, `fecha_final_jurado`, `anexo_dies`, `anexo_dies_dos`, `anexo_dies_tres`, `fecha_sustentacion`, `zoom`, `lugar`, `hora`, `fecha_correo_etapa_siete`, `correo_sustentacion`, `anexo_trece`, `anexo_catorce`, `anexo_quince`, `archivo_uno`, `archivo_dos`, `archivo_tres`, `archivo_cuatro`, `retorno`, `archivo_turnitin_etapa_nueve`, `porcentaje_nueve`, `repositorio`, `archivo_turnitin_dos_etapa_nueve`) VALUES
+('PRE-2020-000000001', 'TESIS DE PRUEBA', '123456', '2020-12-03 17:48:21', 4, '1', 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/5fc924e5efadc-123.pdf', '0', '0', '62', '2020', 12, 'Archivo/5fd8fdb7da547-constitucion.pdf', '3', '2020-12-15', '2021-01-04', 'Archivo/5fd8ba407f163-constitucion.pdf', 'Archivo/5fd8ba4080f10-Libro.pdf', NULL, NULL, 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-2020-000000002', 'PRUEBA', '5555', '2020-12-15 18:17:06', 4, '4', 1, 1, 'PENDIENTE', 6, 'C', 'Archivo/5fd8fda27dd5a-Libro.pdf', '0', '0', '62', '2020', 12, 'Archivo/5fd900a393279-constitucion.pdf', '2', '2020-12-22', '2021-01-11', 'Archivo/5fd900ca8118d-constitucion.pdf', 'Archivo/5fd900ca832ff-Libro.pdf', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, 'APROBADO', NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-2020-000000003', 'FFWERWERWE', '333', '2020-12-15 19:37:31', 4, '6', 1, 1, 'RECHAZADO', 3, 'C', 'Archivo/5fd9107b4e1b9-Libro.pdf', '0', '0', '62', '2020', 12, 'Archivo/5fd913bcc3f4e-Libro.pdf', NULL, '2020-12-22', '2021-01-11', 'Archivo/5fe0b5ec547bf-Libro.pdf', 'Archivo/5fe0b5ec57126-constitucion.pdf', '0', '0', 'APROBADO', 'Archivo/PRE-2020-000000003/5ff73bb8e81c9-PERU-INFO-ESP.pdf', 'Archivo/PRE-2020-000000003/5ff73bb8ecb6f-PeruOportunidadDesarrollo.pdf', '0', '0', 'H', 'APROBADO', 'Archivo/5fe254c3e8988-resolucion-doc-PRE-2020-000000002.pdf', '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-2020-000000004', 'TESIS DE PRUEBA  NUMERO 4', '334455', '2020-12-29 17:30:28', 4, '6', 1, 1, 'RECHAZADO', 4, 'C', 'Archivo/5feb67b4e7328-resolucion-doc-PRE-2020-000000002.pdf', 'Archivo/PRE-2020-000000004/5febb395bbd39-resolucion-doc-PRE-2020-000000002.pdf', 'Archivo/PRE-2020-000000004/5febb3b10a60f-constitucion.pdf', '62', '2020', 9, 'Archivo/5febc76be995f-resolucion-doc-PRE-2020-000000002.pdf', NULL, '2021-01-08', '2021-01-28', NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2020-000000005', 'PROPUESTA DE UN SISTEMA DE INFORMACIóN PARA LA EJECUCIóN DE ENCARGOS DE\r\nINSPECCIóN DE UNA ENTIDAD PúBLICA\r\n', '66767', '2020-12-31 14:18:44', 4, '6', 1, 1, 'RECHAZADO', 7, 'C', 'Archivo/5fedddc4780cb-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/5ff0eaed39bb4-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/5ff0eafb7a4d4-resolucion-doc-PRE-2020-000000002.pdf', '62', '2020', 8, 'Archivo/5ff0eb23a7d5e-Chayan_SA.pdf', NULL, '2021-01-15', '2021-02-04', NULL, 'Archivo/PRE-62-2020-000000005/600237c4b934d-Const-peru-oficial.pdf', 'Archivo/PRE-62-2020-000000005/600237c4be9d0-Libro.pdf', 'Archivo/PRE-62-2020-000000005/600237c4c1eec-Chayan_SA.pdf', 'APROBADO', 'Archivo/PRE-62-2020-000000005/600238584a1aa-PERU-INFO-ESP.pdf', 'Archivo/PRE-62-2020-000000005/600238584f3e3-Libro.pdf', '0', '0', 'H', 'APROBADO', NULL, 'Archivo/PRE-62-2020-000000005/6002378d05909-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/6002378d0ca54-resolucion-doc-PRE-2020-000000002.pdf', 'Archivo/PRE-62-2020-000000005/6002378d0f8ee-Libro.pdf', 'Archivo/PRE-62-2020-000000005/600238806a2c4-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/6002388934377-constitucion.pdf', '2021-01-20', '2021-01-31', 'Archivo/PRE-62-2020-000000005/60023ab203d68-Libro.pdf', 'Archivo/PRE-62-2020-000000005/60023abe6f13c-constitucion.pdf', '2021-01-15', '2021-02-05', 'Archivo/PRE-62-2020-000000005/60023b4e95d4e-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000005/6006dbd8461ea-Libro.pdf', 'Archivo/PRE-62-2020-000000005/6006db17ef4e9-constitucion.pdf', '2021-02-26', 'dddd', 'eee', 'ee', '2021-01-15', 'ddd', 'Archivo/PRE-62-2020-000000005/6007271a63bed-Const-peru-oficial.pdf', '0', '1', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2020-000000006', 'DDD DDD DDD', '56566556', '2020-12-31 14:20:05', 4, '7', 1, 1, 'PENDIENTE', 1, 'C', 'Archivo/5fedde15c42b4-Chayan_SA.pdf', '0', '0', '62', '2020', 8, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2020-000000007', 'FFFF FFF  TTT', '8765435', '2020-12-31 14:29:44', 4, '6', 1, 1, 'RECHAZADO', 9, 'C', 'Archivo/5fede058955d5-Libro.pdf', '0', '0', '62', '2020', 9, 'Archivo/5fee30a1733c5-Chayan_SA.pdf', NULL, '2021-01-14', '2021-02-03', NULL, 'Archivo/PRE-62-2020-000000007/600043967c2b5-Const-peru-oficial.pdf', '0', '0', 'APROBADO', 'Archivo/PRE-62-2020-000000007/6000467f5d711-PERU-INFO-ESP.pdf', 'Archivo/PRE-62-2020-000000007/6000467f61221-PeruOportunidadDesarrollo.pdf', '0', '0', 'H', 'APROBADO', NULL, '0', '0', '0', 'Archivo/PRE-62-2020-000000007/60004f09852b3-Chayan_SA.pdf', 'Archivo/PRE-62-2020-000000007/60004fa152299-PERU-INFO-ESP.pdf', '2021-01-25', '2021-03-31', 'Archivo/PRE-62-2020-000000007/60007314b8de3-PeruOportunidadDesarrollo.pdf', 'Archivo/PRE-62-2020-000000007/6000732408d46-Const-peru-oficial.pdf', '2021-01-14', '2021-02-04', 'Archivo/PRE-62-2020-000000007/6000c38cba54b-constitucion.pdf', '0', '0', '2021-02-28', 'ewee', 'colegio', '12 pm', '2021-01-14', 'ddd@gmail.com', 'Archivo/PRE-62-2020-000000007/60074ce66814b-Libro.pdf', '1', '1', 'Archivo/PRE-62-2020-000000007/60074c056b64d-resolucion-doc-PRE-2020-000000002.pdf', 'Archivo/PRE-62-2020-000000007/60074c25bec92-PERU-INFO-ESP.pdf', '0', '0', '0', 'Archivo/PRE-62-2020-000000007/600841ca8ba5c-PeruOportunidadDesarrollo.pdf', '8', 'https://getbootstrap.com/docs/3.4/components/', 'Archivo/PRE-62-2020-000000007/6008515a34f56-Libro.pdf'),
+('PRE-62-2021-000000001', 'NUEVA TESIS 1', '4445554', '2021-01-04 21:32:18', 4, '6', 1, 1, 'PENDIENTE', 6, 'C', 'Archivo/5ff389624660b-Chayan_SA.pdf', 'Archivo/PRE-62-2021-000000001/5ff38a6403260-Chayan_SA.pdf', '0', '62', '2021', 6, 'Archivo/5ff38ab77f3ff-Chayan_SA.pdf', NULL, '2021-01-13', '2021-02-02', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', '2021-01-20', '2021-02-15', '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000002', 'NUEVA TESIS 2', '', '2021-01-04 21:33:02', 4, '6', 1, 1, 'PENDIENTE', 5, 'C', 'Archivo/5ff3898e8adb3-Chayan_SA.pdf', '0', '0', '62', '2021', 5, 'Archivo/5ff389aa19a37-constitucion.pdf', NULL, '2021-01-14', '2021-02-03', NULL, 'Archivo/PRE-62-2021-000000002/5ff5acde94775-PERU-INFO-ESP.pdf', 'Archivo/PRE-62-2021-000000002/5ff5acfc4f332-Const-peru-oficial.pdf', 'Archivo/PRE-62-2021-000000002/5ff8f63fb13de-Const-peru-oficial.pdf', 'APROBADO', 'Archivo/PRE-62-2021-000000002/5ff8f98957201-PeruOportunidadDesarrollo.pdf', '0', '0', '0', 'A', 'APROBADO', NULL, 'Archivo/PRE-62-2021-000000002/5ff5ef9a4dae0-PERU-INFO-ESP.pdf', 'Archivo/PRE-62-2021-000000002/5ff5ef9a51c9c-Const-peru-oficial.pdf', '0', 'Archivo/PRE-62-2021-000000002/60076ce20a3d3-Const-peru-oficial.pdf', 'Archivo/PRE-62-2021-000000002/60076ceacd398-PeruOportunidadDesarrollo.pdf', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000003', 'PRáCTICA TECNOLóGICO-CIENTíFICA: EL DISEñO', '343434334', '2021-01-20 21:43:17', 4, NULL, 1, 1, 'PENDIENTE', 1, 'C', '0', '0', '0', '62', '2021', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000004', 'PRáCTICA TECNOLóGICO-CIENTíFICA: EL DISEñO', '343434334', '2021-01-20 21:43:39', 4, NULL, 1, 1, 'PENDIENTE', 1, 'C', '0', '0', '0', '62', '2021', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000005', 'PRáCTICA TECNOLóGICO-CIENTíFICA: EL DISEñO', '343434334', '2021-01-20 21:44:33', 4, NULL, 1, 1, 'PENDIENTE', 1, 'C', '0', '0', '0', '62', '2021', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000006', 'PRáCTICA TECNOLóGICO-CIENTíFICA: EL DISEñO', '343434334', '2021-01-20 21:45:46', 4, NULL, 1, 1, 'PENDIENTE', 1, 'C', 'Archivo/PRE-62-2021-000000006/6008a48b34a5e-Algunas tesis sobre la tegnologia.pdf', '0', '0', '62', '2021', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000007', 'PRáCTICA TECNOLóGICO-CIENTíFICA: EL DISEñO', '343434334', '2021-01-20 21:46:48', 4, NULL, 1, 1, 'PENDIENTE', 1, 'C', '0', '0', '0', '62', '2021', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000008', 'PRáCTICA TECNOLóGICO-CIENTíFICA: EL DISEñO', '343434334', '2021-01-20 21:47:23', 4, NULL, 1, 1, 'PENDIENTE', 1, 'C', '0', '0', '0', '62', '2021', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000009', 'PRáCTICA TECNOLóGICO-CIENTíFICA: EL DISEñO', '343434334', '2021-01-20 21:55:44', 4, NULL, 1, 1, 'PENDIENTE', 1, 'C', '0', '0', '0', '62', '2021', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
+('PRE-62-2021-000000010', 'PRáCTICA TECNOLóGICO-CIENTíFICA: EL DISEñO', '343434334', '2021-01-20 21:58:19', 4, NULL, 1, 1, 'PENDIENTE', 1, 'C', 'Archivo/PRE-62-2021-000000010/PRE-62-2021-000000010.pdf', '0', '0', '62', '2021', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', NULL, '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 
 -- --------------------------------------------------------
 
@@ -798,19 +906,31 @@ CREATE TABLE `documento_asesor` (
   `documento_cod` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `asesor_cod` int(11) DEFAULT NULL,
   `fecha_registro` date DEFAULT NULL,
-  `tipo` char(1) COLLATE utf8_spanish_ci DEFAULT NULL
+  `tipo` char(1) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `por_pagar` char(2) COLLATE utf8_spanish_ci DEFAULT 'NO',
+  `por_pagar_fecha` date DEFAULT NULL,
+  `modalidad` char(1) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `pagado` char(1) COLLATE utf8_spanish_ci DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `documento_asesor`
 --
 
-INSERT INTO `documento_asesor` (`id`, `documento_cod`, `asesor_cod`, `fecha_registro`, `tipo`) VALUES
-(11, 'PRE-62-2020-000000005', 6, '2020-12-31', NULL),
-(13, 'PRE-62-2020-000000006', 7, '2020-12-31', NULL),
-(16, 'PRE-62-2020-000000007', 6, '2020-12-31', NULL),
-(17, 'PRE-62-2021-000000001', 6, '2021-01-04', NULL),
-(18, 'PRE-62-2021-000000002', 6, '2021-01-04', NULL);
+INSERT INTO `documento_asesor` (`id`, `documento_cod`, `asesor_cod`, `fecha_registro`, `tipo`, `por_pagar`, `por_pagar_fecha`, `modalidad`, `pagado`) VALUES
+(11, 'PRE-62-2020-000000005', 6, '2020-12-31', NULL, 'NO', NULL, NULL, '0'),
+(13, 'PRE-62-2020-000000006', 7, '2020-12-31', NULL, 'NO', NULL, NULL, '0'),
+(16, 'PRE-62-2020-000000007', 6, '2020-12-31', NULL, 'SI', '2021-01-20', NULL, '0'),
+(17, 'PRE-62-2021-000000001', 6, '2021-01-04', NULL, 'NO', NULL, NULL, '0'),
+(18, 'PRE-62-2021-000000002', 6, '2021-01-04', NULL, 'NO', NULL, NULL, '0'),
+(19, 'PRE-62-2021-000000003', 5, '2021-01-20', '', 'NO', NULL, '', '0'),
+(20, 'PRE-62-2021-000000004', 5, '2021-01-20', '', 'NO', NULL, '', '0'),
+(21, 'PRE-62-2021-000000005', 5, '2021-01-20', '', 'NO', NULL, '', '0'),
+(22, 'PRE-62-2021-000000006', 5, '2021-01-20', '', 'NO', NULL, '', '0'),
+(23, 'PRE-62-2021-000000007', 5, '2021-01-20', '', 'NO', NULL, '', '0'),
+(24, 'PRE-62-2021-000000008', 5, '2021-01-20', '', 'NO', NULL, '', '0'),
+(25, 'PRE-62-2021-000000009', 5, '2021-01-20', '', 'NO', NULL, '', '0'),
+(26, 'PRE-62-2021-000000010', 5, '2021-01-20', '', 'NO', NULL, '', '0');
 
 -- --------------------------------------------------------
 
@@ -1256,7 +1376,7 @@ ALTER TABLE `ciudadano`
 -- AUTO_INCREMENT de la tabla `detalle_ciudadano`
 --
 ALTER TABLE `detalle_ciudadano`
-  MODIFY `detalleciudadano_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `detalleciudadano_cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_institucion`
@@ -1268,7 +1388,7 @@ ALTER TABLE `detalle_institucion`
 -- AUTO_INCREMENT de la tabla `documento_asesor`
 --
 ALTER TABLE `documento_asesor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `documento_jurado`
