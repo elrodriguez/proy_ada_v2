@@ -434,7 +434,7 @@ function Listar_asesor_combo() {
 			var cadena = "<option value='otro'>no se encontraron Asesores</option>";
 			$("#combo_asesor").html(cadena);
 		}
-		$('#combo_asesor').select2();
+		//$('#combo_asesor').select2();
 	})
 }
 function agregarDatosAsesor(){

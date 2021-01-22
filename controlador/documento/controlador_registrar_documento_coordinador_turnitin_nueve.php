@@ -7,7 +7,7 @@
 	if ($_FILES["file-v1"]['tmp_name']!="") {
 		$file_type = $_FILES['file-v1']['type'];
         list($type, $extension) = explode('/', $file_type);
-		//if($extension == 'pdf'){
+		////if($extension == 'pdf'){
 			$imagen=uniqid()."-".$_FILES['file-v1']['name'];
 			$ruta1=$_FILES['file-v1']['tmp_name'];
 
@@ -22,7 +22,7 @@
 			//print_r($ruta1);exit;
 			copy($ruta1, $destino1);
 			$cont=1;
-		//}
+		////}
 	}else{
 		$nombre1 = "0";
 		$destino1="";

@@ -24,6 +24,6 @@
 	require '../../modelo/modelo_documento_asistente.php';
 
 	$MC = new Modelo_documento();
-	$consulta = $MC->subir_documento_turniting($iddocumento,$porcentaje,$destinoImagen);
+	$consulta = $MC->subir_documento_turniting($iddocumento,$porcentaje,$nombre1);
 	echo $consulta;
 ?>
