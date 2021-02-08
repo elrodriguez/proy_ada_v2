@@ -6,7 +6,7 @@
     $MC = new Modelo_documento();
     $cambia = $MC->cambiar_fecha_revisor_correo($documento);
     $consulta = $MC->obtenerdocumento($documento);
-    $revisores = $MC->obtenerrevisores($documento);
+    $revisores = $MC->obtener_revisores($documento);
     
     //print_r($cambia);exit;
     $to = $correo;
@@ -16,7 +16,7 @@
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
 
     $message = '';
-    if($consulta[0]['estado_paso_tres'] == 'APROBADO'){
+    if($consulta[0]['porcentaje'] >=12){
         $subject = "[DGIDI-UCSUR] Registro de proyecto de investigación – Proyecto de tesis de #Autor_principal#";
         $message .= "<html>
                     <head>
@@ -42,7 +42,7 @@
                         <p>Especialista en Gestión de Información</p>
                     </body>
                     </html>";
-    }elseif($consulta[0]['estado_paso_tres'] == 'OBSERVADO'){
+    }elseif($consulta[0]['porcentaje'] <=10){
         $subject = "[DGIDI-UCSUR] Denegación al registro de proyecto de tesis de #nombre de tesista#";
         $message .= "<html>
                     <head>

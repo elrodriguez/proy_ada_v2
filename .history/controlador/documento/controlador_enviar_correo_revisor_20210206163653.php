@@ -6,7 +6,7 @@
     $MC = new Modelo_documento();
     $cambia = $MC->cambiar_fecha_revisor_correo($documento);
     $consulta = $MC->obtenerdocumento($documento);
-    $revisores = $MC->obtenerrevisores($documento);
+    $revisores = $MC->obtener_revisores($documento);
     
     //print_r($cambia);exit;
     $to = $correo;

@@ -68,7 +68,6 @@
                 echo "<td style='text-align: center;'><p>__________________________________</p><p>".($h == 0?' Presidente del Jurado':'Miembro del Jurado')."</p><p>Lic./Mg./Dr. ".$jurado['full_name']."</p></td>";
                 if($ci == 2){
                     echo "</tr>";
-                    echo "<tr><td colspan='2' style='height: 60px;'></td></tr>";
                     echo "<tr>";
                     $ci = 0;
                 }

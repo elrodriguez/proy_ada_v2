@@ -298,20 +298,7 @@
 			}
 		}
 		function obtenerrevisores($codigo){
-			$sql = "SELECT t2.dni,CONCAT(t2.nombre,' ',t2.apellido_pater,' ',t2.apellido_mater) AS full_name FROM documento_revisor AS t1 INNER JOIN asesor AS t2 ON t1.asesor_cod=t2.asesor_cod WHERE documento_cod='$codigo';";
-			//echo $sql;exit;
-			$arreglo = array();
-			if ($consulta = $this->conexion->conexion->query($sql)) {
-
-				while ($consulta_VU = mysqli_fetch_array($consulta)) {
-					$arreglo[] = $consulta_VU;
-				}
-				return $arreglo;
-				$this->conexion->cerrar();
-			}
-		}
-		function obtenerjurados($codigo){
-			$sql = "SELECT t2.dni,CONCAT(t2.nombre,' ',t2.apellido_pater,' ',t2.apellido_mater) AS full_name FROM documento_jurado AS t1 INNER JOIN asesor AS t2 ON t1.asesor_cod=t2.asesor_cod WHERE documento_cod='$codigo';";
+			$sql = "CALL PA_LISTAR_REVISORES_DOCUMENTO('$codigo')";
 			//echo $sql;exit;
 			$arreglo = array();
 			if ($consulta = $this->conexion->conexion->query($sql)) {

@@ -58,8 +58,6 @@
     echo "<p style='text-align: justify;'>Calific&aacute;ndola con nota de: _______ en letras ( ___________________________________)</p>";
     echo "<p style='text-align: justify;'>En fe de lo actuado los miembros de Jurado suscriben la presente Acta en señal de conformidad.</p>";
     echo "<table style='width:100%;'>";
-
-    echo "<tr><td colspan='2' style='height: 60px;'></td></tr>";
     echo "<tr>";
     $ci = 1;
 
@@ -68,7 +66,6 @@
                 echo "<td style='text-align: center;'><p>__________________________________</p><p>".($h == 0?' Presidente del Jurado':'Miembro del Jurado')."</p><p>Lic./Mg./Dr. ".$jurado['full_name']."</p></td>";
                 if($ci == 2){
                     echo "</tr>";
-                    echo "<tr><td colspan='2' style='height: 60px;'></td></tr>";
                     echo "<tr>";
                     $ci = 0;
                 }
