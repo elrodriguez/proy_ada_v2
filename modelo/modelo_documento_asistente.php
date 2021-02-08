@@ -2,10 +2,13 @@
 	class Modelo_documento
 	{
 		private $conexion;
+		private $mysql;
 
 		function __construct()
 		{
 			require_once('modelo_conexion.php');
+			require_once ('mysql.php');
+			$this->mysql = new Conect_MySql();
 			$this->conexion = new conexion();
 			$this->conexion->conectar();
 		}
@@ -25,15 +28,20 @@
 		function Registrar_documento_asistente($iddocumento,$asunto,$idnumero,$idtipodocu,$idasesor,$idarea,$idremitente,$idusuario,$opcion,$destinoImagen,$cont,$modalidad){
 			$sql = "call PA_REGISTRARDOCUMENTOARCHIVO('$iddocumento','$asunto','$idnumero','$idtipodocu','$idasesor','$idarea','$idremitente','$idusuario','$opcion','$destinoImagen','$cont','$modalidad')";
 			//echo $sql;exit;
-			$arreglo = array();
-			if ($consulta = $this->conexion->conexion->query($sql)) {
-
-				while ($consulta_VU = mysqli_fetch_array($consulta)) {
-					$arreglo[] = $consulta_VU;
-				}
-				return $arreglo;
-				$this->conexion->cerrar();
+			// $arreglo = array();
+			// if ($consulta = $this->conexion->conexion->query($sql)) {
+			// 	while ($consulta_VU = $consulta->fetch_assoc()) {
+			// 		$arreglo[] = $consulta_VU;
+			// 	}
+			// 	return $arreglo;
+			// 	$this->conexion->cerrar();
+			// }
+			$query = $this->mysql->execute($sql);
+			while ($row = $this->mysql->fetch_row($query)) {
+					$datos = $row['iddocumento'];
 			}
+			$this->mysql->close_db();
+			return $datos;
 
 		}
 		function subir_documento_anexos($flag,$iddocumento,$destino1,$destino2 = '',$destino3 = '',$destino4 = ''){

@@ -2,7 +2,7 @@
 	class conexion{
 		private $servidor;
 		private $usuario;
-		private $contraseña;
+		private $contrasena;
 		private $basedatos;
 		public $conexion;
 		public function __construct(){

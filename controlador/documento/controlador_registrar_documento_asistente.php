@@ -29,8 +29,8 @@
 	list($type, $extension) = explode('/', $file_type);
 	$destino_carpeta = 'Archivo';
 	$consulta = $MC->Registrar_documento_asistente($extension,$asunto,$idnumero,$idtipodocu,$idasesores,$idarea,$idremitentes,$idusuario,$opcion,$destino_carpeta,$cont,$modalidad);
-	
-	$iddocumento= $consulta[0]['iddocumento'];
+	//print_r($consulta);
+	$iddocumento= $consulta;
 
 	if ($_FILES["id_archivo"]['tmp_name']!="") {
     	$imagen=uniqid()."-".$_FILES['id_archivo']['name'];
