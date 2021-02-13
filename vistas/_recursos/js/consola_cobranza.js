@@ -18,34 +18,68 @@ function listar_personal_vista(valor,pagina){
 				cadena += "<table  class='table table-condensed jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
-				cadena += "<th style = 'text-align: center;color:#fff;'>TESIS</th>";
+				//cadena += "<th style = 'text-align: center;color:#fff;'>TESIS</th>";
 				cadena += "<th style = 'text-align: center;' hidden='true' >ID</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Nivel</th>";
-				cadena += "<th style = 'text-align: center;color:#fff'>Programa Académico</th>";
+				//cadena += "<th style = 'text-align: center;color:#fff'>Programa Académico</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Docente</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>TIPO (M;N)</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>CATEGORIA</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>MODALIDAD</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>FECHA REGISTRO</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>Cantidad Tesis</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>Monto</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>ACCI&Oacute;N</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";
+
 				for(var i = 0 ; i<valores.length; i++){
-					cadena += "<tr>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['doc_asunto']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;' align='center' hidden>"+valores[i]['asesor_cod']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['modalidad']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['descripcion']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['nombre_completo']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tipo']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['categoria']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['moda']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['por_pagar_fecha']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>";
-					cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","1")'>pagado</button>`;
-					cadena += "</td> ";
-					cadena += "</tr>";
+						var pagar = false;
+						cadena += "<tr>";
+						//cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['doc_asunto']+"</td>";
+						cadena += "<td style = 'vertical-align: middle;' align='center' hidden>"+valores[i]['asesor_cod']+"</td>";
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['modalidad']+"</td>";
+						//cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['descripcion']+"</td>";
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['nombre_completo']+"</td>";
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tipo']+"</td>";
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['categoria']+"</td>";
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['moda']+"</td>";
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['por_pagar_fecha']+"</td>";
+						if(valores[i]['mdp'] == 'I' && valores[i]['categoria'] == 'parcial'){
+							if(parseInt(valores[i]['tres'])>=3){
+								pagar = true;
+							}else{
+								pagar = false;
+							}
+							cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tres']+"</td>";	
+						}else if(valores[i]['mdp'] =='I' && valores[i]['categoria'] == 'tiempo completo'){
+							if(parseInt(valores[i]['cuatro'])>=5){
+								pagar = true;
+							}else{
+								pagar = false;
+							}
+							cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cuatro']+"</td>";	
+						}else if(valores[i]['categoria'] == 'parcial'){
+							if(parseInt(valores[i]['cinco'])>=3){
+								pagar = true;
+							}else{
+								pagar = false;
+							}
+							cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cinco']+"</td>";	
+						}else{
+							pagar = true;
+							cadena += "<td style = 'vertical-align: middle;'></td>";
+						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
+						cadena += "<td style = 'vertical-align: middle;'>";
+						if(pagar){
+							cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","1")'>pagado</button>`;
+						}
+						
+						cadena += "</td> ";
+						cadena += "</tr>";
+
 				}
 				cadena += "</tbody>";
 				cadena += "</table>";
@@ -137,32 +171,62 @@ function listar_asesor_vista(valor,pagina){
 				cadena += "<table  class='table table-condensed jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
-				cadena += "<th style = 'text-align: center;color:#fff;'>TESIS</th>";
+				//cadena += "<th style = 'text-align: center;color:#fff;'>TESIS</th>";
 				cadena += "<th style = 'text-align: center;' hidden='true' >ID</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Nivel</th>";
-				cadena += "<th style = 'text-align: center;color:#fff'>Programa Académico</th>";
+				//cadena += "<th style = 'text-align: center;color:#fff'>Programa Académico</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Docente</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>TIPO (M;N)</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>CATEGORIA</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>MODALIDAD</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>FECHA REGISTRO</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>Cantidad Tesis</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>Monto</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>ACCI&Oacute;N</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";
 				for(var i = 0 ; i<valores.length; i++){
 					cadena += "<tr>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['doc_asunto']+"</td>";
+					//cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['doc_asunto']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;' align='center' hidden>"+valores[i]['asesor_cod']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['modalidad']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['descripcion']+"</td>";
+					//cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['descripcion']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['nombre_completo']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tipo']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['categoria']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['moda']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['por_pagar_fecha']+"</td>";
+					if(valores[i]['mdp'] == 'I' && valores[i]['categoria'] == 'parcial'){
+						if(parseInt(valores[i]['tres'])>=3){
+							pagar = true;
+						}else{
+							pagar = false;
+						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tres']+"</td>";	
+					}else if(valores[i]['mdp'] =='I' && valores[i]['categoria'] == 'tiempo completo'){
+						if(parseInt(valores[i]['cuatro'])>=5){
+							pagar = true;
+						}else{
+							pagar = false;
+						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cuatro']+"</td>";	
+					}else if(valores[i]['categoria'] == 'parcial'){
+						if(parseInt(valores[i]['cinco'])>=3){
+							pagar = true;
+						}else{
+							pagar = false;
+						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cinco']+"</td>";	
+					}else{
+						pagar = true;
+						cadena += "<td style = 'vertical-align: middle;'></td>";
+					}
+					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>";
-					cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","2")'>pagado</button>`;
+					if(pagar){
+						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","1")'>pagado</button>`;
+					}
 					cadena += "</td> ";
 					cadena += "</tr>";
 				}
@@ -256,32 +320,62 @@ function listar_jurado_vista(valor,pagina){
 				cadena += "<table  class='table table-condensed jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
-				cadena += "<th style = 'text-align: center;color:#fff;'>TESIS</th>";
+				//cadena += "<th style = 'text-align: center;color:#fff;'>TESIS</th>";
 				cadena += "<th style = 'text-align: center;' hidden='true' >ID</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Nivel</th>";
-				cadena += "<th style = 'text-align: center;color:#fff'>Programa Académico</th>";
+				//cadena += "<th style = 'text-align: center;color:#fff'>Programa Académico</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Docente</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>TIPO (M;N)</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>CATEGORIA</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>MODALIDAD</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>FECHA REGISTRO</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>Cantidad Tesis</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>Monto</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>ACCI&Oacute;N</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";
 				for(var i = 0 ; i<valores.length; i++){
 					cadena += "<tr>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['doc_asunto']+"</td>";
+					//cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['doc_asunto']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;' align='center' hidden>"+valores[i]['asesor_cod']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;' >"+valores[i]['modalidad']+"</td>";
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['descripcion']+"</td>";
+					//cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['descripcion']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['nombre_completo']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tipo']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['categoria']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['moda']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['por_pagar_fecha']+"</td>";
+					if(valores[i]['mdp'] == 'I' && valores[i]['categoria'] == 'parcial'){
+						if(parseInt(valores[i]['tres'])>=3){
+							pagar = true;
+						}else{
+							pagar = false;
+						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tres']+"</td>";	
+					}else if(valores[i]['mdp'] =='I' && valores[i]['categoria'] == 'tiempo completo'){
+						if(parseInt(valores[i]['cuatro'])>=5){
+							pagar = true;
+						}else{
+							pagar = false;
+						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cuatro']+"</td>";	
+					}else if(valores[i]['categoria'] == 'parcial'){
+						if(parseInt(valores[i]['cinco'])>=3){
+							pagar = true;
+						}else{
+							pagar = false;
+						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cinco']+"</td>";	
+					}else{
+						pagar = true;
+						cadena += "<td style = 'vertical-align: middle;'></td>";
+					}
+					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>";
-					cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","3")'>pagado</button>`;
+					if(pagar){
+						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","1")'>pagado</button>`;
+					}
 					cadena += "</td> ";
 					cadena += "</tr>";
 				}

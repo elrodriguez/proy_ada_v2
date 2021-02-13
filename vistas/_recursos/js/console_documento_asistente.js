@@ -1225,7 +1225,7 @@ function modalverversiones(version,title,url){
 }
 function modalverturniting(porcentaje,title,url){
 	var contenidotitulo = '<p><strong>'+title+'</strong> Porcentaje: '+porcentaje+'</p>';
-	var iframehtml = `<iframe id="iframemodalturniting" src="../controlador/documento/`+url+`" width="100%" height="500" frameborder="0" scrolling="no"></iframe>`;
+	var iframehtml = `<iframe id="iframemodalturniting" src="../`+url+`" width="100%" height="500" frameborder="0" scrolling="no"></iframe>`;
 	$('#modal-title-tirniting').html(contenidotitulo);
 	$('#modal-body-turniting').html(iframehtml);
 	$('#modal-ver-turniting').modal('show');

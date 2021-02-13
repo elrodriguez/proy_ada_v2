@@ -18,6 +18,7 @@
 		$idremitentes.=$input.($key<count($inputs)-1?'*':'');
 	}
 	$idasesores = '';
+	//print_r($multipleasesor);exit;
 	foreach($multipleasesor as $key => $asesor){
 		$idasesores.=$asesor.($key<count($multipleasesor)-1?'*':'');
 	}
