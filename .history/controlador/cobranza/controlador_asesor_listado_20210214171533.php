@@ -13,7 +13,7 @@
       $a = $instancia->listar_asesor($valor);
       $b = count($a);
       $c = $instancia->listar_asesor($valor,$inicio,$limite);
-      //print_r($b);
+      print_r($b);
       echo json_encode($c)."*".$b;
     }
 ?>

@@ -443,10 +443,10 @@ function listar_jurado_vista(valor,pagina){
 		}
 	});
 }
-function cambiarestadoapagado(codigo,docente,flag,modalidad,categoria,tipo){
+function cambiarestadoapagado(codigo,estado,flag){
 	swal({
 		title: "¿Estas segur@?",
-		text: "Una vez aceptado, ¡no podrá restaurar!",
+		text: "Una vez "+estado+", ¡no podrá restaurar!",
 		icon: "warning",
 		buttons: true,
 		dangerMode: true,
@@ -456,7 +456,7 @@ function cambiarestadoapagado(codigo,docente,flag,modalidad,categoria,tipo){
 				url:'../controlador/cobranza/controlador_pagar_docente.php',
 				type:'POST',
 				data:{
-					codigo:codigo,docente:docente,flag:flag,modalidad:modalidad,categoria:categoria,tipo:tipo
+					codigo:codigo,estado:estado,flag:flag
 				}
 			}).done(function(resp){
 				if (resp>0) {

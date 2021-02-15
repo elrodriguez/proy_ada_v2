@@ -52,7 +52,7 @@
 			$this->conexion->cerrar();	
 		 }
 		 function pagar_docente($codigo,$docente,$flag,$modalidad,$categoria,$tipo){
-			$sql = "CALL SP_PAGARDOCENTE('$flag','$codigo','$docente','$categoria','$tipo','$modalidad')";
+			$sql = "CALL SP_PAGARDOCENTE('$flag','$codigo','$docente','$modalidad','$categoria','$tipo')";
 			//echo $sql;exit;
 			if ($resultado = $this->conexion->conexion->query($sql)){
 				return 1;

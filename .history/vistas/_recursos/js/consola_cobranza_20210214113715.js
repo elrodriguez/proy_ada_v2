@@ -47,32 +47,34 @@ function listar_personal_vista(valor,pagina){
 						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['moda']+"</td>";
 						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['por_pagar_fecha']+"</td>";
 						if(valores[i]['mdp'] == 'I' && valores[i]['categoria'] == 'parcial'){
-							if(parseInt(valores[i]['total_tesis'])>=3){
+							if(parseInt(valores[i]['tres'])>=3){
 								pagar = true;
 							}else{
 								pagar = false;
 							}
+							cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tres']+"</td>";	
 						}else if(valores[i]['mdp'] =='I' && valores[i]['categoria'] == 'tiempo completo'){
-							if(parseInt(valores[i]['total_tesis'])>=5){
+							if(parseInt(valores[i]['cuatro'])>=5){
 								pagar = true;
 							}else{
 								pagar = false;
 							}
+							cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cuatro']+"</td>";	
 						}else if(valores[i]['categoria'] == 'parcial'){
-							if(parseInt(valores[i]['total_tesis'])>=3){
+							if(parseInt(valores[i]['cinco'])>=3){
 								pagar = true;
 							}else{
 								pagar = false;
 							}
+							cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cinco']+"</td>";	
 						}else{
 							pagar = true;
-							
+							cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";
 						}
-						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";
 						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 						cadena += "<td style = 'vertical-align: middle;'>";
 						if(pagar){
-							cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","1","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>pagado</button>`;
+							cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","1")'>pagado</button>`;
 						}
 						
 						cadena += "</td> ";
@@ -196,32 +198,34 @@ function listar_asesor_vista(valor,pagina){
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['moda']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['por_pagar_fecha']+"</td>";
 					if(valores[i]['mdp'] == 'I' && valores[i]['categoria'] == 'parcial'){
-						if(parseInt(valores[i]['total_tesis'])>=3){
+						if(parseInt(valores[i]['tres'])>=3){
 							pagar = true;
 						}else{
 							pagar = false;
 						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tres']+"</td>";	
 					}else if(valores[i]['mdp'] =='I' && valores[i]['categoria'] == 'tiempo completo'){
-						if(parseInt(valores[i]['total_tesis'])>=5){
+						if(parseInt(valores[i]['cuatro'])>=5){
 							pagar = true;
 						}else{
 							pagar = false;
 						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cuatro']+"</td>";	
 					}else if(valores[i]['categoria'] == 'parcial'){
-						if(parseInt(valores[i]['total_tesis'])>=3){
+						if(parseInt(valores[i]['cinco'])>=3){
 							pagar = true;
 						}else{
 							pagar = false;
 						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cinco']+"</td>";	
 					}else{
 						pagar = true;
-						
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";
 					}
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>";
 					if(pagar){
-						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","2","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>pagado</button>`;
+						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","1")'>pagado</button>`;
 					}
 					cadena += "</td> ";
 					cadena += "</tr>";
@@ -343,32 +347,34 @@ function listar_jurado_vista(valor,pagina){
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['moda']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['por_pagar_fecha']+"</td>";
 					if(valores[i]['mdp'] == 'I' && valores[i]['categoria'] == 'parcial'){
-						if(parseInt(valores[i]['total_tesis'])>=3){
+						if(parseInt(valores[i]['tres'])>=3){
 							pagar = true;
 						}else{
 							pagar = false;
 						}
-						
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['tres']+"</td>";	
 					}else if(valores[i]['mdp'] =='I' && valores[i]['categoria'] == 'tiempo completo'){
-						if(parseInt(valores[i]['total_tesis'])>=5){
+						if(parseInt(valores[i]['cuatro'])>=5){
 							pagar = true;
 						}else{
 							pagar = false;
 						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cuatro']+"</td>";	
 					}else if(valores[i]['categoria'] == 'parcial'){
-						if(parseInt(valores[i]['total_tesis'])>=3){
+						if(parseInt(valores[i]['cinco'])>=3){
 							pagar = true;
 						}else{
 							pagar = false;
 						}
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['cinco']+"</td>";	
 					}else{
 						pagar = true;
+						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";
 					}
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";	
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>";
 					if(pagar){
-						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","3","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>pagado</button>`;
+						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","1","1")'>pagado</button>`;
 					}
 					cadena += "</td> ";
 					cadena += "</tr>";
@@ -443,10 +449,10 @@ function listar_jurado_vista(valor,pagina){
 		}
 	});
 }
-function cambiarestadoapagado(codigo,docente,flag,modalidad,categoria,tipo){
+function cambiarestadoapagado(codigo,estado,flag){
 	swal({
 		title: "¿Estas segur@?",
-		text: "Una vez aceptado, ¡no podrá restaurar!",
+		text: "Una vez "+estado+", ¡no podrá restaurar!",
 		icon: "warning",
 		buttons: true,
 		dangerMode: true,
@@ -456,7 +462,7 @@ function cambiarestadoapagado(codigo,docente,flag,modalidad,categoria,tipo){
 				url:'../controlador/cobranza/controlador_pagar_docente.php',
 				type:'POST',
 				data:{
-					codigo:codigo,docente:docente,flag:flag,modalidad:modalidad,categoria:categoria,tipo:tipo
+					codigo:codigo,estado:estado,flag:flag
 				}
 			}).done(function(resp){
 				if (resp>0) {

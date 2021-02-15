@@ -8,6 +8,6 @@
 	$tipo =  $_POST["tipo"];
 
 	$MC = new modelo_cobranza();
-	$consulta = $MC->pagar_docente($codigo,$docente,$flag,$modalidad,$categoria,$tipo);
+	$consulta = $MC->pagar_docente($codigo,$estado,$flag,$modalidad,$categoria,$tipo);
 	echo $consulta;
 ?>

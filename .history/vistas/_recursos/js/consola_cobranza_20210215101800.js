@@ -446,7 +446,7 @@ function listar_jurado_vista(valor,pagina){
 function cambiarestadoapagado(codigo,docente,flag,modalidad,categoria,tipo){
 	swal({
 		title: "¿Estas segur@?",
-		text: "Una vez aceptado, ¡no podrá restaurar!",
+		text: "Una vez "+estado+", ¡no podrá restaurar!",
 		icon: "warning",
 		buttons: true,
 		dangerMode: true,
