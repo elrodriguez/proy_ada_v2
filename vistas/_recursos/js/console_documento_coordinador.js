@@ -1007,7 +1007,7 @@ function modalverturnitingcoordinador(porcentaje,title,url){
 function rechazarproceso(codigo,estado,etapa){
 	swal({
 		title: "¿Estas segur@?",
-		text: "Una vez "+estado+", ¡no podrá restaurar!",
+		text: "Una vez "+estado+", ¡No podrá Restaurar!",
 		icon: "warning",
 		buttons: true,
 		dangerMode: true,
@@ -1022,7 +1022,8 @@ function rechazarproceso(codigo,estado,etapa){
 			}).done(function(resp){
 				listar_documento_vista("","1");
 				if (resp>0) {
-					 swal("fue "+estado,"", {
+					 // swal("fue "+estado,"", {
+					 swal("Se guardo Satisfactoriamente!", {
 						icon: "success",
 					  });
 				}else{
@@ -1044,7 +1045,7 @@ function enviarcorreopordocumentorevisor(){
 	var correo = $('#correo-modal').val();
 	$.get( "../controlador/documento/controlador_enviar_correo_revisor.php?doc="+doc+'&correo='+correo, function( data ) {
 		listar_documento_vista("","1");
-		alert("El foreo se envio satisfactoriamente");
+		alert("El Correo se envio satisfactoriamente");
 	});
 }
 function AbrirModalVerAsesor(control) {

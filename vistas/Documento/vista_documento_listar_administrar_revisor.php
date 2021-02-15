@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h4><b>COORDINADOR: PROYECTO TESIS REGISTRADOS </b></h4>
+        <h4><b>Administrar Revisores </b></h4>
     </div>
     <div class="panel-body">
         <div class="col-md-10">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-md-2">
-          
+
         </div>
         <div class="col-md-12">
           <div class="box-body" style="text-align: center;"><br>
@@ -53,10 +53,10 @@
           <div class="input-group">
             <input type="file" class="form-control" id="file-v1" name="file-v1">
             <span class="input-group-btn" id="btnverv1">
-              
+
             </span>
           </div>
-          
+
           <input type="hidden" id="iddocumentoanexos" name="iddocumentoanexos">
         </div>
         <div class="form-group">
@@ -64,20 +64,20 @@
           <div class="input-group">
             <input type="file" class="form-control" id="file-v2" name="file-v2">
             <span class="input-group-btn" id="btnverv2">
-              
+
             </span>
           </div>
-          
+
         </div>
         <div class="form-group">
           <label for="file-v3">V3</label>
           <div class="input-group">
           <input type="file" class="form-control" id="file-v3" name="file-v3">
             <span class="input-group-btn" id="btnverv3">
-              
+
             </span>
           </div>
-          
+
         </div>
       </form>
       </div>
@@ -171,7 +171,7 @@
         <h4 class="modal-title" id="modal-title-anexos"></h4>
       </div>
       <div class="modal-body" id="modal-body-anexos">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -187,7 +187,7 @@
         <h4 class="modal-title" id="modal-title-tirniting"></h4>
       </div>
       <div class="modal-body" id="modal-body-turniting">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
