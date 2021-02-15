@@ -8,7 +8,7 @@
 		public function __construct(){
 			$this->servidor = "localhost";
 			$this->usuario = "root";
-			$this->contrasena = "";
+			$this->contrasena = "hiworld2018";
 			$this->basedatos = "bd_tramite";
 
 		}

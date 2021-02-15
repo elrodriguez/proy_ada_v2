@@ -1,3 +1,8 @@
+$(document).keypress(function(e) {
+       if(e.which == 13) {
+           VerificarUsuario();
+       }
+});
 function VerificarUsuario(){
 	var u = $("#txt_usuario").val();
 	var p = $("#txt_pass").val();
@@ -80,7 +85,7 @@ function VerificarUsuario(){
 function Limpiar_post_usuario(){
 	$("#txt_usuario").val("");
 	$("#txt_pass").val("");
-} 
+}
 function abrirmodaladministrativo(){
 	traer_administrador();
 	$('#modal_editar_adminsitrador').modal({backdrop: 'static', keyboard: false})
@@ -110,8 +115,8 @@ function traer_administrador(){
 			$("#movil_personal").val(data[0][7]);
 			$("#direccion_personal").val(data[0][9]);
 			if (data[0][10]!="0000-00-00") {
-				$("#fechanacimiento_personal").val(data[0][10]);	
-			}			
+				$("#fechanacimiento_personal").val(data[0][10]);
+			}
 			$("#dni_personal").val(data[0][11]);
 			$("#txtimagen").html('<img style="width: auto; height: 100px;" src="../controlador/usuario/'+ data[0][3]+'"> ');
 			$("#txtimagen2").html('<img style="width: auto; height: 100px;" src="../controlador/usuario/'+ data[0][3]+'" class="img-full">');

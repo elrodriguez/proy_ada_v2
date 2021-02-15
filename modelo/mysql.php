@@ -4,7 +4,7 @@ class Conect_MySql {
 
     var $obj = array("dbname" => "bd_tramite",
         "dbuser" => "root",
-        "dbpwd" => "",
+        "dbpwd" => "hiworld2018",
         "dbhost" => "localhost");
     var $q_id = "";
     var $ExeBit = "";
@@ -71,7 +71,7 @@ class Conect_MySql {
     public function __construct() {
         $this->connect();
     }
-    
+
 }
 
 ?>

@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-       <label><h4><b>ASISTENTE: REGISTRAR DOCUMENTOS</b></h4></label>
+       <label><h4><b>REGISTRAR DOCUMENTOS PROYECTO TESIS</b></h4></label>
     </div>
     <div class="panel-body">
         <form id="create-form-documento">
@@ -15,11 +15,10 @@
                     <textarea class="form-control" rows="4"  style="resize: none" style="color: rgb(25,25,51); background-color: rgb(255,255,255);solid 5px;" placeholder="Ingresar título de Proyecto tesis ..." id="txtasunto_documento" name="asunto"></textarea>
                 </div>
                 <div class="form-group">
-                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalasesores">
-                    Agregar Asesor
+                  <button type="button" class="btn btn-addasesor col-sm-12" data-toggle="modal" data-target="#myModalasesores"><i class="fa fa-search-plus"></i>
+                  <strong>Seleccionar Asesor</strong>
                   </button>
                   <div class="row" id="div-asesores-agregados">
-                  
                   </div>
                 </div>
                 <div class="form-group" style="display: none;">
@@ -28,29 +27,28 @@
                 </div>
                 <div class="form-group">
                     <label>Programa Academico </label>
-                    <select name="cbm_tipo" id="cbm_tipo"  style="width: 100%" class="form-control select2">
-                    </select>
-                    <br>
+                    <select name="cbm_tipo" id="cbm_tipo"  style="width: 100%" class="form-control select2"></select>
+                </div>
+                <div class="row">
+                  <div class="col-md-12"><label>&nbsp;</label>
+                    <a role="button" class="btn btn-addasesor col-sm-12" style="width: 100%"  onClick="AbrirModalRemitente()"><i class="fa fa-search-plus"></i> <b>Seleccionar Alumno</b></a>
+                    <input type="text" name="opcion" hidden id="txttipo">
+                  </div>
+                </div>
+                <div class="row" id="div-alumnos-agregados">
+
                 </div>
                 <div class="form-group">
                   <label>Seleccionar Documento</label>
                   <input type="file" name="id_archivo" class="file-upload-default">
                   <div class="input-group">
-                    <input  type="text" class="form-control file-upload-info" disabled placeholder="Seleccionar Documento">
+                    <input  type="text" class="form-control file-upload-info" disabled placeholder="Seleccionar Proyecto Tesis a Cargar">
                     <span class="input-group-append">
-                      <button class="file-upload-browse btn btn-info" type="button"><strong>Cargar Documento</strong></button>
+                      <button class="file-upload-browse btn btn-addasesor" type="button"><i class="fa fa-cloud" aria-hidden="true"></i><strong> Cargar Documento</strong></button>
                     </span>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-12"><label>&nbsp;</label>
-                    <a role="button" class="btn btn-primary col-sm-12" style="width: 100%"  onClick="AbrirModalRemitente()"><i class="fa fa-search"></i> <b>Seleccionar Alumno</b></a>
-                    <input type="text" name="opcion" hidden id="txttipo">
-                  </div>
-                </div>
-                <div class="row" id="div-alumnos-agregados">
-                  
-                </div>
+
               </div>
               <div class="col-md-6">
                 <div class="form-group">
@@ -59,16 +57,16 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" id="txtfecharegistro" name="txtfecharegistro" readonly style="color: rgb(25,25,51); background-color: rgb(255,255,255);solid 5px;color:#9B0000; text-align:center;font-weight: bold;" class="form-control"><br>
+                      <input type="text" id="txtfecharegistro" name="txtfecharegistro" readonly style="color: rgb(25,25,51); background-color: rgb(255,255,255);solid 5px;color:#9B0000; text-align:center;font-weight: bold;" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                   <label>Estado</label>
-                  <input type="text" id="txtestado" value="ACTIVO" readonly style="color: rgb(25,25,51); background-color: rgb(255,255,255);solid 2px;color:#9B0000; text-align:center;font-weight: bold;" class="form-control"><br>
+                  <input type="text" id="txtestado" value="ACTIVO" readonly style="color: rgb(25,25,51); background-color: rgb(255,255,255);solid 2px;color:#9B0000; text-align:center;font-weight: bold;" class="form-control">
                 </div>
                 <div class="form-group">
                   <label>Tipo Documento</label>
-                  <select id="combo_tipodocumento" name="idtipodocu" class="form-control select2"></select>
+                  <select id="combo_tipodocumento" name="idtipodocu"  class="form-control select2"></select>
                 </div>
                 <div class="form-group">
                   <label>Número de Ticket</label>
@@ -76,10 +74,10 @@
                 </div>
               </div>
           </div>
-          <br>
+
           <div class="row ">
             <div class="col-md-12" style="text-align: center;">
-              <button type="button" class="btn btn-success" onclick="Registrar_documento_post()"><strong> Registrar Proyecto</strong></button><br><br>
+              <button type="button" class="btn btn-addproyecto" onclick="Registrar_documento_post()"><strong> Registrar Proyecto Tesis</strong></button><br><br>
             </div>
           </div>
         </form>
@@ -133,8 +131,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="agregarDatosAsesor()">Agregar</button>
+        <button type="button" class="btn btn-cerrar" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-addasesor" onclick="agregarDatosAsesor()">Agregar</button>
       </div>
     </div>
   </div>
@@ -152,8 +150,7 @@
                   <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs pull-right">
                       <li class="active"><a href="#tab_1-1" data-toggle="tab"><strong> ALUMNOS</strong>  </a></li>
-                      <li><a href="#tab_2-2" data-toggle="tab"><strong>ALUMNOS</strong></a></li>
-                    </ul>
+                      </ul>
                     <div class="tab-content" style="width: 100%">
                       <div class="tab-pane active" id="tab_1-1"><BR><BR>
                         <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DNI del Alumno:</label>
@@ -171,23 +168,6 @@
                           </div>
                         </div>
                         <p id="paginador_ciudadanosdisponibles_remitente" style="text-align:right" class="mi_paginador"></p>
-                      </div>
-                      <div class="tab-pane" id="tab_2-2"><br><br>
-                        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nombre de la instituci&oacute;n:</label>
-                        <br>
-                        <div class="col-md-12">
-                          <div class=" input-group">
-                            <input type="text" class="form-control" placeholder="Ingresar nombre de la instituci&oacute;n a buscar" id="txtbuscar_institucionremiten" onkeypress="return soloLetras(event)">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                          </div>
-                          <br>
-                        </div>
-                        <div id="div_listar_instituciondisponible_remitente" class="icon-loading col-md-12 table-responsive">
-                          <i id="loading_nivel"></i>
-                          <div id="nodatos">
-                          </div>
-                        </div>
-                        <p id="paginador_instituciondisponible_remitente" style="text-align:right" class="mi_paginador "></p>
                       </div>
                     </div>
                   </div>
