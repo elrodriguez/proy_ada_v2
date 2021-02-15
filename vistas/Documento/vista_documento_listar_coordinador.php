@@ -5,14 +5,17 @@
         <h4><b>COORDINADOR: PROYECTO TESIS REGISTRADOS </b></h4>
     </div>
     <div class="panel-body">
-        <div class="col-md-10">
+        <div class="col-md-6">
           <div class=" input-group">
             <input id="txt_documento_vista" type="text" class="form-control" onkeypress="return soloLetras(event)"  placeholder="Ingrese el c&oacute;digo del documento a buscar ">
             <span class="input-group-addon"><i class="fa fa-search"></i></span>
           </div>
         </div>
-        <div class="col-md-2">
-          <button class="btn btn-danger" onclick="cargar_contenido('main-content','Documento/vista_documento_registrar.php');"><i class="fa fa-file-text" ></i> &nbsp;&nbsp;<strong>Nuevo Registro</strong></button>
+        <div class="col-md-6">
+          <div class=" input-group">
+            <input id="txt_documento_vista" type="text" class="form-control"  placeholder="buscador 2 ">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+          </div>
         </div>
         <div class="col-md-12">
           <div class="box-body" style="text-align: center;"><br>
@@ -96,16 +99,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Enviar Correo</h4>
+        <h4 class="modal-title">Enviar Correo a Revisor</h4>
       </div>
       <div class="modal-body">
-        <label>Correo Electronico</label>
+        <label>Ingrese Correo Electrónico</label>
         <input type="text" class="form-control" name="correo" id="correo-modal">
         <input type="hidden" class="form-control" id="iddocumentomodal-1" name="iddocumentomodal-1">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="enviarcorreopordocumentorevisor()">Save changes</button>
+        <button type="button" class="btn btn-cerrar" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-save_c" onclick="enviarcorreopordocumentorevisor()">Enviar Correo</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -119,7 +122,7 @@
         <h4 class="modal-title" id="modal-title-tirniting"></h4>
       </div>
       <div class="modal-body" id="modal-body-turniting">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -142,7 +145,7 @@
             <div class="form-group">
               <label>Revisor</label>
               <select style="width: 100%;" id="select-revisor-documento" class="form-control"></select>
-              <input type="hidden" id="coidgo-documento-tesis"> 
+              <input type="hidden" id="coidgo-documento-tesis">
             </div>
           </div>
           <div class="col-md-3">

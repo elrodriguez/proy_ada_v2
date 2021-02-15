@@ -1,5 +1,89 @@
-.btn-prueba{
-    background-color: black;
+.btn-aceptar{
+  background: #1780C3;
+  color: #fff;
+  border-radius: 5px;
+}
+.btn-aceptar:hover{
+  background: #ffb300;
+  color: #fff;
+}
+.btn-rechazar{
+  background: #1780C3;
+  color: #fff;
+  border-radius: 5px;
+}
+.btn-rechazar:hover{
+  background: #ee3939;
+  color: #fff;
+}
+
+
+
+.btn-correo{
+  background: #fff;
+  border-radius: 10px;
+  color: #1780C3;
+}
+.fa-envelope{
+  /* padding:5px; */
+  background: #fff;
+  /* border-radius: 1px; */
+  /* color: #1780C3; */
+}
+.fa-envelope:hover{
+  color: #ffb300;
+  transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: rotate(30deg);
+}
+.fa-envelope:hover:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-save_c{
+    background-color:#1780C3;
     color: #FFF;
-    
+}
+.btn-pt{
+    background-color:#fff;
+    border-radius: 10px;
+    padding:5px;
+    background-size: 100% 100%;
+  }
+  .btn-turning{
+        padding:0.5px;
+        background: #1780C3;
+        border-radius: 10px;
+        color: #1780C3;
+    }
+.fa-cloud-upload{
+      padding:5px;
+      background: #fff;
+      border-radius: 1px;
+      color: #1780C3;
+  }
+.fa-cloud-upload:hover {
+    color: #ffb300;
+
+  }
+
+.btn-addasesor{
+    background-color:#1780C3;
+    color: #FFF;
+}
+.btn-addasesor:hover {
+  color: #ffb300;
+
+}
+.btn-addproyecto{
+    background-color:#f99d1b;
+    color: #FFF;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+.btn-cerrar{
+    background-color:#E13030;
+    color: #FFF;
+    border-radius: 5px;
 }
