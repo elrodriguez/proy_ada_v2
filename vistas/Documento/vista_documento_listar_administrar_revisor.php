@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h4><b> Administrar Revisores </b></h4>
+        <h4><b> REVISIÓN ACADÉMICA PROYECTO TESIS </b></h4>
     </div>
     <div class="panel-body">
         <div class="col-md-10">
@@ -152,13 +152,13 @@
         <h4 class="modal-title">Enviar Correo</h4>
       </div>
       <div class="modal-body">
-        <label>Correo Electronico</label>
+        <label>Ingrese Correo Electronico</label>
         <input type="text" class="form-control" name="correo" id="correo-modal">
         <input type="hidden" class="form-control" id="iddocumentomodal-1" name="iddocumentomodal-1">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="enviarcorreopordocumentorevisor()">Save changes</button>
+        <button type="button" class="btn btn-cerrar" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-save_c" onclick="enviarcorreopordocumentorevisor()">Enviar Correo</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

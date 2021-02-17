@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h4><b>COORDINADOR: PROYECTO TESIS REGISTRADOS </b></h4>
+        <h4><b>ASIGNAR JURADOS </b></h4>
     </div>
     <div class="panel-body">
         <div class="col-md-10">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-md-2">
-          
+
         </div>
         <div class="col-md-12">
           <div class="box-body" style="text-align: center;"><br>
@@ -33,7 +33,7 @@
     <div class="modal-content">
          <div class="modal-header">
            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-           <h4 class="modal-title" id="myModalLabel"><b>Datos del Alumno y Documento Nro: </b><label id="txtiddocumento1_modal"></label></h4>
+           <h4 class="modal-title" id="myModalLabel"><b>Nro Tesis: </b><label id="txtiddocumento1_modal"></label></h4>
          </div>
         <div class="modal-body">
       <div class="panel-body">
@@ -43,7 +43,7 @@
             <div class="form-group">
               <label>Revisor</label>
               <select style="width: 100%;" id="select-revisor-documento" class="form-control"></select>
-              <input type="hidden" id="coidgo-documento-tesis"> 
+              <input type="hidden" id="coidgo-documento-tesis">
             </div>
           </div>
           <div class="col-md-3">
@@ -66,8 +66,10 @@
               </select>
             </div>
           </div>
-          <div class="col-md-6">
-            <button type="button" class="btn btn-primary" onclick="registrarrevisordocumento()">Agregar</button>
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <button style='width:130px; height:40px; font-size: 16px' type="button" class="btn btn-save_c" onclick="registrarrevisordocumento()">Agregar</button>
           </div>
         </div>
         </form>
@@ -76,14 +78,42 @@
           <thead>
             <tr class="info">
               <th>DNI</th>
-              <th>APELLIDOS Y NOMBRES</th>
+              <th>NOMBRES</th>
               <th>CELULAR</th>
               <th>TIPO</th>
-              <th>MODALIDAD</th>
-              <th class="text-center">QUITAR</th>
+              <th>MOD.</th>
+              <th>QUITAR</th>
             </tr>
           </thead>
           <tbody id="tbody-tabla-revisor-tesis"></tbody>
+        </table>
+      </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-cerrar"></i>&nbsp;<b>Cerrar</b></button>
+        </div>
+    </div>
+  </div>
+</div>
+<!-- INICIO MODAL -->
+<div class="modal fade" id="modal_ver_asesor_documento">
+  <div class="modal-dialog">
+    <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" ><b>Datos del Asesor y Documento Nro: </b><label id="txtiddocumento1_modal_asesor"></label></h4>
+         </div>
+        <div class="modal-body">
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="info">
+              <th>DNI</th>
+              <th>APELLIDOS Y NOMBRES</th>
+              <th>CELULAR</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-tabla-asesor-tesis"></tbody>
         </table>
       </div>
         </div>
@@ -93,7 +123,6 @@
     </div>
   </div>
 </div>
-<!-- INICIO MODAL -->
 <script type="text/javascript">listar_documento_vista_revisor("","1");</script>
 <!--Fin Modal-->
 
@@ -119,10 +148,10 @@
           <div class="input-group">
             <input type="file" class="form-control" id="file-v1" name="file-v1">
             <span class="input-group-btn" id="btnverv1">
-              
+
             </span>
           </div>
-          
+
           <input type="hidden" id="iddocumentoanexos" name="iddocumentoanexos">
         </div>
         <div class="form-group">
@@ -130,20 +159,20 @@
           <div class="input-group">
             <input type="file" class="form-control" id="file-v2" name="file-v2">
             <span class="input-group-btn" id="btnverv2">
-              
+
             </span>
           </div>
-          
+
         </div>
         <div class="form-group">
           <label for="file-v3">V3</label>
           <div class="input-group">
           <input type="file" class="form-control" id="file-v3" name="file-v3">
             <span class="input-group-btn" id="btnverv3">
-              
+
             </span>
           </div>
-          
+
         </div>
       </form>
       </div>
@@ -237,7 +266,7 @@
         <h4 class="modal-title" id="modal-title-anexos"></h4>
       </div>
       <div class="modal-body" id="modal-body-anexos">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -253,7 +282,7 @@
         <h4 class="modal-title" id="modal-title-tirniting"></h4>
       </div>
       <div class="modal-body" id="modal-body-turniting">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>

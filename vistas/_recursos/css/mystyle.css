@@ -1,3 +1,27 @@
+.info{
+  color: black;
+  font-size: small;
+}
+.input-calendar{
+  background: #ffb300;
+  border-radius: 10px;
+  color: #fff;
+  padding: 1px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.btn-exist{
+  background-image:url(iconos/icononojh.gif);
+  background-repeat:no-repeat;
+  width: 36px; height: 36px;
+
+
+}
+.btn-noexist{
+  background-image:url(iconos/noexiste.png);
+  background-repeat:no-repeat;
+  width: 36px; height: 36px;
+}
 .btn-aceptar{
   background: #1780C3;
   color: #fff;
@@ -8,12 +32,12 @@
   color: #fff;
 }
 .btn-rechazar{
-  background: #1780C3;
+  background: #ed5353;
   color: #fff;
   border-radius: 5px;
 }
 .btn-rechazar:hover{
-  background: #ee3939;
+  background: #ee3939;;
   color: #fff;
 }
 

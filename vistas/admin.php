@@ -377,7 +377,7 @@ session_start();
                     <span>Lista de proyecto Tesis</span>
                     </a>
                   </li>
-                  
+
                 </ul>
               </li>
             <?php }
@@ -394,7 +394,7 @@ session_start();
              <ul class="nav nav-sub dk">
                 <li ui-sref-active="active">
                   <a ui-sref="app.mail.list" onclick="cargar_contenido('main-content','Documento/vista_documento_listar_coordinador.php')">
-                  <span>Asignar Revisor</span>
+                  <span>Asignación de Revisores</span>
                   </a>
                 </li>
                 <!--li ui-sref-active="active">
@@ -404,12 +404,12 @@ session_start();
                 </li-->
                 <li ui-sref-active="active">
                     <a ui-sref="app.administarion"onclick="cargar_contenido('main-content','Documento/vista_documento_listar_administrar_revisor.php');">
-                    <span>Administrar Revisores</span>
+                    <span>Revisión académica PT</span>
                   </a>
                 </li>
                 <li ui-sref-active="active">
                     <a ui-sref="app.administarion"onclick="cargar_contenido('main-content','Documento/vista_documento_listar_administrar_revisor_generar_rsolucion.php');">
-                    <span>Resolución Directoral</span>
+                    <span>Aprobación Académica de PT</span>
                   </a>
                 </li>
                 <li ui-sref-active="active">

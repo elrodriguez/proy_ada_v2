@@ -96,7 +96,7 @@ function listar_documento_vista_revisor(valor,pagina){
 						btn_saltar = '';
 					}
 					cadena += "<td>"+btn_saltar+"</td>";
-					cadena += "<td style = 'text-align: center;width: 10px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"' class='btn btn-primary' onclick='AbrirModalenviarcorreorevisor(this)'><span class='glyphicon glyphicon-envelope'></span>";
+					cadena += "<td style = 'text-align: center;width: 10px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"' class='btn btn-correo' onclick='AbrirModalenviarcorreorevisor(this)'><span class='fa fa-envelope fa-2x'></span>";
 					cadena += "</button></td> ";
 					cadena += `<td style = 'text-align: center;' title='`+valores[i][5]+`'>`;
 					if(valores[i]['num_proceso'] =='3'){
