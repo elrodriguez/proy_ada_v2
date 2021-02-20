@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h4><b>COORDINADOR: PROYECTO TESIS REGISTRADOS </b></h4>
+        <h4><b>COMITÉ DE ÉTICA </b></h4>
     </div>
     <div class="panel-body">
         <div class="col-md-10">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-md-2">
-          
+
         </div>
         <div class="col-md-12">
           <div class="box-body" style="text-align: center;"><br>
@@ -53,10 +53,10 @@
           <div class="input-group">
             <input type="file" class="form-control" id="file-a1" name="file-a1">
             <span class="input-group-btn" id="file-a1v">
-              
+
             </span>
           </div>
-          
+
           <input type="hidden" id="iddocumentoanexos" name="iddocumentoanexos">
         </div>
         <div class="form-group">
@@ -64,36 +64,36 @@
           <div class="input-group">
             <input type="file" class="form-control" id="file-a4v1" name="file-a4v1">
             <span class="input-group-btn" id="file-a4v1v">
-              
+
             </span>
           </div>
-          
+
         </div>
         <div class="form-group">
           <label for="file-a4v2">A4 V2</label>
           <div class="input-group">
             <input type="file" class="form-control" id="file-a4v2" name="file-a4v2">
             <span class="input-group-btn" id="file-a4v2v">
-              
+
             </span>
           </div>
-          
+
         </div>
         <div class="form-group">
           <label for="file-a4v3">A4 V3</label>
           <div class="input-group">
             <input type="file" class="form-control" id="file-a4v3" name="file-a4v3">
             <span class="input-group-btn" id="file-a4v3v">
-              
+
             </span>
           </div>
-          
+
         </div>
       </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="registrar_documento_anexos()">Save changes</button>
+        <button type="button" class="btn btn-cerrar" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-save_c" onclick="registrar_documento_anexos()">Guardar</button>
       </div>
     </div>
   </div>
@@ -181,7 +181,7 @@
         <h4 class="modal-title" id="modal-title-anexos"></h4>
       </div>
       <div class="modal-body" id="modal-body-anexos">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -197,7 +197,7 @@
         <h4 class="modal-title" id="modal-title-tirniting"></h4>
       </div>
       <div class="modal-body" id="modal-body-turniting">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -335,6 +335,7 @@
       </div>
     </div>
 </div>
+<!-- //MODAL VER ASESOR -->
 <div class="modal fade" id="modal_ver_asesor_documento">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -362,6 +363,7 @@
     </div>
   </div>
 </div>
+<!-- MODAL VER ASESOR FIN -->
 <script type="text/javascript">
 	$("#txt_documento_vista").keyup(function(){
 		var dato_buscar = $("#txt_documento_vista").val();

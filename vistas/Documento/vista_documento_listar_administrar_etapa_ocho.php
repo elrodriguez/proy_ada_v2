@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h4><b>COORDINADOR: PROYECTO TESIS REGISTRADOS </b></h4>
+        <h4><b>SUSTENTACIÓN </b></h4>
     </div>
     <div class="panel-body">
         <div class="col-md-10">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-md-2">
-          
+
         </div>
         <div class="col-md-12">
           <div class="box-body" style="text-align: center;"><br>
@@ -53,7 +53,7 @@
           <div class="input-group">
             <input type="file" class="form-control" id="file-v1" name="file-v1">
             <span class="input-group-btn" id="btnverv1">
-              
+
             </span>
           </div>
           <input type="hidden" id="tipo-e4" name="tipo-e4" value="16">
@@ -77,7 +77,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        
+
         <form enctype="multipart/form-data" id="form-upload-file-anexos-corregidos-etapa-ocho">
           <div class="form-group">
               <label for="file-ax1-e8" id="file-ax1-e4-title"></label>
@@ -139,7 +139,7 @@
         <h4 class="modal-title" id="modal-title-anexos"></h4>
       </div>
       <div class="modal-body" id="modal-body-anexos">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -155,7 +155,7 @@
         <h4 class="modal-title" id="modal-title-tirniting"></h4>
       </div>
       <div class="modal-body" id="modal-body-turniting">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -292,6 +292,33 @@
         </div>
       </div>
     </div>
+</div>
+<div class="modal fade" id="modal_ver_asesor_documento">
+  <div class="modal-dialog">
+    <div class="modal-content">
+         <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+           <h4 class="modal-title" ><b>Datos del Asesor y Documento Nro: </b><label id="txtiddocumento1_modal_asesor"></label></h4>
+         </div>
+        <div class="modal-body">
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="info">
+              <th>DNI</th>
+              <th>APELLIDOS Y NOMBRES</th>
+              <th>CELULAR</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-tabla-asesor-tesis"></tbody>
+        </table>
+      </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;<b>Close</b></button>
+        </div>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
 	$("#txt_documento_vista").keyup(function(){

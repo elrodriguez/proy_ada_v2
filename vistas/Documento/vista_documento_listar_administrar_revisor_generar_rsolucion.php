@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h4><b>COORDINADOR: PROYECTO TESIS REGISTRADOS </b></h4>
+        <h4><b>APROBACIÓN ACADÉMICA DE PROYECTO DE TESIS </b></h4>
     </div>
     <div class="panel-body">
         <div class="col-md-10">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-md-2">
-          
+
         </div>
         <div class="col-md-12">
           <div class="box-body" style="text-align: center;"><br>
@@ -146,7 +146,7 @@
         <h4 class="modal-title" id="modal-title-anexos"></h4>
       </div>
       <div class="modal-body" id="modal-body-anexos">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -162,7 +162,7 @@
         <h4 class="modal-title" id="modal-title-tirniting"></h4>
       </div>
       <div class="modal-body" id="modal-body-turniting">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>

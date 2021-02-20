@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h4><b>COORDINADOR: PROYECTO TESIS REGISTRADOS </b></h4>
+        <h4><b> REVISIÓN ACADÉMICA PROYECTO TESIS </b></h4>
     </div>
     <div class="panel-body">
         <div class="col-md-10">
@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="col-md-2">
-          
+
         </div>
         <div class="col-md-12">
           <div class="box-body" style="text-align: center;"><br>
@@ -41,7 +41,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Subir Anexo 6</h5>
+        <h5 class="modal-title">Cargar Anexo 6</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -49,41 +49,41 @@
       <div class="modal-body">
       <form enctype="multipart/form-data" id="form-upload-file-anexos">
       <div class="form-group">
-          <label for="file-v1">V1</label>
+          <label for="file-v1">Anexo6 Versión 1</label>
           <div class="input-group">
             <input type="file" class="form-control" id="file-v1" name="file-v1">
             <span class="input-group-btn" id="btnverv1">
-              
+
             </span>
           </div>
-          
+
           <input type="hidden" id="iddocumentoanexos" name="iddocumentoanexos">
         </div>
         <div class="form-group">
-          <label for="file-v2">V2</label>
+          <label for="file-v2">Anexo6 Versión 2</label>
           <div class="input-group">
             <input type="file" class="form-control" id="file-v2" name="file-v2">
             <span class="input-group-btn" id="btnverv2">
-              
+
             </span>
           </div>
-          
+
         </div>
         <div class="form-group">
-          <label for="file-v3">V3</label>
+          <label for="file-v3">Anexo6 Versión 3</label>
           <div class="input-group">
           <input type="file" class="form-control" id="file-v3" name="file-v3">
             <span class="input-group-btn" id="btnverv3">
-              
+
             </span>
           </div>
-          
+
         </div>
       </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="registrar_documento_anexos()">Subir</button>
+        <button type="button" class="btn btn-cerrar" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-save_c" onclick="registrar_documento_anexos()">Guardar</button>
       </div>
     </div>
   </div>
@@ -152,13 +152,13 @@
         <h4 class="modal-title">Enviar Correo</h4>
       </div>
       <div class="modal-body">
-        <label>Correo Electronico</label>
+        <label>Ingrese Correo Electronico</label>
         <input type="text" class="form-control" name="correo" id="correo-modal">
         <input type="hidden" class="form-control" id="iddocumentomodal-1" name="iddocumentomodal-1">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="enviarcorreopordocumentorevisor()">Save changes</button>
+        <button type="button" class="btn btn-cerrar" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-save_c" onclick="enviarcorreopordocumentorevisor()">Enviar Correo</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -171,7 +171,7 @@
         <h4 class="modal-title" id="modal-title-anexos"></h4>
       </div>
       <div class="modal-body" id="modal-body-anexos">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
@@ -187,7 +187,7 @@
         <h4 class="modal-title" id="modal-title-tirniting"></h4>
       </div>
       <div class="modal-body" id="modal-body-turniting">
-      
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>

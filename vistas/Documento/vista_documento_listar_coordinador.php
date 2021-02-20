@@ -2,7 +2,7 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h4><b>COORDINADOR: PROYECTO TESIS REGISTRADOS </b></h4>
+        <h4><b>ASIGNACIÓN DE REVISORES </b></h4>
     </div>
     <div class="panel-body">
         <div class="col-md-6">

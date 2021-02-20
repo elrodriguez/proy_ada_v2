@@ -4,17 +4,17 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h2><b>Revisores</b></h2>            
+        <h2><b>Lista de Revisores por Pagar</b></h2>            
     </div>
     <div class="panel-body">
 	    <br>
-	    <div class="col-md-10"> 
+	    <div class="col-md-10">
 	        <div class=" input-group">
 	          	<input type="text" class="form-control" placeholder="Ingrese el documento de identidad nacional" id="txtbuscar_personal"  onkeypress="return soloNumeros(event)"  >
 	          	<span class="input-group-addon"><i class="fa fa-search"></i></span>
 	        </div>
 	    </div>
-      
+
         <div class="col-md-12">
             <div class="table-responsive" style="text-align: center;">
             	<br>
@@ -52,22 +52,22 @@
 	                        <label >Apellido Materno </label>
 	                        <input type="text" class="form-control" onkeypress="return soloLetras(event)" id="txtapellidomaterno" placeholder="Ingrese Apelido Materno" maxlength="">
 	                        <br>
-	                    </div> 
+	                    </div>
 	                    <div class="col-sm-6">
 	                        <label >Tel&eacute;fono </label>
 	                        <input type="text" class="form-control" onkeypress="return soloNumeros(event)" id="txttelefono_modal" placeholder="Ingrese nro telefóno" maxlength="9">
 	                        <br>
-	                    </div>        
+	                    </div>
 	                    <div class="col-md-6">
 	                        <label>Movil </label>
 	                        <input type="text"class="form-control" id="txtmovil_modal"  onkeypress="return soloNumeros(event)" placeholder="Ingrese nro movil" maxlength="9">
 	                            <br>
-	                    </div> 
+	                    </div>
 	                    <div class="col-md-8">
 	                        <label>Direcci&oacute;n </label>
 	                        <input type="text"  class="form-control" id="txtdireccion_modal" placeholder="Ingrese dirección" maxlength="200">
 	                        <br>
-	                    </div> 
+	                    </div>
 	                    <div class="col-sm-4">
 	                        <label>Fecha Nacimiento</label>
 	                        <div class=" input-group">
@@ -84,28 +84,28 @@
 	                    <div class="col-sm-4">
 	                        <label>Email</label>
 	                        <input type="text"  class="form-control" id="txtemail_modal" style="width: 100%;" placeholder="Ingrese nro Documento" maxlength="80">
-	                    </div> 
+	                    </div>
 	                    <div class="col-md-4">
 	                    	<label>Estado</label>
 					        <select id="cmb_estadopersonal" style="width: 100%" class="form-control select2">
 					           <option value="ACTIVO">ACTIVO</option>
 					           <option value="INACTIVO">INACTIVO</option>
 					        </select>
-	                    </div>  
-			</div>         
-        </div> 
+	                    </div>
+			</div>
+        </div>
         <div class="modal-footer">
         	<button  class="btn btn-success" onclick="Editar_personal()"><i class="fa fa-check"></i>&nbsp;<b>Modificar Personal</b></button>&nbsp;&nbsp;&nbsp;
             <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;<b>Cancelar</b></button>
-        </div> 
+        </div>
     </div>
-  </div> 
+  </div>
 </div>
 <style type="text/css">
 	.contendor_kn{
 		padding: 10px;
 	}
-</style> 
+</style>
 <script type="text/javascript">listar_personal_vista('','1');</script>
 <script type="text/javascript">
   $("#txtbuscar_personal").keyup(function(){
@@ -137,7 +137,7 @@
       //Tecla de retroceso para borrar, siempre la permite
 	    if (tecla==8){
           return true;
-    	}  
+    	}
       // Patron de entrada, en este caso solo acepta numeros
       	patron =/[0-9]/;
       	tecla_final = String.fromCharCode(tecla);

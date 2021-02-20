@@ -4,16 +4,16 @@
     $correo = $_REQUEST['correo'];
     //echo $correo.' - '.$documento ;exit;
     $MC = new Modelo_documento();
-    $cambia = $MC->cambiar_fecha_revisor_correo($documento);
+    // $cambia = $MC->cambiar_fecha_revisor_correo($documento);
     $consulta = $MC->obtenerdocumento($documento);
     $revisores = $MC->obtenerrevisores($documento);
-    
+
     //print_r($cambia);exit;
     $to = $correo;
     $subject = '';
-    $headers =  'MIME-Version: 1.0' . "\r\n"; 
+    $headers =  'MIME-Version: 1.0' . "\r\n";
     $headers .= 'From: Your name <info@address.com>' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
     $message = '';
     if($consulta[0]['estado_paso_tres'] == 'APROBADO'){
@@ -32,7 +32,7 @@
 
                         <p>Tenga un buen día. Con fecha 2 de Diciembre de 2020, me comunico con usted a nombre de la Dirección General de Investigación, Desarrollo e Innovación (DGIDI) de la Universidad Científica del Sur. El motivo de este correo es para indicarle que el proyecto titulado: “".$consulta[0]['doc_asunto']."”, ha sido revisado mediante el sistema Turnitin no encontrándose sospecha de plagio.</p>
 
-                        <p>En tal sentido, luego de este proceso y la validación de parte de su asesor, le informo que su proyecto queda registrado con el código N° ".$consulta[0]['documento_cod'].". Con este identificador podrá seguir con el paso de evaluación del proyecto por parte de la Dirección Académica de la Carrera de ".$consulta[0]['ciud_carrera'].".</p> 
+                        <p>En tal sentido, luego de este proceso y la validación de parte de su asesor, le informo que su proyecto queda registrado con el código N° ".$consulta[0]['documento_cod'].". Con este identificador podrá seguir con el paso de evaluación del proyecto por parte de la Dirección Académica de la Carrera de ".$consulta[0]['ciud_carrera'].".</p>
 
                         <p>Adjunto el informe generado por el sistema Turnitin. Le pido revisar dicho documento, podría haber algunos comentarios de mi parte. Además, adjunto documento original para consideración del coordinador de investigación de la carrera/facultad –encargado de la próxima evaluación-.</p>
 

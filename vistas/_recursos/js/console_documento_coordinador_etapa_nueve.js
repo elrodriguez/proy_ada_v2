@@ -20,21 +20,17 @@ function listar_documento_vista_revisor(valor,pagina){
 				cadena += "<tr >";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 80px;word-wrap: break-word;'>ID</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>TÍTULO</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>FECHA RECEPCI&OacuteN</th>";
-				//cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>FECHA ASIGNACI&OacuteN</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>ASESOR</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>REVISOR</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>JURADO</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>&Aacute;REA ASIGNADA</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;word-wrap: break-word;''>TIPO DOCUMENTO</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 30px;word-wrap: break-word;'>ALUMNO</th>";
 				cadena += "<th colspan='4'  style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>Documentos</th>";
 				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>INFORME TURNITING</th>";
 				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>Corrección</th>";
 				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>Link Repositorio</th>";
-				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>GENERAR RESOLUCION</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>GENERAR CONSTANCIA</th>";
 				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>Por Pagar</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ESTADO</th>";
+				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ENVIAR CORREO</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 10px;word-wrap: break-word;''>ACCI&Oacute;N</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
@@ -44,20 +40,16 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += "<td  style = 'width: 80px;word-wrap: break-word;color:#9B0000; text-align:center;font-weight: bold;'>"+valores[i][0]+"</td>";
 					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"' class='btn btn-info' title='Vista previa del asunto' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalAsuntoDocumento(this)'><span class='fa fa-eye' style='color: #000000'></span>";
 					cadena += "&nbsp;</button> </td>";
-					cadena += "<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>"+valores[i][2]+"</td>";
-					//cadena += "<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>"+valores[i]['fecha_revisor_correo']+"</td>";
 					cadena += "<td  style = 'width: 80px;word-wrap: break-word;color:#9B0000;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"*asesor' class='btn btn-info' title='Vista previa de los Datos del asesor' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerAsesor(this)'><span class='glyphicon glyphicon-user' style='color: #000000'></span></button></td>";
 					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' title='VER REVISOR' onclick='modalverrevisor("`+valores[i][0]+`")'><i class='glyphicon glyphicon-user' style='color:#000000;'></i></button></td>`;
 					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button  class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' title='ASIGNAR JURADO' onclick='modalverjurado("`+valores[i][0]+`")'><i class='glyphicon glyphicon-user' style='color:#000000;'></i></button></td>`;
-					cadena += "<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>"+valores[i][4]+"</td>";
-					cadena += "<td style = 'text-align: center;width: 120px;word-wrap: break-word;'>"+valores[i][3]+"</td>";
 					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"' class='btn btn-info' title='Vista previa de los Datos del remitente' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerRemitente(this)'><span class='fa fa-eye' style='color: #000000'></span>";
 					cadena += "&nbsp;</button> </td>";
 					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_uno']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
 					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_dos']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
 					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_tres']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
 					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_cuatro']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
-					
+
 					cadena += `<td><button name='`+valores[i][0]+`*`+valores[i]['archivo_turnitin_etapa_nueve']+`*`+valores[i]['porcentaje_nueve']+`' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='AbrirModalSubirArchivoAnexos(this)'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
 					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_turnitin_dos_etapa_nueve']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
 					cadena += `<td><button name='`+valores[i][0]+`*`+valores[i]['repositorio']+`' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='AbrirModalRegistrarRepositorio(this)'><i class='glyphicon glyphicon-paperclip' style='color:orange;'></i></button></td>`;
@@ -65,23 +57,16 @@ function listar_documento_vista_revisor(valor,pagina){
 					btn_pagar = `<button class='btn btn-danger' onclick='pagarasesor("`+valores[i][0]+`")'><i class='glyphicon glyphicon-usd'></i></button>`;
 
 					cadena += "<td>"+btn_pagar+"</td>";
-					
+					cadena += "<td style = 'text-align: center;width: 10px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"' class='btn btn-correo' onclick='AbrirModalenviarcorreorevisor(this)'><span class='fa fa-envelope fa-2x'></span></button></td>";
+
 					cadena += `<td style = 'text-align: center;' title='`+valores[i][5]+`'>`;
 					if(valores[i]['num_proceso'] =='9'){
-						//if (valores[i][5]=="RECHAZADO") {
-							//cadena += "<i class='glyphicon glyphicon-remove' style='color:#000000;'></i>";
-						//}else if (valores[i][5]=="PENDIENTE") {
-							cadena += `<button onclick='rechazarproceso("`+valores[i][0]+`","ACEPTADO","9")'>Aceptar</button>
-							<button onclick='rechazarproceso("`+valores[i][0]+`","RECHAZADO","9")'>Rechazar</button>`;
-						//}else{
-							//cadena += `<button onclick='rechazarproceso("`+valores[i][0]+`","RECHAZADO","9")'>Rechazar</button>`;
-						//}
+							cadena += `<button class="btn btn-aceptar btn-sx" onclick='rechazarproceso("`+valores[i][0]+`","ACEPTADO","9")'>Aceptar</button>
+							<br><br><button class="btn btn-rechazar btn-sx" onclick='rechazarproceso("`+valores[i][0]+`","RECHAZADO","9")'>Rechazar</button>`;
 					}else{
 						cadena += "<i class='glyphicon glyphicon-ok' style='color:#000000;'></i>";
 					}
 					cadena +="</td>";
-					cadena += "<td style = 'text-align: center;width: 10px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"' class='btn btn-primary' onclick='AbrirModalenviarcorreorevisor(this)'><span class='glyphicon glyphicon-envelope'></span>";
-					cadena += "</button></td> ";
 					cadena += "</tr>";
 				}
 				cadena += "</tbody>";
@@ -173,7 +158,7 @@ function modalverjurado(control) {
 		var cadena='';
 		var data = JSON.parse(resp);
 		if (data.length > 0) {
-			
+
 			for (var i = 0; i < data.length; i++) {
 				cadena+=`<tr>
 							<td>`+data[i]['dni']+`</td>
@@ -181,7 +166,7 @@ function modalverjurado(control) {
 							<td>`+data[i]['celular']+`</td>
 						</tr>`;
 			}
-			
+
 		}
 		$('#tbody-tabla-revisor-tesis').html(cadena)
 	})
@@ -198,7 +183,7 @@ function eliminarrevisordocumento(id){
 			swal("no se registro","","error");
 		}
 	})
-	
+
 }
 function registrarrevisordocumento(){
 	var revisor = $('#select-revisor-documento').val();
@@ -212,12 +197,12 @@ function registrarrevisordocumento(){
 			listarrevisorentabla(documento);
 			$("#modal_asignar_revisor_documento").modal('hide');
 			swal("","Se registro correctamente","success");
-			
+
 		}else{
 			swal("no se registro","","error");
 		}
 	})
-	
+
 }
 //FIN DE LISTAR DOCUMENTOS
 function AbrirModalArchivo_documento(control){
@@ -1083,7 +1068,7 @@ function AbrirModalRegistrarRepositorio(control){
 	}else{
 		$('#repositorio').val('');
 	}
-	
+
 	$('#modal-repositorio').modal({backdrop: 'static', keyboard: false})
 	$('#modal-repositorio').modal('show');
 }
@@ -1225,7 +1210,7 @@ function marcarAnexoSubido(codigo,flag,check){
     } else {
 		valor = 0;
 	}
-	
+
 	swal({
 		title: "¿Estas segur@?",
 		text: "",
@@ -1315,7 +1300,7 @@ function AbrirModalVerAsesor(control) {
 		var cadena='';
 		var data = JSON.parse(resp);
 		if (data.length > 0) {
-			
+
 			for (var i = 0; i < data.length; i++) {
 				cadena+=`<tr>
 							<td>`+data[i]['dni']+`</td>
@@ -1323,7 +1308,7 @@ function AbrirModalVerAsesor(control) {
 							<td>`+data[i]['celular']+`</td>
 						</tr>`;
 			}
-			
+
 		}
 		$('#tbody-tabla-asesor-tesis').html(cadena)
 		$('#txtiddocumento1_modal_asesor').html(datos_split[0])
@@ -1342,7 +1327,7 @@ function modalverrevisor(control) {
 		var cadena='';
 		var data = JSON.parse(resp);
 		if (data.length > 0) {
-			
+
 			for (var i = 0; i < data.length; i++) {
 				cadena+=`<tr>
 							<td>`+data[i]['dni']+`</td>
@@ -1350,7 +1335,7 @@ function modalverrevisor(control) {
 							<td>`+data[i]['celular']+`</td>
 						</tr>`;
 			}
-			
+
 		}
 		$('#tbody-tabla-revisor-tesis').html(cadena)
 	})
