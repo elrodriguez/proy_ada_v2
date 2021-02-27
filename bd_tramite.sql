@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-02-2021 a las 02:25:58
+-- Tiempo de generación: 27-02-2021 a las 01:39:00
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.1
 
@@ -556,11 +556,27 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOANEXOS` (`_flag` INT
 		WHERE  documento_cod =  _documento ;
 	END IF;
 	if _flag = 3 then
-		UPDATE documento SET
-			anexo_seis = if(_p_ruta_anexo = '0',anexo_seis,_p_ruta_anexo),
-			anexo_seis_2 = IF(_s_ruta_anexo = '0',anexo_seis_2,_s_ruta_anexo),
-			anexo_seis_3 = IF(_t_ruta_anexo = '0',anexo_seis_3,_t_ruta_anexo)
-		WHERE  documento_cod =  _documento ;
+		if _c_ruta_anexo = 'r1' then
+			UPDATE documento SET
+				anexo_seis = if(_p_ruta_anexo = '0',anexo_seis,_p_ruta_anexo),
+				anexo_seis_2 = IF(_s_ruta_anexo = '0',anexo_seis_2,_s_ruta_anexo),
+				anexo_seis_3 = IF(_t_ruta_anexo = '0',anexo_seis_3,_t_ruta_anexo)
+			WHERE  documento_cod =  _documento ;
+		end if;
+		IF _c_ruta_anexo = 'r2' THEN
+			UPDATE documento SET
+				anexo_seis_uno_r2 = IF(_p_ruta_anexo = '0',anexo_seis_uno_r2,_p_ruta_anexo),
+				anexo_seis_dos_r2 = IF(_s_ruta_anexo = '0',anexo_seis_dos_r2,_s_ruta_anexo),
+				anexo_seis_tres_r2 = IF(_t_ruta_anexo = '0',anexo_seis_tres_r2,_t_ruta_anexo)
+			WHERE  documento_cod =  _documento ;
+		END IF;
+		IF _c_ruta_anexo = 'r3' THEN
+			UPDATE documento SET
+				anexo_seis_uno_r3 = IF(_p_ruta_anexo = '0',anexo_seis_uno_r3,_p_ruta_anexo),
+				anexo_seis_dos_r3 = IF(_s_ruta_anexo = '0',anexo_seis_dos_r3,_s_ruta_anexo),
+				anexo_seis_tres_r3 = IF(_t_ruta_anexo = '0',anexo_seis_tres_r3,_t_ruta_anexo)
+			WHERE  documento_cod =  _documento ;
+		END IF;
 	end if;
 	IF _flag = 4 THEN
 		UPDATE documento SET
@@ -577,12 +593,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOANEXOS` (`_flag` INT
 	END IF;
 	IF _flag = 6 THEN
 		UPDATE documento SET
-			archivo_etapa1_v2 = _p_ruta_anexo
+			archivo_etapa1_v2 = _p_ruta_anexo,
+			doc_estado = 'PENDIENTE'
 		WHERE  documento_cod =  _documento ;
 	END IF;
 	IF _flag = 7 THEN
 		UPDATE documento SET
-			archivo_etapa1_v3 = _p_ruta_anexo
+			archivo_etapa1_v3 = _p_ruta_anexo,
+			doc_estado = 'PENDIENTE'
 		WHERE  documento_cod =  _documento ;
 	END IF;
 	IF _flag = 8 THEN
@@ -668,6 +686,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOANEXOS` (`_flag` INT
 			archivo_turnitin_dos_etapa_nueve = IF(_p_ruta_anexo = '0',archivo_turnitin_dos_etapa_nueve,_p_ruta_anexo)
 		WHERE  documento_cod =  _documento ;
 	END IF;
+	IF _flag = 24 THEN
+		UPDATE documento SET
+			porcentaje_turnitin_siete = _p_ruta_anexo
+		WHERE  documento_cod =  _documento ;
+	END IF;
+	IF _flag = 25 THEN
+		UPDATE documento SET
+			archivo_cinco = IF(_p_ruta_anexo = '0',archivo_cinco,_p_ruta_anexo)
+		WHERE  documento_cod =  _documento ;
+	END IF;
     END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOTURNITING` (`_documento` VARCHAR(80), `_porcentaje` INT, `_ruta_archivo` VARCHAR(500))  BEGIN
@@ -702,6 +730,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LOGINCIUDADANO` (`_email` VARCHA
 		ciud_email
 	from ciudadano
 	where ciud_email = _email and ciud_clave = md5(_password);
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICARTIPOPUBLICACIONDOCUMENTO` (`_documento` VARCHAR(80), `_tipo` INT, `_nombre` TEXT)  BEGIN
+	UPDATE documento 
+	SET
+	  tipo_publicacion = _tipo,
+	  nombre_revista = _nombre
+	WHERE documento_cod = _documento;
     END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_codigo` INT, `_docente` INT, `_categoria` VARCHAR(200), `_tipo` CHAR(1), `_modalidad` CHAR(1))  BEGIN
@@ -974,6 +1010,18 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_calularpagos` (`_flag` INT, `_tipo
 	return xpago;
     END$$
 
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_ciudadanosdocumento` (`_documento` VARCHAR(80)) RETURNS TEXT CHARSET utf8 COLLATE utf8_spanish_ci BEGIN
+	declare _ciudadanos text;
+	
+	SELECT 
+		CONCAT('<p>',GROUP_CONCAT(CONCAT('<br>',ciud_nombres,' ',ciud_apellidoPate,' ',ciud_apellidoMate)),'</p>') into _ciudadanos 
+	FROM ciudadano
+	INNER JOIN detalle_ciudadano ON ciudadano.ciudadano_cod=detalle_ciudadano.ciudadano_cod
+	WHERE documento_cod=_documento;
+	
+	return _ciudadanos;
+    END$$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `f_crearcodigodocumento` (`_programa` INT) RETURNS VARCHAR(80) CHARSET utf8 COLLATE utf8_spanish_ci BEGIN
 	DECLARE _correlativo INT;
 	DECLARE _anio CHAR(4);
@@ -1236,26 +1284,36 @@ CREATE TABLE `documento` (
   `archivo_dos` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
   `archivo_tres` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
   `archivo_cuatro` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `archivo_cinco` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
   `retorno` char(1) COLLATE utf8_spanish_ci DEFAULT '0',
   `archivo_turnitin_etapa_nueve` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
   `porcentaje_nueve` varchar(5) COLLATE utf8_spanish_ci DEFAULT '0',
   `repositorio` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
-  `archivo_turnitin_dos_etapa_nueve` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0'
+  `archivo_turnitin_dos_etapa_nueve` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_seis_uno_r2` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_seis_dos_r2` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_seis_tres_r2` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_seis_uno_r3` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_seis_dos_r3` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `anexo_seis_tres_r3` varchar(500) COLLATE utf8_spanish_ci DEFAULT '0',
+  `porcentaje_turnitin_siete` int(11) DEFAULT 0,
+  `tipo_publicacion` int(11) DEFAULT NULL,
+  `nombre_revista` text COLLATE utf8_spanish_ci DEFAULT NULL COMMENT '1=Tradicional,2=Articulo no Publicado,3=Articulo publicado,4=Patente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `documento`
 --
 
-INSERT INTO `documento` (`documento_cod`, `doc_asunto`, `doc_ticket`, `doc_fecha_recepcion`, `tipoDocumento_cod`, `asesor_cod`, `area_cod`, `usu_cod`, `doc_estado`, `num_proceso`, `doc_tipo`, `doc_documento`, `archivo_etapa1_v2`, `archivo_etapa1_v3`, `grado`, `anio`, `porcentaje`, `archivo_turniting`, `paso`, `fecha_revisor_correo`, `fecha_final`, `anexo_uno`, `anexo_seis`, `anexo_seis_2`, `anexo_seis_3`, `estado_paso_tres`, `etica_anexo_uno`, `etica_anexo_cuatro`, `etica_anexo_cuatro_dos`, `etica_anexo_cuatro_tres`, `etica_comite`, `estado_paso_cuatro`, `resolucion_firmada`, `anexo_uno_etapa_tres`, `proyecto_etapa_tres`, `carta_etapa_tres`, `anexo_uno_etapa_cuatro`, `carta_etapa_cuatro`, `fecha_aprobada`, `fecha_entrega`, `anexo_siete`, `anexo_ocho`, `fecha_registro_jurado`, `fecha_final_jurado`, `anexo_dies`, `anexo_dies_dos`, `anexo_dies_tres`, `fecha_sustentacion`, `zoom`, `lugar`, `hora`, `fecha_correo_etapa_siete`, `correo_sustentacion`, `anexo_trece`, `anexo_catorce`, `anexo_quince`, `archivo_uno`, `archivo_dos`, `archivo_tres`, `archivo_cuatro`, `retorno`, `archivo_turnitin_etapa_nueve`, `porcentaje_nueve`, `repositorio`, `archivo_turnitin_dos_etapa_nueve`) VALUES
-('POS-19-2021-000000001', 'TESIS 1', '5545454', '2021-01-21 02:26:14', 4, NULL, 1, 1, 'ACEPTADO', 9, 'C', 'Archivo/POS-19-2021-000000001/POS-19-2021-000000001.pdf', '0', '0', '19', '2021', 15, 'Archivo/6008f1a3c8321-resolucion-doc-PRE-2020-000000002.pdf', NULL, NULL, NULL, NULL, 'Archivo/POS-19-2021-000000001/601c7dce2de14-PeruOportunidadDesarrollo.pdf', '0', '0', 'APROBADO', 'Archivo/POS-19-2021-000000001/600f317a7f366-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000001/600f317a85208-Constancia - tesis reposiorio.pdf', 'Archivo/POS-19-2021-000000001/601c7e4d9caa6-PERU-INFO-ESP.pdf', '0', 'H', 'APROBADO', 'Archivo/601c7ed92fa15-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000001/601c7dfb8ccb6-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000001/601c7dfb9185a-Const-peru-oficial.pdf', 'Archivo/POS-19-2021-000000001/601c7dfb98bfd-PeruOportunidadDesarrollo.pdf', 'Archivo/POS-19-2021-000000001/601c7e81b561a-Constancia - tesis reposiorio.pdf', 'Archivo/POS-19-2021-000000001/601c7e915a480-Const-peru-oficial.pdf', '2021-02-21', '2021-02-28', 'Archivo/POS-19-2021-000000001/601c7efe4b57f-Const-peru-oficial.pdf', 'Archivo/POS-19-2021-000000001/601c7f06881a4-Const-peru-oficial.pdf', '2021-02-04', '2021-02-25', 'Archivo/POS-19-2021-000000001/601c7f65a48d7-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000001/601c7f85e84eb-Const-peru-oficial.pdf', '0', '2021-03-18', NULL, NULL, NULL, NULL, NULL, 'Archivo/POS-19-2021-000000001/601c7fd9a5da9-Const-peru-oficial.pdf', '1', '1', 'Archivo/POS-19-2021-000000001/601c800705a13-Constancia - tesis reposiorio.pdf', 'Archivo/POS-19-2021-000000001/601c801a5313b-PeruOportunidadDesarrollo.pdf', 'Archivo/POS-19-2021-000000001/601c80223f0e2-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000001/601c8029e7f2b-resolucion-doc-POS-19-2021-000000003.doc', '0', 'Archivo/POS-19-2021-000000001/601c8094efc07-PERU-INFO-ESP.pdf', '1', 'http://proyada.local/vistas/admin.php', 'Archivo/POS-19-2021-000000001/601c80b36d553-Const-peru-oficial.pdf'),
-('POS-19-2021-000000002', 'DE PRYBA', '4443333', '2021-01-22 00:19:27', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/POS-19-2021-000000002/POS-19-2021-000000002.pdf', '0', '0', '19', '2021', 5, 'Archivo/POS-19-2021-000000002/600a1afe09d4b-Libro.pdf', NULL, '2021-02-06', '2021-02-26', NULL, 'Archivo/POS-19-2021-000000002/6022a4853f957-Constancia - tesis reposiorio (1).pdf', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', '2021-01-30', '2021-01-31', '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
-('POS-19-2021-000000003', 'TESIS UNO', '455454', '2021-01-25 13:08:51', 4, NULL, 1, 1, 'RECHAZADO', 7, 'C', 'Archivo/POS-19-2021-000000003/POS-19-2021-000000003.pdf', '0', '0', '19', '2021', 10, 'Archivo/POS-19-2021-000000003/600ed94ba5965-Libro.pdf', NULL, '2021-01-25', '2021-02-14', NULL, 'Archivo/POS-19-2021-000000003/600eddf34e7c2-resolucion-doc-PRE-2020-000000002.pdf', '0', '0', 'APROBADO', 'Archivo/POS-19-2021-000000003/600eeda98c9d6-Chayan_SA.pdf', 'Archivo/POS-19-2021-000000003/600eeda990220-PERU-INFO-ESP.pdf', '0', '0', 'H', 'APROBADO', 'Archivo/600ef0c2a8d43-Const-peru-oficial.pdf', 'Archivo/POS-19-2021-000000003/600ede3671bde-Chayan_SA.pdf', 'Archivo/POS-19-2021-000000003/600ede36b9386-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000003/600ede36c3183-Constancia - tesis reposiorio.pdf', 'Archivo/POS-19-2021-000000003/600ef014443de-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000003/600ef01b83d90-Algunas tesis sobre la tegnologia.pdf', '2021-01-30', '2021-01-28', 'Archivo/POS-19-2021-000000003/600f1e859bb1e-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000003/600f1e8d7b75c-Constancia - tesis reposiorio.pdf', NULL, NULL, 'Archivo/POS-19-2021-000000003/601c75f3bf356-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000003/601c76a957296-PeruOportunidadDesarrollo.pdf', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
-('PRE-60-2021-000000004', 'DFBDGDGDF', '123456', '2021-02-08 21:02:22', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/PRE-60-2021-000000004/PRE-60-2021-000000004.pdf', '0', '0', '60', '2021', 3, 'Archivo/PRE-60-2021-000000004/6022a40fef331-PeruOportunidadDesarrollo.pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
-('PRE-60-2021-000000005', 'DFBDGDGDF', '123456', '2021-02-08 21:02:50', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/PRE-60-2021-000000005/PRE-60-2021-000000005.pdf', '0', '0', '60', '2021', 2, 'Archivo/PRE-60-2021-000000005/6022a402712ee-Const-peru-oficial.pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
-('PRE-60-2021-000000006', 'SDDFGDF ER ERTERTERTE', '1221', '2021-02-08 22:26:15', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/PRE-60-2021-000000006/PRE-60-2021-000000006.pdf', '0', '0', '60', '2021', 10, 'Archivo/PRE-60-2021-000000006/6022a3e15537c-Constancia - tesis reposiorio (1).pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
-('PRE-60-2021-000000007', 'SDDFGDF ER ERTERTERTE', '1221', '2021-02-08 22:26:27', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/PRE-60-2021-000000007/PRE-60-2021-000000007.pdf', '0', '0', '60', '2021', 1, 'Archivo/PRE-60-2021-000000007/6021c054847bb-Constancia - tesis reposiorio (1).pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
-('PRE-60-2021-000000008', 'SDFEEFERER FDDFDF', '233223', '2021-02-09 15:00:44', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/PRE-60-2021-000000008/PRE-60-2021-000000008.pdf', '0', '0', '60', '2021', 4, 'Archivo/PRE-60-2021-000000008/6022a3f08092e-Constancia - tesis reposiorio (1).pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `documento` (`documento_cod`, `doc_asunto`, `doc_ticket`, `doc_fecha_recepcion`, `tipoDocumento_cod`, `asesor_cod`, `area_cod`, `usu_cod`, `doc_estado`, `num_proceso`, `doc_tipo`, `doc_documento`, `archivo_etapa1_v2`, `archivo_etapa1_v3`, `grado`, `anio`, `porcentaje`, `archivo_turniting`, `paso`, `fecha_revisor_correo`, `fecha_final`, `anexo_uno`, `anexo_seis`, `anexo_seis_2`, `anexo_seis_3`, `estado_paso_tres`, `etica_anexo_uno`, `etica_anexo_cuatro`, `etica_anexo_cuatro_dos`, `etica_anexo_cuatro_tres`, `etica_comite`, `estado_paso_cuatro`, `resolucion_firmada`, `anexo_uno_etapa_tres`, `proyecto_etapa_tres`, `carta_etapa_tres`, `anexo_uno_etapa_cuatro`, `carta_etapa_cuatro`, `fecha_aprobada`, `fecha_entrega`, `anexo_siete`, `anexo_ocho`, `fecha_registro_jurado`, `fecha_final_jurado`, `anexo_dies`, `anexo_dies_dos`, `anexo_dies_tres`, `fecha_sustentacion`, `zoom`, `lugar`, `hora`, `fecha_correo_etapa_siete`, `correo_sustentacion`, `anexo_trece`, `anexo_catorce`, `anexo_quince`, `archivo_uno`, `archivo_dos`, `archivo_tres`, `archivo_cuatro`, `archivo_cinco`, `retorno`, `archivo_turnitin_etapa_nueve`, `porcentaje_nueve`, `repositorio`, `archivo_turnitin_dos_etapa_nueve`, `anexo_seis_uno_r2`, `anexo_seis_dos_r2`, `anexo_seis_tres_r2`, `anexo_seis_uno_r3`, `anexo_seis_dos_r3`, `anexo_seis_tres_r3`, `porcentaje_turnitin_siete`, `tipo_publicacion`, `nombre_revista`) VALUES
+('POS-19-2021-000000001', 'TESIS 1', '5545454', '2021-01-21 02:26:14', 4, NULL, 1, 1, 'ACEPTADO', 9, 'C', 'Archivo/POS-19-2021-000000001/POS-19-2021-000000001.pdf', '0', '0', '19', '2021', 15, 'Archivo/6008f1a3c8321-resolucion-doc-PRE-2020-000000002.pdf', NULL, NULL, NULL, NULL, 'Archivo/POS-19-2021-000000001/601c7dce2de14-PeruOportunidadDesarrollo.pdf', '0', '0', 'APROBADO', 'Archivo/POS-19-2021-000000001/600f317a7f366-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000001/600f317a85208-Constancia - tesis reposiorio.pdf', 'Archivo/POS-19-2021-000000001/601c7e4d9caa6-PERU-INFO-ESP.pdf', '0', 'H', 'APROBADO', 'Archivo/601c7ed92fa15-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000001/601c7dfb8ccb6-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000001/601c7dfb9185a-Const-peru-oficial.pdf', 'Archivo/POS-19-2021-000000001/601c7dfb98bfd-PeruOportunidadDesarrollo.pdf', 'Archivo/POS-19-2021-000000001/601c7e81b561a-Constancia - tesis reposiorio.pdf', 'Archivo/POS-19-2021-000000001/601c7e915a480-Const-peru-oficial.pdf', '2021-02-21', '2021-02-28', 'Archivo/POS-19-2021-000000001/601c7efe4b57f-Const-peru-oficial.pdf', 'Archivo/POS-19-2021-000000001/601c7f06881a4-Const-peru-oficial.pdf', '2021-02-04', '2021-02-25', 'Archivo/POS-19-2021-000000001/601c7f65a48d7-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000001/601c7f85e84eb-Const-peru-oficial.pdf', '0', '2021-03-18', NULL, NULL, NULL, NULL, NULL, 'Archivo/POS-19-2021-000000001/601c7fd9a5da9-Const-peru-oficial.pdf', '1', '1', 'Archivo/POS-19-2021-000000001/601c800705a13-Constancia - tesis reposiorio.pdf', 'Archivo/POS-19-2021-000000001/601c801a5313b-PeruOportunidadDesarrollo.pdf', 'Archivo/POS-19-2021-000000001/601c80223f0e2-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000001/601c8029e7f2b-resolucion-doc-POS-19-2021-000000003.doc', '0', '0', 'Archivo/POS-19-2021-000000001/601c8094efc07-PERU-INFO-ESP.pdf', '1', 'http://proyada.local/vistas/admin.php', 'Archivo/POS-19-2021-000000001/601c80b36d553-Const-peru-oficial.pdf', '0', '0', '0', '0', '0', '0', 0, NULL, NULL),
+('POS-19-2021-000000002', 'DE PRYBA', '4443333', '2021-01-22 00:19:27', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/POS-19-2021-000000002/POS-19-2021-000000002.pdf', '0', '0', '19', '2021', 5, 'Archivo/POS-19-2021-000000002/600a1afe09d4b-Libro.pdf', NULL, '2021-02-06', '2021-02-26', NULL, 'Archivo/POS-19-2021-000000002/6022a4853f957-Constancia - tesis reposiorio (1).pdf', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', '2021-01-30', '2021-01-31', '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 0, NULL, NULL),
+('POS-19-2021-000000003', 'TESIS UNO', '455454', '2021-01-25 13:08:51', 4, NULL, 1, 1, 'PENDIENTE', 7, 'C', 'Archivo/POS-19-2021-000000003/POS-19-2021-000000003.pdf', '0', '0', '19', '2021', 10, 'Archivo/POS-19-2021-000000003/600ed94ba5965-Libro.pdf', NULL, '2021-02-23', '2021-03-15', NULL, 'Archivo/POS-19-2021-000000003/600eddf34e7c2-resolucion-doc-PRE-2020-000000002.pdf', '0', '0', 'APROBADO', 'Archivo/POS-19-2021-000000003/60352a35c208f-Const-peru-oficial.pdf', 'Archivo/POS-19-2021-000000003/60352a35c5f14-PeruOportunidadDesarrollo.pdf', 'Archivo/POS-19-2021-000000003/60352a35c806b-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000003/60352a35c806b-Algunas tesis sobre la tegnologia.pdf', 'H', 'APROBADO', 'Archivo/POS-19-2021-000000003/60352ee0955cc-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000003/603529c887b73-PeruOportunidadDesarrollo.pdf', 'Archivo/POS-19-2021-000000003/603529c8899c2-Const-peru-oficial.pdf', 'Archivo/POS-19-2021-000000003/603529c88cb34-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000003/60352a6e2a63c-PeruOportunidadDesarrollo.pdf', 'Archivo/POS-19-2021-000000003/60352a75f16d1-PERU-INFO-ESP.pdf', '2021-01-30', '2021-01-28', 'Archivo/POS-19-2021-000000003/600f1e859bb1e-Algunas tesis sobre la tegnologia.pdf', 'Archivo/POS-19-2021-000000003/600f1e8d7b75c-Constancia - tesis reposiorio.pdf', NULL, NULL, 'Archivo/POS-19-2021-000000003/601c75f3bf356-PERU-INFO-ESP.pdf', 'Archivo/POS-19-2021-000000003/601c76a957296-PeruOportunidadDesarrollo.pdf', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 14, NULL, NULL),
+('PRE-60-2021-000000004', 'DFBDGDGDF', '123456', '2021-02-08 21:02:22', 4, NULL, 1, 1, 'PENDIENTE', 9, 'C', 'Archivo/PRE-60-2021-000000004/PRE-60-2021-000000004.pdf', '0', '0', '60', '2021', 3, 'Archivo/PRE-60-2021-000000004/6022a40fef331-PeruOportunidadDesarrollo.pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', 'Archivo/PRE-60-2021-000000004/6039935d7a60f-Const-peru-oficial.pdf', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 0, 2, 'http://deprueba.com'),
+('PRE-60-2021-000000005', 'DFBDGDGDF', '123456', '2021-02-08 21:02:50', 4, NULL, 1, 1, 'RECHAZADO', 6, 'C', 'Archivo/PRE-60-2021-000000005/PRE-60-2021-000000005.pdf', '0', '0', '60', '2021', 2, 'Archivo/PRE-60-2021-000000005/6022a402712ee-Const-peru-oficial.pdf', NULL, '2021-02-23', '2021-03-15', NULL, 'Archivo/PRE-60-2021-000000005/603525ecddf2a-Constancia - tesis reposiorio (1).pdf', 'Archivo/PRE-60-2021-000000005/6035268378c1d-Const-peru-oficial.pdf', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'Archivo/PRE-60-2021-000000005/603522a5d1af3-Constancia - tesis reposiorio (1).pdf', '0', '0', '0', '0', '0', 0, NULL, NULL),
+('PRE-60-2021-000000006', 'SDDFGDF ER ERTERTERTE', '1221', '2021-02-08 22:26:15', 4, NULL, 1, 1, 'PENDIENTE', 5, 'C', 'Archivo/PRE-60-2021-000000006/PRE-60-2021-000000006.pdf', '0', '0', '60', '2021', 10, 'Archivo/PRE-60-2021-000000006/6022a3e15537c-Constancia - tesis reposiorio (1).pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 0, NULL, NULL),
+('PRE-60-2021-000000007', 'SDDFGDF ER ERTERTERTE', '1221', '2021-02-08 22:26:27', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/PRE-60-2021-000000007/PRE-60-2021-000000007.pdf', '0', '0', '60', '2021', 1, 'Archivo/PRE-60-2021-000000007/6021c054847bb-Constancia - tesis reposiorio (1).pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', '0', '0', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 0, NULL, NULL),
+('PRE-60-2021-000000008', 'SDFEEFERER FDDFDF', '233223', '2021-02-09 15:00:44', 4, NULL, 1, 1, 'PENDIENTE', 4, 'C', 'Archivo/PRE-60-2021-000000008/PRE-60-2021-000000008.pdf', '0', '0', '60', '2021', 4, 'Archivo/PRE-60-2021-000000008/6022a3f08092e-Constancia - tesis reposiorio (1).pdf', NULL, '2021-02-09', '2021-03-01', NULL, '0', '0', '0', 'APROBADO', 'Archivo/PRE-60-2021-000000008/603527e345049-PERU-INFO-ESP.pdf', 'Archivo/PRE-60-2021-000000008/603527e348d6b-PERU-INFO-ESP.pdf', '0', '0', NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0', '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
