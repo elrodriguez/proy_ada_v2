@@ -56,7 +56,7 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_turnitin_dos_etapa_nueve']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
 					cadena += `<td><button name='`+valores[i][0]+`*`+valores[i]['repositorio']+`' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='AbrirModalRegistrarRepositorio(this)'><i class='glyphicon glyphicon-paperclip' style='color:orange;'></i></button></td>`;
 					cadena += `<td><button type='button' class='btn btn-link' onclick='generar_resolucion_word("`+valores[i][0]+`")' ><i class="glyphicon glyphicon-download-alt"></i></button></td>`;
-					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['constancia_firmada']+`" onclick="modalsubiranexosetapanueve(this,'26')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['constancia']+`" onclick="modalsubiranexosetapaocho(this,'26')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
 
 					btn_pagar = `<button class='btn btn-danger' onclick='pagarasesor("`+valores[i][0]+`")'><i class='glyphicon glyphicon-usd'></i></button>`;
 

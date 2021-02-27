@@ -1,7 +1,7 @@
 function listar_documento_vista_revisor(valor,pagina){
 	var pagina = Number(pagina);
 	$.ajax({
-		url:'../controlador/documento/controlador_ListarBuscar_documento_coordinador_etapa_nueve.php',
+		url:'../controlador/documento/controlador_ListarBuscar_documento_coordinador_etapa_siete.php',
 		type: 'POST',
 		data:'valor='+valor+'&pagina='+pagina+'&boton=buscar',
 		beforeSend: function(){
@@ -18,21 +18,30 @@ function listar_documento_vista_revisor(valor,pagina){
 				cadena += "<table border='0' class='table table-bordered jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 80px;word-wrap: break-word;'>ID</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>TÍTULO</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>ASESOR</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>REVISOR</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>JURADO</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 30px;word-wrap: break-word;'>ALUMNO</th>";
-				cadena += "<th colspan='5'  style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>Documentos</th>";
-				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>INFORME TURNITING</th>";
-				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>Corrección</th>";
-				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>Link Repositorio</th>";
-				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>GENERAR CONSTANCIA</th>";
-				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>SUBIR CONSTANCIA</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 80px;word-wrap: break-word;'>ID</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>TÍTULO</th>";
+				cadena += "<th colspan='2' style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>FECHA ASIGNACI&OacuteN JURADO</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>D&Iacute;AS RESTANTES</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>ASESOR</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>JURADO</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 30px;word-wrap: break-word;'>TESISTA</th>";
+				cadena += "<th colspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>ANEXOS</th>";
+				cadena += "<th colspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>CORRECCIONES</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>GENERAR A13</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>ESTADO</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>FECHA SUSTENTACI&Oacute;N</th>";
 				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>Por Pagar</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ENVIAR CORREO</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 10px;word-wrap: break-word;''>ACCI&Oacute;N</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>PORCENTAJE TURNITIN</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ENVIAR CORREO</th>";
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 10px;word-wrap: break-word;''>ACCI&Oacute;N</th>";
+				cadena += "</tr>";
+				cadena += "<tr>";
+				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>ANIGANADO</th>";
+				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>FINAL</th>";
+				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>A-16</th>";
+				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>A10</th>";
+				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>V2</th>";
+				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>V3</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";
@@ -41,32 +50,40 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += "<td  style = 'width: 80px;word-wrap: break-word;color:#9B0000; text-align:center;font-weight: bold;'>"+valores[i][0]+"</td>";
 					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"' class='btn btn-info' title='Vista previa del asunto' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalAsuntoDocumento(this)'><span class='fa fa-eye' style='color: #000000'></span>";
 					cadena += "&nbsp;</button> </td>";
-					cadena += "<td  style = 'width: 80px;word-wrap: break-word;color:#9B0000;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"*asesor' class='btn btn-info' title='Vista previa de los Datos del asesor' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerAsesor(this)'><span class='glyphicon glyphicon-user' style='color: #000000'></span></button></td>";
-					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' title='VER REVISOR' onclick='modalverrevisor("`+valores[i][0]+`")'><i class='glyphicon glyphicon-user' style='color:#000000;'></i></button></td>`;
-					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button  class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' title='ASIGNAR JURADO' onclick='modalverjurado("`+valores[i][0]+`")'><i class='glyphicon glyphicon-user' style='color:#000000;'></i></button></td>`;
+					cadena += "<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>"+valores[i]['fecha_registro_jurado']+"</td>";
+					cadena += "<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>"+valores[i]['fecha_final_jurado']+"</td>";
+					cadena += "<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>"+valores[i]['dias_restantes']+" d&iacute;as</td>";
+					cadena += "<td  style = 'width: 80px;word-wrap: break-word;color:#9B0000;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"*asesor' class='btn btn-info' title='Vista previa de los Datos del asesor' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerAsesor(this)'><span class='fa fa-eye' style='color: #000000'></span></button></td>";
+					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='agregar_revisor' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' title='ASIGNAR JURADO' onclick='AbrirModalRevisorAgregar("`+valores[i][0]+`")'><i class='glyphicon glyphicon-user' style='color:#000000;'></i></button></td>`;
 					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"' class='btn btn-info' title='Vista previa de los Datos del remitente' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerRemitente(this)'><span class='fa fa-eye' style='color: #000000'></span>";
 					cadena += "&nbsp;</button> </td>";
-					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_uno']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
-					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_dos']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
-					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_tres']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
-					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_cuatro']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
-					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_cinco']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
+					cadena +="</td>";
+					let btn_ver='';
+					cadena += `<td><button class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='modalveranexos("A7","`+valores[i][0]+`","`+valores[i]['anexo_siete']+`")'><i class='fa  fa-folder-open' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button name='`+valores[i][0]+`*`+valores[i]['anexo_dies']+`' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='AbrirModalSubirArchivoAnexos(this)'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='modalveranexos("A10","`+valores[i][0]+`","`+valores[i]['anexo_dies_dos']+`")'><i class='fa  fa-folder-open' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='modalveranexos("A10","`+valores[i][0]+`","`+valores[i]['anexo_dies_tres']+`")'><i class='fa  fa-folder-open' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button type='button' class='btn btn-link' onclick='generar_resolucion_word_trece("`+valores[i][0]+`")' ><i class="glyphicon glyphicon-download-alt"></i></button></td>`;
 
-					cadena += `<td><button name='`+valores[i][0]+`*`+valores[i]['archivo_turnitin_etapa_nueve']+`*`+valores[i]['porcentaje_nueve']+`' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='AbrirModalSubirArchivoAnexos(this)'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
-					cadena += `<td><a target="_blank" href="../`+valores[i]['archivo_turnitin_dos_etapa_nueve']+`" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='glyphicon glyphicon-folder-open' style='color:orange;'></i></button></td>`;
-					cadena += `<td><button name='`+valores[i][0]+`*`+valores[i]['repositorio']+`' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='AbrirModalRegistrarRepositorio(this)'><i class='glyphicon glyphicon-paperclip' style='color:orange;'></i></button></td>`;
-					cadena += `<td><button type='button' class='btn btn-link' onclick='generar_resolucion_word("`+valores[i][0]+`")' ><i class="glyphicon glyphicon-download-alt"></i></button></td>`;
-					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['constancia_firmada']+`" onclick="modalsubiranexosetapanueve(this,'26')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
-
-					btn_pagar = `<button class='btn btn-danger' onclick='pagarasesor("`+valores[i][0]+`")'><i class='glyphicon glyphicon-usd'></i></button>`;
-
+					cadena += `<td style = 'text-align: center;width: 120px;'>
+									<select class="form-control" id="lst-`+valores[i][0]+`" style = 'width: 120px;' onchange="aprobaronservardocumento('`+valores[i][0]+`')">
+										<option>SELECCIONAR</option>
+										<option `+(valores[i]['estado_paso_tres']=="APROBADO"?"selected":"")+` value="APROBADO">APROBADO</option>
+										<option `+(valores[i]['estado_paso_tres']=="OBSERVADO"?"selected":"")+` value="OBSERVADO">OBSERVADO</option>
+									</select
+								</td>`;
+					cadena += `<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>
+						<input type="date" id="date-`+valores[i][0]+`" onchange="registrarfechas(event,'3','`+valores[i][0]+`')" value="`+valores[i]['fecha_sustentacion']+`">
+					</td>`;
+					btn_pagar = `<button class='btn btn-danger' onclick='pagarrevisor("`+valores[i][0]+`")'><i class='glyphicon glyphicon-usd'></i></button>`;
 					cadena += "<td>"+btn_pagar+"</td>";
+					cadena += `<td><a href="#" class="username" data-type="text" data-pk="`+valores[i][0]+`" data-url="../controlador/documento/controlador_documento_registrar_turniting_paso_siete.php" data-title="Enter username">`+valores[i]['porcentaje_turnitin_siete']+`</a></td>`;
 					cadena += "<td style = 'text-align: center;width: 10px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"' class='btn btn-correo' onclick='AbrirModalenviarcorreorevisor(this)'><span class='fa fa-envelope fa-2x'></span></button></td>";
 
 					cadena += `<td style = 'text-align: center;' title='`+valores[i][5]+`'>`;
-					if(valores[i]['num_proceso'] =='9'){
-							cadena += `<button class="btn btn-aceptar btn-sx" onclick='rechazarproceso("`+valores[i][0]+`","ACEPTADO","9")'>Aceptar</button>
-							<br><br><button class="btn btn-rechazar btn-sx" onclick='rechazarproceso("`+valores[i][0]+`","RECHAZADO","9")'>Rechazar</button>`;
+					if(valores[i]['num_proceso'] =='7'){
+							cadena += `<button class="btn btn-aceptar btn-sx" onclick='rechazarproceso("`+valores[i][0]+`","PENDIENTE","8")'>Aceptar</button>
+						 <br><br><button class="btn btn-rechazar btn-sx" onclick='rechazarproceso("`+valores[i][0]+`","RECHAZADO","7")'>Rechazar</button>`;
 					}else{
 						cadena += "<i class='glyphicon glyphicon-ok' style='color:#000000;'></i>";
 					}
@@ -78,6 +95,9 @@ function listar_documento_vista_revisor(valor,pagina){
 				$("#listar_documento_tabla").html(cadena);
 				var totaldatos = datos[1];
 				var numero_paginas = Math.ceil(totaldatos/5);
+
+				$('.username').editable();
+
 				var paginar = "<ul class='pagination'>";
 				if(pagina>1){
 					paginar += "<li><a href='javascript:void(0)' onclick='listar_documento_vista("+'"'+valor+'","'+1+'"'+")'>&laquo;</a></li>";
@@ -137,18 +157,21 @@ function listar_documento_vista_revisor(valor,pagina){
 				cadena += "</table>";
 				$("#listar_documento_tabla").html(cadena);
 				$("#paginador_documento_tabla").html("");
+				
 			}
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown, jqXHR){
 			alert("SE PRODUJO UN ERROR");
 		}
+		
 	});
+	
 }
-function generar_resolucion_word(documento){
+function generar_resolucion_word_trece(documento){
 	//alert('ddddddd')
-	$('#iframe-word-descarga').attr('src','../controlador/documento/controlador_generar_resolucion_repositorio.php?doc='+documento);
+	$('#iframe-word-descarga').attr('src','../controlador/documento/controlador_generar_resolucion_trece.php?doc='+documento);
 }
-function modalverjurado(control) {
+function AbrirModalRevisorAgregar(control) {
 	$.ajax({
 		url:'../controlador/documento/controlador_documento_traeremitente_jurador_listar.php',
 		type:'POST',
@@ -173,6 +196,35 @@ function modalverjurado(control) {
 
 		}
 		$('#tbody-tabla-revisor-tesis').html(cadena)
+	})
+}
+function AbrirModalVerAsesor(control) {
+	var datos = control.name;
+	var datos_split = datos.split("*");
+	$.ajax({
+		url:'../controlador/documento/controlador_documento_traeremitente_asesor_listar.php',
+		type:'POST',
+		data:{
+			codigo:datos_split[0]
+		}
+	}).done(function(resp) {
+		$('#modal_ver_asesor_documento').modal({backdrop: 'static', keyboard: false})
+		$("#modal_ver_asesor_documento").modal('show');
+		var cadena='';
+		var data = JSON.parse(resp);
+		if (data.length > 0) {
+
+			for (var i = 0; i < data.length; i++) {
+				cadena+=`<tr>
+							<td>`+data[i]['dni']+`</td>
+							<th>`+data[i]['nombre']+` `+data[i]['apellido_pater']+` `+data[i]['apellido_mater']+`</td>
+							<td>`+data[i]['celular']+`</td>
+						</tr>`;
+			}
+
+		}
+		$('#tbody-tabla-asesor-tesis').html(cadena)
+		$('#txtiddocumento1_modal_asesor').html(datos_split[0])
 	})
 }
 function eliminarrevisordocumento(id){
@@ -1063,38 +1115,6 @@ function enviarcorreopordocumentorevisor(){
 		alert("El foreo se envio satisfactoriamente");
 	});
 }
-function AbrirModalRegistrarRepositorio(control){
-	var datos = control.name;
-	var datos_split = datos.split("*");
-	$('#iddocumentorepositorio').val(datos_split[0]);
-	if(datos_split[1] != '0'){
-		$('#repositorio').val(datos_split[1]);
-	}else{
-		$('#repositorio').val('');
-	}
-
-	$('#modal-repositorio').modal({backdrop: 'static', keyboard: false})
-	$('#modal-repositorio').modal('show');
-}
-function registrar_documento_repositorio(){
-	$.ajax({
-	  type : 'POST',
-	  url:'../controlador/documento/controlador_registrar_documento_coordinador_repositorio_link.php',
-	  data:  new FormData(document.getElementById("form-register-repositorio")),
-	  contentType: false,
-	  cache: false,
-	  processData:false,
-	  success:function(resp) {
-		if(resp>0){
-		    $('#modal-repositorio').modal('hide');
-			document.getElementById("form-register-repositorio").reset();
-		  	swal("Anexos Registrado!", "", "success").then ( ( value ) =>  {
-				listar_documento_vista_revisor('','1');
-		  });
-		}
-	  }
-	});
-}
 function AbrirModalSubirArchivoAnexos(control){
 	var datos = control.name;
 	var datos_split = datos.split("*");
@@ -1103,14 +1123,13 @@ function AbrirModalSubirArchivoAnexos(control){
 		$('#btnverv1').html(btnverv1);
 	}
 	$('#iddocumentoanexos').val(datos_split[0]);
-	$('#porcentaje').val(datos_split[2]);
 	$('#modal-subir-anexos').modal({backdrop: 'static', keyboard: false})
 	$('#modal-subir-anexos').modal('show');
 }
 function registrar_documento_anexos(){
 	$.ajax({
 	  type : 'POST',
-	  url:'../controlador/documento/controlador_registrar_documento_coordinador_turnitin_nueve.php',
+	  url:'../controlador/documento/controlador_registrar_documento_coordinador_anexos_corregidos_etapa_siete.php',
 	  data:  new FormData(document.getElementById("form-upload-file-anexos")),
 	  contentType: false,
 	  cache: false,
@@ -1162,7 +1181,7 @@ function aprobaronservardocumento(codigo){
 		}
 	  });
 }
-function pagarasesor(codigo){
+function pagarrevisor(codigo){
 	var estado = 'SI';
 	swal({
 		title: "¿Estas segur@?",
@@ -1173,7 +1192,7 @@ function pagarasesor(codigo){
 	}).then((willDelete) => {
 		if (willDelete) {
 			$.ajax({
-				url:'../controlador/documento/controlador_documento_coordinador_pagar_asesor.php',
+				url:'../controlador/documento/controlador_documento_coordinador_pagar_jurado.php',
 				type:'POST',
 				data:{
 					codigo:codigo,estado:estado
@@ -1206,144 +1225,4 @@ function registrarfechas(e,t,d){
 		  }
 		}
 	  });
-}
-function marcarAnexoSubido(codigo,flag,check){
-	let valor = 0;
-	if(check.checked){
-		valor = 1;
-    } else {
-		valor = 0;
-	}
-
-	swal({
-		title: "¿Estas segur@?",
-		text: "",
-		icon: "warning",
-		buttons: true,
-		dangerMode: true,
-	}).then((willDelete) => {
-		if (willDelete) {
-			$.ajax({
-				url:'../controlador/documento/controlador_documento_coordinador_archivo_catorce_quince.php',
-				type:'POST',
-				data:{
-					codigo:codigo,flag:flag,valor:valor
-				}
-			}).done(function(resp){
-				listar_documento_vista_revisor("","1")
-				if (resp>0) {
-					 swal("archivo aprobado", {
-						icon: "success",
-					  });
-				}else{
-					swal("No se pudo continuar","","error");
-				}
-			})
-		}
-	  });
-}
-function modalsubiranexosetapanueve(control,tipo){
-	var datos = control.name;
-	var datos_split = datos.split("*");
-	var btnverv1 ='';
-	if(datos_split[1]!='0'){
-		btnverv1 += `<a target="_blank" href="../`+datos_split[1]+`" class="btn btn-default" type="button">Ver</a>`;
-		$('#btnverax1e4-ocho').html(btnverv1);
-	}else{
-		btnverv1 += '';
-		$('#btnverax1e4-ocho').html(btnverv1);
-	}
-	if(tipo == '17'){
-		$('#file-ax1-e4-title').html('Archivo 1')
-		$('#tipo-e4-ocho').val('17')
-	}else if(tipo == '18'){
-		$('#file-ax1-e4-title').html('Archivo 2')
-		$('#tipo-e4-ocho').val('18')
-	}else if(tipo == '19'){
-		$('#file-ax1-e4-title').html('Archivo 3')
-		$('#tipo-e4-ocho').val('19')
-	}else if(tipo == '20'){
-		$('#file-ax1-e4-title').html('Archivo 4')
-		$('#tipo-e4-ocho').val('20')
-	}else if(tipo == '26'){
-		$('#file-ax1-e4-title').html('Subir Constancia')
-		$('#tipo-e4-ocho').val('26')
-	}
-	$('#iddocumentovcorreccionesocho').val(datos_split[0]);
-	$('#subir-correciones-etapa-ocho').modal({backdrop: 'static', keyboard: false})
-	$('#subir-correciones-etapa-ocho').modal('show');
-}
-function registrar_documento_adicionales_ocho(){
-	$.ajax({
-	  type : 'POST',
-	  url:'../controlador/documento/controlador_registrar_documento_coordinador_varios_archivos.php',
-	  data:  new FormData(document.getElementById("form-upload-file-anexos-corregidos-etapa-ocho")),
-	  contentType: false,
-	  cache: false,
-	  processData:false,
-	  success:function(resp) {
-		if(resp>0){
-		  	$('#subir-correciones-etapa-ocho').modal('hide');
-			document.getElementById("form-upload-file-anexos-corregidos-etapa-ocho").reset();
-		  	swal("Anexos Registrado!", "", "success").then ( ( value ) =>  {
-				listar_documento_vista_revisor('',1);
-		  	});
-		}
-	  }
-	});
-}
-function AbrirModalVerAsesor(control) {
-	var datos = control.name;
-	var datos_split = datos.split("*");
-	$.ajax({
-		url:'../controlador/documento/controlador_documento_traeremitente_asesor_listar.php',
-		type:'POST',
-		data:{
-			codigo:datos_split[0]
-		}
-	}).done(function(resp) {
-		$('#modal_ver_asesor_documento').modal({backdrop: 'static', keyboard: false})
-		$("#modal_ver_asesor_documento").modal('show');
-		var cadena='';
-		var data = JSON.parse(resp);
-		if (data.length > 0) {
-
-			for (var i = 0; i < data.length; i++) {
-				cadena+=`<tr>
-							<td>`+data[i]['dni']+`</td>
-							<th>`+data[i]['nombre']+` `+data[i]['apellido_pater']+` `+data[i]['apellido_mater']+`</td>
-							<td>`+data[i]['celular']+`</td>
-						</tr>`;
-			}
-
-		}
-		$('#tbody-tabla-asesor-tesis').html(cadena)
-		$('#txtiddocumento1_modal_asesor').html(datos_split[0])
-	})
-}
-function modalverrevisor(control) {
-	$.ajax({
-		url:'../controlador/documento/controlador_documento_traeremitente_revisor_listar.php',
-		type:'POST',
-		data:{
-			codigo:control
-		}
-	}).done(function(resp) {
-		$('#modal_ver_revisor_documento').modal({backdrop: 'static', keyboard: false})
-		$("#modal_ver_revisor_documento").modal('show');
-		var cadena='';
-		var data = JSON.parse(resp);
-		if (data.length > 0) {
-
-			for (var i = 0; i < data.length; i++) {
-				cadena+=`<tr>
-							<td>`+data[i]['dni']+`</td>
-							<th>`+data[i]['nombre']+` `+data[i]['apellido_pater']+` `+data[i]['apellido_mater']+`</td>
-							<td>`+data[i]['celular']+`</td>
-						</tr>`;
-			}
-
-		}
-		$('#tbody-tabla-revisor-tesis').html(cadena)
-	})
 }

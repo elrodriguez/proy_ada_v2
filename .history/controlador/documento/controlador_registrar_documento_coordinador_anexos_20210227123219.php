@@ -74,9 +74,6 @@
 			//print_r($ruta1);exit;
 			copy($ruta3, $destino3);
 			$cont=1;
-		}else{
-			$nombre1 = "0";
-			$destino1="";
 		}
 	}else{
 		$nombre3 = "0";

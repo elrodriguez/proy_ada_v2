@@ -98,34 +98,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="subir-correciones-etapa-ocho" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="file-ax1-e4-title">Subir Correciones</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        
-        <form enctype="multipart/form-data" id="form-upload-file-anexos-corregidos-etapa-ocho">
-          <div class="form-group">
-              <label for="file-ax1-e8" id="file-ax1-e4-title"></label>
-              <div class="input-group">
-                <input type="file" class="form-control" id="file-ax1-e8" name="file-ax1-e8">
-                <span class="input-group-btn" id="btnverax1e4-ocho"></span>
-              </div>
-              <input type="hidden" id="iddocumentovcorreccionesocho" name="iddocumentovcorreccionesocho">
-              <input type="hidden" id="tipo-e4-ocho" name="tipo-e4-ocho">
-            </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
-        <button type="button" class="btn btn-primary" onclick="registrar_documento_adicionales_ocho()">subir</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 <!-- Modal mostrar Alumno -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modal-enviar-correo-revisor">
   <div class="modal-dialog" role="document">
@@ -322,33 +295,7 @@
       </div>
     </div>
 </div>
-<div class="modal fade" id="modal_ver_asesor_documento">
-  <div class="modal-dialog">
-    <div class="modal-content">
-         <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-           <h4 class="modal-title" ><b>Datos del Asesor y Documento Nro: </b><label id="txtiddocumento1_modal_asesor"></label></h4>
-         </div>
-        <div class="modal-body">
-      <div class="panel-body">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="info">
-              <th>DNI</th>
-              <th>APELLIDOS Y NOMBRES</th>
-              <th>CELULAR</th>
-            </tr>
-          </thead>
-          <tbody id="tbody-tabla-asesor-tesis"></tbody>
-        </table>
-      </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;<b>Close</b></button>
-        </div>
-    </div>
-  </div>
-</div>
+
 <script type="text/javascript">
 	$("#txt_documento_vista").keyup(function(){
 		var dato_buscar = $("#txt_documento_vista").val();
