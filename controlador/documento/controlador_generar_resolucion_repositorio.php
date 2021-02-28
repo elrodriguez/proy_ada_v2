@@ -7,8 +7,8 @@
     $consulta = $MC->obtenerdocumento($documento);
     //print_r($ciudadanos);exit;
     header("Content-type: application/vnd.ms-word");
-    header("Content-Disposition: attachment;Filename=resolucion-doc-".$documento.".doc"); 
-    header('Content-Type: text/html; charset=utf-8');  
+    header("Content-Disposition: attachment;Filename=Constancia-doc-".$documento.".doc"); 
+    header('Content-Type: text/html; charset=utf-8');
     echo "<html><head>";
     echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-1252\">";
     echo '<meta http-equiv="Content-type" content="text/html; charset=utf-8" />';
@@ -18,8 +18,8 @@
     echo "<h4 style='text-align: center;'>Constancia de ingreso de tesis en repositorio instituciona</h4>";
 
     echo "<p style='text-align: justify;'>Lima ".date('d')." de ".date('m')." del ".date('Y')."</p>";
-    echo "<p style='text-align: justify;'>Señor (ita, es), </p>"; 
-    echo "<p style='text-align: justify;'>"; 
+    echo "<p style='text-align: justify;'>Señor (ita, es), </p>";
+    echo "<p style='text-align: justify;'>";
     $pp = count($ciudadanos);
     $cc = 1;
     foreach($ciudadanos as $ciudadano){
