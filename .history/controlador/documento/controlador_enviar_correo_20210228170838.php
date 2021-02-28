@@ -88,7 +88,7 @@
 
         //Recipients
         $mail->setFrom('@gmail.com', 'Mailer');
-        $mail->addAddress('@gmail.com', 'El ususario');     //Add a recipient
+        $mail->addAddress('@gmail.com', 'Elmer Luis');     //Add a recipient
         // $mail->addAddress('ellen@example.com');               //Name is optional
         // $mail->addReplyTo('info@example.com', 'Information');
         // $mail->addCC('cc@example.com');
