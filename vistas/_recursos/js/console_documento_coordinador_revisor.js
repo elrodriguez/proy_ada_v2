@@ -29,7 +29,7 @@ function listar_documento_vista_revisor(valor,pagina){
 				cadena += "<th style = 'text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ANEXO2</th>";
 				cadena += "<th colspan='3' style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>CARGAR A6</th>";
 				cadena += "<th colspan='3' style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>VERSIONES REVISORES</th>";
-				cadena += "<th colspan='3' style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>FECHA SUBIDA</th>";
+				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>FECHA SUBIDA</th>";
 				cadena += "<th colspan='3' style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>SUSTENTO DEL TESISTA</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 120px;'></th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 120px;'>Por Pagar</th>";
@@ -49,7 +49,9 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += "<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>"+valores[i]['dias_restantes']+" d&iacute;as</td>";
 					cadena += "<td  style = 'width: 80px;word-wrap: break-word;color:#9B0000;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"*asesor' class='btn btn-info' title='Vista previa de los Datos del asesor' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerAsesor(this)'><span class='fa fa-eye' style='color: #000000'></span></button></td>";
 					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='agregar_revisor' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' title='ASIGNAR REVISOR' onclick='AbrirModalRevisorAgregar("`+valores[i][0]+`")'><i class='glyphicon glyphicon-user' style='color:#000000;'></i></button></td>`;
-					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"' class='btn btn-info' title='Vista previa de los Datos del remitente' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerRemitente(this)'><span class='fa fa-eye' style='color: #000000'></span>";
+					// cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"' class='btn btn-info' title='Vista previa de los Datos del remitente' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerRemitente(this)'><span class='fa fa-eye' style='color: #000000'></span>";
+					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'>`+valores[i]['ciudadanos_nombres']+`</td>`;
+
 					cadena += "&nbsp;</button> </td>";
 					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'>";
 
@@ -89,7 +91,7 @@ function listar_documento_vista_revisor(valor,pagina){
 					}if(valores[i]['anexo_seis_tres_r3']!=0){
 						v3 = v3+1;
 					}
-					
+
 					cadena += "<td>V1=>"+v1+"/3</td>";
 					cadena += "<td>V2=>"+v2+"/3</td>";
 					cadena += "<td>V3=>"+v3+"/3</td>";
@@ -101,7 +103,7 @@ function listar_documento_vista_revisor(valor,pagina){
 						btn_ver_uno += `<button type='button' class='btn btn-link' onclick='modalveranexos("A1","`+valores[i][0]+`","`+valores[i]['anexo_uno_etapa_tres']+`")' >A1</button>`;
 					}
 					if(valores[i]['proyecto_etapa_tres']==0){
-						
+
 					}else{
 						btn_ver_pro += `<button type='button' class='btn btn-link' onclick='modalveranexos("Proyecto","`+valores[i][0]+`","`+valores[i]['proyecto_etapa_tres']+`")' >Proyecto</button>`;
 					}

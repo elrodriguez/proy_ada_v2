@@ -2,9 +2,9 @@
 
 class Conect_MySql {
 
-    var $obj = array("dbname" => "bd_tramite",
+    var $obj = array("dbname" => "db_ada",
         "dbuser" => "root",
-        "dbpwd" => "",
+        "dbpwd" => "hiworld2018",
         "dbhost" => "localhost");
     var $q_id = "";
     var $ExeBit = "";

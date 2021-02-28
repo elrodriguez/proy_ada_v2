@@ -45,7 +45,7 @@ function listar_documento_vista_revisor(valor,pagina){
 						<input class="input-calendar" type="date" id="date-`+valores[i][0]+`" onchange="registrarfechas(event,'2','`+valores[i][0]+`')" value="`+valores[i]['fecha_entrega']+`">
 					</td>`;
 					cadena += "<td  style = 'width: 80px;word-wrap: break-word;color:#9B0000;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"*asesor' class='btn btn-info' title='Vista previa de los Datos del asesor' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerAsesor(this)'><span class='fa fa-eye' style='color: #000000'></span></button></td>";
-					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"' class='btn btn-info' title='Vista previa de los Datos del remitente' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerRemitente(this)'><span class='fa fa-eye' style='color: #000000'></span>";
+					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'>`+valores[i]['ciudadanos_nombres']+`</td>`;
 					cadena += "&nbsp;</button> </td>";
 					cadena += `<td><button type='button' class='btn btn-link' onclick='modalveranexos("A1","`+valores[i][0]+`","`+valores[i]['etica_anexo_uno']+`")' >A1</button><button type='button' class='btn btn-link' onclick='modalveranexos("A4","`+valores[i][0]+`","`+valores[i]['etica_anexo_cuatro']+`")' >A4</button></td>`;
 					cadena += `<td><button type='button' class='btn btn-link' onclick='generar_resolucion_word("`+valores[i][0]+`")' ><i class="glyphicon glyphicon-download-alt"></i></button></td>`;
@@ -699,7 +699,7 @@ function enviarcorreopordocumentorevisor(){
 	var correo = $('#correo-modal').val();
 	$.get( "../controlador/documento/controlador_enviar_correo_tisista_resolucion.php?doc="+doc+'&correo='+correo, function( data ) {
 		listar_documento_vista_revisor("","1");
-		alert("El foreo se envio satisfactoriamente");
+		alert("El Correo se envio satisfactoriamente");
 	});
 }
 function AbrirModalSubirArchivoAnexos(control){

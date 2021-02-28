@@ -36,7 +36,8 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"' class='btn btn-info' title='Vista previa del asunto' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalAsuntoDocumento(this)'><span class='fa fa-eye' style='color: #000000'></span>";
 					cadena += "&nbsp;</button> </td>";
 					cadena += "<td  style = 'width: 30px;word-wrap: break-word;color:#9B0000;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"*asesor' class='btn btn-info' title='Vista previa de los Datos del asesor' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerAsesor(this)'><span class='fa fa-eye' style='color: #000000'></span></button></td>";
-					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"' class='btn btn-info' title='Vista previa de los Datos del Tesista' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerRemitente(this)'><span class='fa fa-eye' style='color: #000000'></span>";
+					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'>`+valores[i]['ciudadanos_nombres']+`</td>`;
+				
 					if (valores[i]['anexo_siete']==0) {
 						cadena += `<td><button class='btn-noexist'></button></td>`;
 					} else {

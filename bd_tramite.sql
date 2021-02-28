@@ -25,7 +25,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_BUSCARADMINISTRADOR` (IN `codigo` INT)  BEGIN
+CREATE  PROCEDURE `PA_BUSCARADMINISTRADOR` (IN `codigo` INT)  BEGIN
 SELECT
 personal.pers_nombres,
 personal.pers_apellidoPate,
@@ -46,11 +46,11 @@ INNER JOIN personal ON personal.usuario_cod = usuario.cod_usuario
 where personal.personal_cod = codigo;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` INT, `_fecha_inicio` DATE, `_fecha_fin` DATE)  BEGIN
+CREATE  PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` INT, `_fecha_inicio` DATE, `_fecha_fin` DATE)  BEGIN
 	if _flag = 1 then
 		begin
 			DROP TEMPORARY TABLE IF EXISTS tmp_docentes;
-			
+
 			CREATE TEMPORARY TABLE tmp_docentes(
 				contador INT(11) PRIMARY KEY AUTO_INCREMENT,
 				modalidad varchar(15),
@@ -66,7 +66,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` 
 				tip char(1),
 				pagado char(1)
 			);
-			
+
 			#insert revisor
 			insert into tmp_docentes(
 				modalidad,
@@ -81,7 +81,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` 
 				mdp,
 				tip,
 				pagado
-			)  SELECT 
+			)  SELECT
 				programa_academico.modalidad,
 				programa_academico.descripcion,
 				CONCAT(asesor.nombre,' ',asesor.apellido_pater,' ',asesor.apellido_mater) AS nombre_completo,
@@ -94,15 +94,15 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` 
 				documento_revisor.modalidad AS mdp,
 				documento_revisor.tipo AS tip,
 				documento_revisor.pagado
-			FROM asesor 
-			INNER JOIN documento_revisor ON asesor.asesor_cod=documento_revisor.asesor_cod 
-			INNER JOIN documento ON documento_revisor.documento_cod=documento.documento_cod 
-			INNER JOIN programa_academico ON documento.grado=programa_academico.id 
+			FROM asesor
+			INNER JOIN documento_revisor ON asesor.asesor_cod=documento_revisor.asesor_cod
+			INNER JOIN documento ON documento_revisor.documento_cod=documento.documento_cod
+			INNER JOIN programa_academico ON documento.grado=programa_academico.id
 			where documento_revisor.por_pagar_fecha >=_fecha_inicio and documento_revisor.por_pagar_fecha<=_fecha_fin
 			AND por_pagar='SI'
-			GROUP BY documento_revisor.pagado,asesor.asesor_cod,asesor.categoria,documento_revisor.tipo,documento_revisor.modalidad 
+			GROUP BY documento_revisor.pagado,asesor.asesor_cod,asesor.categoria,documento_revisor.tipo,documento_revisor.modalidad
 			ORDER BY asesor.asesor_cod DESC;
-			
+
 			#insert asesor
 			INSERT INTO tmp_docentes(
 				modalidad,
@@ -117,7 +117,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` 
 				mdp,
 				tip,
 				pagado
-			)SELECT 
+			)SELECT
 				programa_academico.modalidad,
 				programa_academico.descripcion,
 				CONCAT(asesor.nombre,' ',asesor.apellido_pater,' ',asesor.apellido_mater) AS nombre_completo,
@@ -129,16 +129,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` 
 				SUM(1) AS total_tesis,
 				documento_asesor.modalidad AS mdp,
 				documento_asesor.tipo AS tip,
-				documento_asesor.pagado 
-			FROM asesor 
-			INNER JOIN documento_asesor ON asesor.asesor_cod=documento_asesor.asesor_cod 
-			INNER JOIN documento ON documento_asesor.documento_cod=documento.documento_cod 
-			INNER JOIN programa_academico ON documento.grado=programa_academico.id 
+				documento_asesor.pagado
+			FROM asesor
+			INNER JOIN documento_asesor ON asesor.asesor_cod=documento_asesor.asesor_cod
+			INNER JOIN documento ON documento_asesor.documento_cod=documento.documento_cod
+			INNER JOIN programa_academico ON documento.grado=programa_academico.id
 			where documento_asesor.por_pagar_fecha >=_fecha_inicio AND documento_asesor.por_pagar_fecha<=_fecha_fin
-			AND por_pagar='SI' 
-			GROUP BY documento_asesor.pagado,asesor.asesor_cod,asesor.categoria,documento_asesor.tipo,documento_asesor.modalidad 
+			AND por_pagar='SI'
+			GROUP BY documento_asesor.pagado,asesor.asesor_cod,asesor.categoria,documento_asesor.tipo,documento_asesor.modalidad
 			ORDER BY asesor.asesor_cod DESC;
-			
+
 			#insert jurado
 			INSERT INTO tmp_docentes(
 				modalidad,
@@ -153,7 +153,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` 
 				mdp,
 				tip,
 				pagado
-			)SELECT 
+			)SELECT
 				programa_academico.modalidad,
 				programa_academico.descripcion,
 				CONCAT(asesor.nombre,' ',asesor.apellido_pater,' ',asesor.apellido_mater) AS nombre_completo,
@@ -166,21 +166,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CALCULARPAGOSDOCENTES` (`_flag` 
 				documento_jurado.modalidad AS mdp,
 				documento_jurado.tipo AS tip,
 				documento_jurado.pagado
-			FROM asesor 
-			INNER JOIN documento_jurado ON asesor.asesor_cod=documento_jurado.asesor_cod 
-			INNER JOIN documento ON documento_jurado.documento_cod=documento.documento_cod 
-			INNER JOIN programa_academico ON documento.grado=programa_academico.id 
+			FROM asesor
+			INNER JOIN documento_jurado ON asesor.asesor_cod=documento_jurado.asesor_cod
+			INNER JOIN documento ON documento_jurado.documento_cod=documento.documento_cod
+			INNER JOIN programa_academico ON documento.grado=programa_academico.id
 			where documento_jurado.por_pagar_fecha >=_fecha_inicio AND documento_jurado.por_pagar_fecha<=_fecha_fin
-			AND por_pagar='SI' 
-			GROUP BY documento_jurado.pagado,asesor.asesor_cod,asesor.categoria,documento_jurado.tipo,documento_jurado.modalidad 
+			AND por_pagar='SI'
+			GROUP BY documento_jurado.pagado,asesor.asesor_cod,asesor.categoria,documento_jurado.tipo,documento_jurado.modalidad
 			ORDER BY asesor.asesor_cod DESC;
-			
+
 			select * from tmp_docentes order by docente_nombre;
 		end;
 	end if;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CAMBIARCAMPODOCUMENTO` (`_flag` INT, `_documento` VARCHAR(80), `_valor` VARCHAR(500))  BEGIN
+CREATE  PROCEDURE `PA_CAMBIARCAMPODOCUMENTO` (`_flag` INT, `_documento` VARCHAR(80), `_valor` VARCHAR(500))  BEGIN
 	if _flag = 1 then
 		UPDATE documento SET
 			anexo_catorce = _valor
@@ -193,7 +193,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CAMBIARCAMPODOCUMENTO` (`_flag` 
 	END IF;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CORREOSUSTENTACIONDOCUMENTO` (`_iddocumento` VARCHAR(80), `_correo` VARCHAR(500), `_zoom` VARCHAR(500), `_lugar` VARCHAR(200), `_hora` VARCHAR(200))  BEGIN
+CREATE  PROCEDURE `PA_CORREOSUSTENTACIONDOCUMENTO` (`_iddocumento` VARCHAR(80), `_correo` VARCHAR(500), `_zoom` VARCHAR(500), `_lugar` VARCHAR(200), `_hora` VARCHAR(200))  BEGIN
 	UPDATE documento SET
 		zoom = _zoom,
 		lugar = _lugar,
@@ -203,14 +203,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_CORREOSUSTENTACIONDOCUMENTO` (`_
 	WHERE  documento_cod =  _iddocumento ;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARAREA` (IN `CODIGO` INT, IN `AREA` VARCHAR(80), IN `ESTADO` VARCHAR(30))  BEGIN
+CREATE  PROCEDURE `PA_EDITARAREA` (IN `CODIGO` INT, IN `AREA` VARCHAR(80), IN `ESTADO` VARCHAR(30))  BEGIN
 UPDATE area SET
 area_nombre = AREA,
 area_estado = ESTADO
 WHERE area_cod = CODIGO;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARCIUDADANOTODOS` (IN `codigo` INT, IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `tipopersona` VARCHAR(20), IN `telefo` VARCHAR(9), IN `movil` VARCHAR(9), IN `direc` VARCHAR(300), IN `fecha` DATE, IN `nrodocume` CHAR(8), IN `email` VARCHAR(100), IN `carrera` VARCHAR(250), `_clave` VARCHAR(80))  BEGIN
+CREATE  PROCEDURE `PA_EDITARCIUDADANOTODOS` (IN `codigo` INT, IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `tipopersona` VARCHAR(20), IN `telefo` VARCHAR(9), IN `movil` VARCHAR(9), IN `direc` VARCHAR(300), IN `fecha` DATE, IN `nrodocume` CHAR(8), IN `email` VARCHAR(100), IN `carrera` VARCHAR(250), `_clave` VARCHAR(80))  BEGIN
 UPDATE ciudadano SET
 ciud_nombres = nombre,
 ciud_apellidoPate = apePat,
@@ -227,12 +227,12 @@ ciud_clave=if(_clave = '' or _clave is null,ciud_clave,MD5(_clave))
 WHERE ciudadano_cod = codigo;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARDOCENTE` (`_id` INT, `_nombre` VARCHAR(45), `_apePat` VARCHAR(45), `_apeMat` VARCHAR(40), `_telefo` INT, `_movil` INT, `_direcc` VARCHAR(200), `_fecnac` DATE, `_dni` INT, `_email` VARCHAR(30), `_genero` CHAR(1), `_estado` VARCHAR(15), `_tipos` VARCHAR(500), `_categoria` VARCHAR(200))  BEGIN
+CREATE  PROCEDURE `PA_EDITARDOCENTE` (`_id` INT, `_nombre` VARCHAR(45), `_apePat` VARCHAR(45), `_apeMat` VARCHAR(40), `_telefo` INT, `_movil` INT, `_direcc` VARCHAR(200), `_fecnac` DATE, `_dni` INT, `_email` VARCHAR(30), `_genero` CHAR(1), `_estado` VARCHAR(15), `_tipos` VARCHAR(500), `_categoria` VARCHAR(200))  BEGIN
 	DECLARE total INT;
 	DECLARE counter INT DEFAULT 1;
-	
+
 	delete from asesor_tipo_detalle where id_asesor = _id;
-	
+
 	UPDATE asesor SET
 		nombre = _nombre,
 		apellido_pater = _apePat,
@@ -248,18 +248,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARDOCENTE` (`_id` INT, `_nom
 		direccion = _direcc,
 		categoria = _categoria
 	WHERE asesor_cod = _id;
-		
-	
+
+
 	SET total = (SELECT LENGTH(_tipos) - LENGTH( REPLACE (_tipos, "*", "") )+1);
-	
+
 	WHILE counter <= total DO
 		INSERT INTO asesor_tipo_detalle (id_asesor,id_tipo) VALUES (_id,f_explode(_tipos,'*',counter));
 		SET counter = counter + 1;
 	END WHILE;
-	
+
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARINSTITUCION` (IN `codigo` INT, IN `institucion` VARCHAR(150), IN `tipo` VARCHAR(50), IN `estado` VARCHAR(20))  BEGIN
+CREATE  PROCEDURE `PA_EDITARINSTITUCION` (IN `codigo` INT, IN `institucion` VARCHAR(150), IN `tipo` VARCHAR(50), IN `estado` VARCHAR(20))  BEGIN
 UPDATE institucion SET
 inst_nombre = institucion,
 inst_tipoinstitucion=tipo,
@@ -267,7 +267,7 @@ inst_estado=estado
 WHERE institucion_cod = codigo;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARPERSONAL` (IN `codigo` CHAR(10), IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `email` VARCHAR(100), IN `telefo` CHAR(13), IN `movil` CHAR(13), IN `direc` VARCHAR(200), IN `fecha` VARCHAR(20), IN `dni` VARCHAR(13))  BEGIN
+CREATE  PROCEDURE `PA_EDITARPERSONAL` (IN `codigo` CHAR(10), IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `email` VARCHAR(100), IN `telefo` CHAR(13), IN `movil` CHAR(13), IN `direc` VARCHAR(200), IN `fecha` VARCHAR(20), IN `dni` VARCHAR(13))  BEGIN
 UPDATE personal SET
 pers_nombres = nombre,
 pers_apellidoPate = apePat,
@@ -281,7 +281,7 @@ pers_dni = dni
 WHERE personal_cod = codigo;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARPERSONALTODOS` (IN `codigo` INT, IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `telefo` VARCHAR(9), IN `movil` VARCHAR(9), IN `direc` VARCHAR(300), IN `fecha` DATE, IN `nrodocume` CHAR(8), IN `email` VARCHAR(100), IN `estado` VARCHAR(20))  BEGIN
+CREATE  PROCEDURE `PA_EDITARPERSONALTODOS` (IN `codigo` INT, IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `telefo` VARCHAR(9), IN `movil` VARCHAR(9), IN `direc` VARCHAR(300), IN `fecha` DATE, IN `nrodocume` CHAR(8), IN `email` VARCHAR(100), IN `estado` VARCHAR(20))  BEGIN
 UPDATE personal SET
 pers_nombres = nombre,
 pers_apellidoPate = apePat,
@@ -292,27 +292,27 @@ pers_movil = movil,
 pers_direccion = direc,
 pers_fechaNacimiento = fecha,
 pers_dni = nrodocume,
-pers_estado = estado 
+pers_estado = estado
 WHERE personal_cod = codigo;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARTIPODOCUMENTO` (IN `CODIGO` INT, IN `NOMBRE` VARCHAR(250), IN `ESTADO` VARCHAR(20))  BEGIN
-UPDATE tipo_documento 
+CREATE  PROCEDURE `PA_EDITARTIPODOCUMENTO` (IN `CODIGO` INT, IN `NOMBRE` VARCHAR(250), IN `ESTADO` VARCHAR(20))  BEGIN
+UPDATE tipo_documento
 SET
 tipodo_descripcion = NOMBRE,
 tipodo_estado = ESTADO
 WHERE tipodocumento_cod = CODIGO;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITARUSUARIO` (IN `usuario` VARCHAR(30), IN `actual` VARCHAR(30), IN `nueva` VARCHAR(30))  BEGIN
+CREATE  PROCEDURE `PA_EDITARUSUARIO` (IN `usuario` VARCHAR(30), IN `actual` VARCHAR(30), IN `nueva` VARCHAR(30))  BEGIN
 UPDATE usuario u
 SET
 u.usu_clave = nueva
 WHERE u.usu_nombre = usuario AND u.usu_clave = actual;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITAR_PASO_DOCUMENTO` (`_paso` VARCHAR(200), `_estado` VARCHAR(20), `_codigo` VARCHAR(80))  BEGIN
-	UPDATE documento SET 
+CREATE  PROCEDURE `PA_EDITAR_PASO_DOCUMENTO` (`_paso` VARCHAR(200), `_estado` VARCHAR(20), `_codigo` VARCHAR(80))  BEGIN
+	UPDATE documento SET
 		num_proceso=_paso,
 		doc_estado = _estado,
 		fecha_revisor_correo=now(),
@@ -320,7 +320,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_EDITAR_PASO_DOCUMENTO` (`_paso` 
 	WHERE documento_cod = _codigo;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_LISTAR_REVISORES_DOCUMENTO` (`_codigo` VARCHAR(80))  BEGIN
+CREATE  PROCEDURE `PA_LISTAR_REVISORES_DOCUMENTO` (`_codigo` VARCHAR(80))  BEGIN
 	select
 		t2.dni,
 		concat(t2.nombre,' ',t2.apellido_pater,' ',t2.apellido_mater) as full_name
@@ -329,7 +329,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_LISTAR_REVISORES_DOCUMENTO` (`_c
 	where documento_cod=_codigo;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_MODIFICARFECHASDOCUMENTO` (`_flag` INT, `_documento` VARCHAR(80), `_fecha` DATE)  BEGIN
+CREATE  PROCEDURE `PA_MODIFICARFECHASDOCUMENTO` (`_flag` INT, `_documento` VARCHAR(80), `_fecha` DATE)  BEGIN
 	if _flag = 1 then
 		UPDATE documento SET
 			fecha_aprobada = _fecha
@@ -347,35 +347,35 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_MODIFICARFECHASDOCUMENTO` (`_fla
 	END IF;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_obtenerporcentajeturniting` (`_codigo` VARCHAR(80))  BEGIN
-	SELECT 
+CREATE  PROCEDURE `PA_obtenerporcentajeturniting` (`_codigo` VARCHAR(80))  BEGIN
+	SELECT
 		documento.*,
 		ciudadano.ciud_carrera,
 		CONCAT(ciud_nombres,' ',ciud_apellidoPate,' ',ciud_apellidoMate) AS ciudadano_full_name,
 		concat(nombre,' ',apellido_pater,' ',apellido_mater) asesor_full_name
 	FROM documento
-	INNER JOIN detalle_ciudadano ON detalle_ciudadano.documento_cod=documento.documento_cod 
-	INNER JOIN ciudadano ON detalle_ciudadano.ciudadano_cod=ciudadano.ciudadano_cod 
+	INNER JOIN detalle_ciudadano ON detalle_ciudadano.documento_cod=documento.documento_cod
+	INNER JOIN ciudadano ON detalle_ciudadano.ciudadano_cod=ciudadano.ciudadano_cod
 	WHERE documento.documento_cod = _codigo;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARAREA` (IN `NOMBRE` VARCHAR(50))  BEGIN
+CREATE  PROCEDURE `PA_REGISTRARAREA` (IN `NOMBRE` VARCHAR(50))  BEGIN
 INSERT INTO area (area_nombre,area_estado) VALUES(NOMBRE,'ACTIVO');
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARCIUDADANO` (IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `tipope` VARCHAR(50), IN `telefo` CHAR(9), IN `movil` CHAR(9), IN `direcc` VARCHAR(250), IN `fecnac` DATE, IN `dni` CHAR(8), IN `email` VARCHAR(30), IN `genero` CHAR(1), IN `carrera` VARCHAR(250))  BEGIN
+CREATE  PROCEDURE `PA_REGISTRARCIUDADANO` (IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `tipope` VARCHAR(50), IN `telefo` CHAR(9), IN `movil` CHAR(9), IN `direcc` VARCHAR(250), IN `fecnac` DATE, IN `dni` CHAR(8), IN `email` VARCHAR(30), IN `genero` CHAR(1), IN `carrera` VARCHAR(250))  BEGIN
 INSERT INTO ciudadano(ciud_nombres,ciud_apellidoPate,ciud_apellidoMate,ciud_dni,ciud_sexo,ciud_fechaNacimiento,ciud_direccion,ciud_telefono,ciud_movil,ciud_email,ciud_estado,ciud_tipo,ciud_carrera,ciud_clave) VALUES
 (nombre,apePat,apeMat,dni,genero,fecnac,direcc,telefo,movil,email,'ACTIVO',tipope,carrera,md5(dni));
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARDOCENTE` (`_nombre` VARCHAR(45), `_apePat` VARCHAR(45), `_apeMat` VARCHAR(40), `_telefo` INT, `_movil` INT, `_direcc` VARCHAR(200), `_fecnac` DATE, `_dni` INT, `_email` VARCHAR(30), `_genero` CHAR(1), `_estado` VARCHAR(15), `_tipos` VARCHAR(500), `_categoria` VARCHAR(200))  BEGIN
+CREATE  PROCEDURE `PA_REGISTRARDOCENTE` (`_nombre` VARCHAR(45), `_apePat` VARCHAR(45), `_apeMat` VARCHAR(40), `_telefo` INT, `_movil` INT, `_direcc` VARCHAR(200), `_fecnac` DATE, `_dni` INT, `_email` VARCHAR(30), `_genero` CHAR(1), `_estado` VARCHAR(15), `_tipos` VARCHAR(500), `_categoria` VARCHAR(200))  BEGIN
 	DECLARE id_asesor INT;
 	declare new_asesor int;
 	DECLARE total INT;
 	DECLARE counter INT DEFAULT 1;
-	
+
 	select max(asesor_cod)+1 INTO id_asesor from asesor;
-	
+
 	INSERT INTO asesor (
 		asesor_cod,
 		nombre,
@@ -407,17 +407,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARDOCENTE` (`_nombre` VAR
 		_direcc,
 		_categoria
 	) ;
-	
+
 	#set new_asesor = (SELECT LAST_INSERT_ID());
 	SET total = (SELECT LENGTH(_tipos) - LENGTH( REPLACE (_tipos, "*", "") )+1);
-	
+
 	WHILE counter <= total DO
 		INSERT INTO asesor_tipo_detalle (id_asesor,id_tipo) VALUES (id_asesor,f_explode(_tipos,'*',counter));
 		SET counter = counter + 1;
 	END WHILE;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARDOCUMENTO` (IN `iddocumento` VARCHAR(80), IN `asunto` VARCHAR(150), IN `idnumero` VARCHAR(10), IN `idtipodocu` INT, IN `idasesor` INT, IN `idarea` INT, IN `idremitente` INT, IN `idusuario` INT, IN `opcion` VARCHAR(10))  BEGIN
+CREATE  PROCEDURE `PA_REGISTRARDOCUMENTO` (IN `iddocumento` VARCHAR(80), IN `asunto` VARCHAR(150), IN `idnumero` VARCHAR(10), IN `idtipodocu` INT, IN `idasesor` INT, IN `idarea` INT, IN `idremitente` INT, IN `idusuario` INT, IN `opcion` VARCHAR(10))  BEGIN
 INSERT INTO documento (documento_cod,doc_asunto,doc_ticket,tipoDocumento_cod,asesor_cod,area_cod,usu_cod,doc_estado,num_proceso,doc_tipo) VALUES
 (iddocumento,asunto,idnumero,idtipodocu,idasesor,idarea,idusuario,'PENDIENTE','1',opcion);
 IF opcion = 'C' THEN
@@ -428,7 +428,7 @@ INSERT INTO detalle_institucion(institucion_cod,documento_cod) VALUES (idremiten
 END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARDOCUMENTOARCHIVO` (IN `iddocumento` VARCHAR(80), IN `asunto` VARCHAR(150), IN `idnumero` VARCHAR(10), IN `idtipodocu` INT, IN `idasesor` VARCHAR(80), IN `idarea` INT, IN `idremitente` TEXT, IN `idusuario` INT, IN `opcion` VARCHAR(10), IN `archivo` VARCHAR(350), IN `cont` INT, `_modalidad` VARCHAR(20))  BEGIN
+CREATE  PROCEDURE `PA_REGISTRARDOCUMENTOARCHIVO` (IN `iddocumento` VARCHAR(80), IN `asunto` VARCHAR(150), IN `idnumero` VARCHAR(10), IN `idtipodocu` INT, IN `idasesor` VARCHAR(80), IN `idarea` INT, IN `idremitente` TEXT, IN `idusuario` INT, IN `opcion` VARCHAR(10), IN `archivo` VARCHAR(350), IN `cont` INT, `_modalidad` VARCHAR(20))  BEGIN
 declare _documento_cod varchar(80) default f_crearcodigodocumento(_modalidad);
 IF cont = 0 THEN
 	INSERT INTO documento (
@@ -460,7 +460,7 @@ IF cont = 0 THEN
 	);
 END IF;
 IF cont = 1 THEN
-	
+
 	INSERT INTO documento (
 		documento_cod,
 		doc_asunto,
@@ -496,21 +496,21 @@ IF opcion = 'C' THEN
 		DECLARE total_asesor INT;
 		DECLARE counter_asesor INT DEFAULT 1;
 		declare itemasesor varchar(500);
-		
+
 		set total = (select LENGTH(idremitente) - LENGTH( REPLACE (idremitente, "*", "") )+1);
 		SET total_asesor = (SELECT LENGTH(idasesor) - LENGTH( REPLACE (idasesor, "*", "") )+1);
-		
+
 		WHILE counter <= total DO
 			INSERT INTO detalle_ciudadano (ciudadano_cod,documento_cod) VALUES (f_explode(idremitente,'*',counter),_documento_cod);
 			SET counter = counter + 1;
 		END WHILE;
-		
+
 		WHILE counter_asesor<= total_asesor DO
 			set itemasesor = (select f_explode(idasesor,'*',counter_asesor));
 			INSERT INTO documento_asesor (documento_cod,asesor_cod,fecha_registro,tipo,modalidad) VALUES (_documento_cod,f_explode(itemasesor,'|',1),now(),f_explode(itemasesor,'|',2),f_explode(itemasesor,'|',3));
 			SET counter_asesor = counter_asesor + 1;
 		END WHILE;
-		
+
 		select _documento_cod as 'iddocumento';
 	end;
 END IF;
@@ -519,18 +519,18 @@ IF opcion = 'I' THEN
 END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARINSTITUCION` (IN `institucion` VARCHAR(150), IN `tipo` VARCHAR(50))  BEGIN
+CREATE  PROCEDURE `PA_REGISTRARINSTITUCION` (IN `institucion` VARCHAR(150), IN `tipo` VARCHAR(50))  BEGIN
 INSERT INTO institucion(inst_nombre,inst_tipoinstitucion,inst_estado) VALUES(institucion,tipo,'ACTIVO');
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARJURADODOCUMENTO` (`_iddocumento` VARCHAR(80), `_revisor` INT, `_tipo` CHAR(1), `_modalidad` CHAR(1))  BEGIN
-    
+CREATE  PROCEDURE `PA_REGISTRARJURADODOCUMENTO` (`_iddocumento` VARCHAR(80), `_revisor` INT, `_tipo` CHAR(1), `_modalidad` CHAR(1))  BEGIN
+
 	declare fec int;
-	
+
 	set fec = (select fecha_registro_jurado from documento where documento_cod = _iddocumento);
-	INSERT INTO documento_jurado (documento_cod,asesor_cod,fecha_registro,tipo,modalidad) 
+	INSERT INTO documento_jurado (documento_cod,asesor_cod,fecha_registro,tipo,modalidad)
 	VALUES (_iddocumento,_revisor,now(),_tipo,_modalidad);
-	
+
 	if fec IS NULL then
 		UPDATE documento SET
 			fecha_registro_jurado = NOW(),
@@ -539,17 +539,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARJURADODOCUMENTO` (`_idd
 	end if;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARPERSONAL` (IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `telefo` CHAR(9), IN `movil` CHAR(9), IN `direcc` VARCHAR(250), IN `fecnac` DATE, IN `dni` CHAR(8), IN `email` VARCHAR(30), IN `genero` CHAR(1), IN `usuario` VARCHAR(50), IN `clave` VARCHAR(50), IN `tipousario` INT, IN `puesto` VARCHAR(30))  BEGIN
+CREATE  PROCEDURE `PA_REGISTRARPERSONAL` (IN `nombre` VARCHAR(100), IN `apePat` VARCHAR(50), IN `apeMat` VARCHAR(50), IN `telefo` CHAR(9), IN `movil` CHAR(9), IN `direcc` VARCHAR(250), IN `fecnac` DATE, IN `dni` CHAR(8), IN `email` VARCHAR(30), IN `genero` CHAR(1), IN `usuario` VARCHAR(50), IN `clave` VARCHAR(50), IN `tipousario` INT, IN `puesto` VARCHAR(30))  BEGIN
 INSERT INTO usuario (usu_nombre,usu_clave,usu_estado,cod_tipousuario,usu_foto) VALUES(usuario,clave,'ACTIVO',tipousario,'Fotos/admin.png');
 INSERT INTO personal(pers_nombres,pers_apellidoPate,pers_apellidoMate,pers_dni,pers_sexo,pers_fechaNacimiento,pers_direccion,pers_telefono,pers_movil,pers_email,pers_estado,usuario_cod,pers_puesto) VALUES
 (nombre,apePat,apeMat,dni,genero,fecnac,direcc,telefo,movil,email,'ACTIVO',(SELECT MAX(cod_usuario) from usuario),puesto);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_REGISTRARTIPODOCUMENTO` (IN `NOMBRE` VARCHAR(250))  BEGIN
+CREATE  PROCEDURE `PA_REGISTRARTIPODOCUMENTO` (IN `NOMBRE` VARCHAR(250))  BEGIN
 INSERT INTO tipo_documento (tipodo_descripcion,tipodo_estado) VALUES (NOMBRE,"ACTIVO");
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOANEXOS` (`_flag` INT, `_documento` VARCHAR(80), `_p_ruta_anexo` VARCHAR(500), `_s_ruta_anexo` VARCHAR(500), `_t_ruta_anexo` VARCHAR(500), `_c_ruta_anexo` VARCHAR(500))  BEGIN
+CREATE  PROCEDURE `PA_SUBIRARCHIVOANEXOS` (`_flag` INT, `_documento` VARCHAR(80), `_p_ruta_anexo` VARCHAR(500), `_s_ruta_anexo` VARCHAR(500), `_t_ruta_anexo` VARCHAR(500), `_c_ruta_anexo` VARCHAR(500))  BEGIN
 	IF _flag = 1 THEN
 		UPDATE documento SET
 			doc_documento = _p_ruta_anexo
@@ -706,14 +706,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOANEXOS` (`_flag` INT
 	END IF;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_SUBIRARCHIVOTURNITING` (`_documento` VARCHAR(80), `_porcentaje` INT, `_ruta_archivo` VARCHAR(500))  BEGIN
+CREATE  PROCEDURE `PA_SUBIRARCHIVOTURNITING` (`_documento` VARCHAR(80), `_porcentaje` INT, `_ruta_archivo` VARCHAR(500))  BEGIN
 	update documento SET
 		porcentaje = _porcentaje,
 		archivo_turniting = _ruta_archivo
 	where  documento_cod =  _documento ;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `PA_VERIFICARUSUARIO` (IN `_usu` VARCHAR(30), IN `_pass` VARCHAR(30))  SELECT
+CREATE  PROCEDURE `PA_VERIFICARUSUARIO` (IN `_usu` VARCHAR(30), IN `_pass` VARCHAR(30))  SELECT
 usuario.usu_nombre,
 usuario.usu_clave,
 CONCAT_WS(' ',personal.pers_nombres,personal.pers_apellidoPate,personal.pers_apellidoMate),
@@ -728,8 +728,8 @@ INNER JOIN usuario ON personal.usuario_cod = usuario.cod_usuario
 INNER JOIN tipo_usuario ON usuario.cod_tipousuario = tipo_usuario.cod_tipousuario
 WHERE usuario.usu_nombre = _usu AND usuario.usu_clave = _pass$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LOGINCIUDADANO` (`_email` VARCHAR(80), `_password` VARCHAR(50))  BEGIN
-	select 
+CREATE  PROCEDURE `SP_LOGINCIUDADANO` (`_email` VARCHAR(80), `_password` VARCHAR(50))  BEGIN
+	select
 		ciudadano_cod,
 		ciud_nombres,
 		ciud_apellidoPate,
@@ -740,21 +740,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LOGINCIUDADANO` (`_email` VARCHA
 	where ciud_email = _email and ciud_clave = md5(_password);
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICARTIPOPUBLICACIONDOCUMENTO` (`_documento` VARCHAR(80), `_tipo` INT, `_nombre` TEXT)  BEGIN
-	UPDATE documento 
+CREATE  PROCEDURE `SP_MODIFICARTIPOPUBLICACIONDOCUMENTO` (`_documento` VARCHAR(80), `_tipo` INT, `_nombre` TEXT)  BEGIN
+	UPDATE documento
 	SET
 	  tipo_publicacion = _tipo,
 	  nombre_revista = _nombre
 	WHERE documento_cod = _documento;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_codigo` INT, `_docente` INT, `_categoria` VARCHAR(200), `_tipo` CHAR(1), `_modalidad` CHAR(1))  BEGIN
+CREATE  PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_codigo` INT, `_docente` INT, `_categoria` VARCHAR(200), `_tipo` CHAR(1), `_modalidad` CHAR(1))  BEGIN
 	DECLARE v1 INT DEFAULT 1;
-		
+
 	if _flag = 1 then # revisores
 		if _modalidad='I' AND REPLACE(_categoria, ' ', '') = 'parcial' then
 			WHILE v1 <= 3 DO
-				UPDATE documento_revisor INNER JOIN asesor ON documento_revisor.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_revisor INNER JOIN asesor ON documento_revisor.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_revisor.asesor_cod = _docente and tipo = _tipo and modalidad = _modalidad and asesor.categoria = _categoria;
@@ -762,7 +762,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 			END WHILE;
 		elseIF _modalidad='I' AND REPLACE(_categoria, ' ', '') = 'tiempocompleto' THEN
 			WHILE v1 <= 5 DO
-				UPDATE documento_revisor INNER JOIN asesor ON documento_revisor.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_revisor INNER JOIN asesor ON documento_revisor.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_revisor.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
@@ -770,14 +770,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 			END WHILE;
 		elseIF REPLACE(_categoria, ' ', '') = 'parcial' THEN
 			WHILE v1 <= 3 DO
-				UPDATE documento_revisor INNER JOIN asesor ON documento_revisor.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_revisor INNER JOIN asesor ON documento_revisor.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_revisor.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
 			SET v1 = v1 - 1;
 			END WHILE;
 		else
-			UPDATE documento_asesor INNER JOIN asesor ON documento_revisor.asesor_cod = asesor.asesor_cod 
+			UPDATE documento_asesor INNER JOIN asesor ON documento_revisor.asesor_cod = asesor.asesor_cod
 			SET
 			  pagado = 1
 			WHERE documento_revisor.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
@@ -786,7 +786,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 	IF _flag = 2 THEN  #assesores
 		IF _modalidad='I' AND REPLACE(_categoria, ' ', '') = 'parcial' THEN
 			WHILE v1 <= 3 DO
-				UPDATE documento_asesor INNER JOIN asesor ON documento_asesor.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_asesor INNER JOIN asesor ON documento_asesor.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_asesor.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
@@ -794,7 +794,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 			END WHILE;
 		ELSEIF _modalidad='I' AND REPLACE(_categoria, ' ', '') = 'tiempocompleto' THEN
 			WHILE v1 <= 5 DO
-				UPDATE documento_asesor INNER JOIN asesor ON documento_asesor.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_asesor INNER JOIN asesor ON documento_asesor.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_asesor.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
@@ -802,14 +802,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 			END WHILE;
 		ELSEIF REPLACE(_categoria, ' ', '') = 'parcial' THEN
 			WHILE v1 <= 3 DO
-				UPDATE documento_asesor INNER JOIN asesor ON documento_asesor.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_asesor INNER JOIN asesor ON documento_asesor.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_asesor.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
 			SET v1 = v1 - 1;
 			END WHILE;
 		ELSE
-			UPDATE documento_asesor INNER JOIN asesor ON documento_asesor.asesor_cod = asesor.asesor_cod 
+			UPDATE documento_asesor INNER JOIN asesor ON documento_asesor.asesor_cod = asesor.asesor_cod
 			SET
 			  pagado = 1
 			WHERE documento_asesor.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
@@ -818,7 +818,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 	IF _flag = 3 THEN     #jurados
 		IF _modalidad='I' AND REPLACE(_categoria, ' ', '') = 'parcial' THEN
 			WHILE v1 <= 3 DO
-				UPDATE documento_jurado INNER JOIN asesor ON documento_jurado.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_jurado INNER JOIN asesor ON documento_jurado.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_jurado.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
@@ -826,7 +826,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 			END WHILE;
 		ELSEIF _modalidad='I' AND REPLACE(_categoria, ' ', '') = 'tiempocompleto' THEN
 			WHILE v1 <= 5 DO
-				UPDATE documento_jurado INNER JOIN asesor ON documento_jurado.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_jurado INNER JOIN asesor ON documento_jurado.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_jurado.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
@@ -834,18 +834,18 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 			END WHILE;
 		ELSEIF REPLACE(_categoria, ' ', '') = 'parcial' THEN
 			WHILE v1 <= 3 DO
-				UPDATE documento_jurado INNER JOIN asesor ON documento_jurado.asesor_cod = asesor.asesor_cod 
+				UPDATE documento_jurado INNER JOIN asesor ON documento_jurado.asesor_cod = asesor.asesor_cod
 				SET
 				  pagado = 1
 				WHERE documento_jurado.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
 			SET v1 = v1 - 1;
 			END WHILE;
 		ELSE
-			UPDATE documento_jurado INNER JOIN asesor ON documento_jurado.asesor_cod = asesor.asesor_cod 
+			UPDATE documento_jurado INNER JOIN asesor ON documento_jurado.asesor_cod = asesor.asesor_cod
 			SET
 			  pagado = 1
 			WHERE documento_jurado.asesor_cod = _docente AND tipo = _tipo AND modalidad = _modalidad AND asesor.categoria = _categoria;
-			
+
 		END IF;
 	END IF;
     END$$
@@ -853,8 +853,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGARDOCENTE` (`_flag` INT, `_co
 --
 -- Funciones
 --
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_calularpagos` (`_flag` INT, `_tipo` VARCHAR(2), `_categoria` VARCHAR(200), `_modalidad` VARCHAR(2), `_nivel` VARCHAR(20), `_cantidad` INT) RETURNS DECIMAL(12,2) BEGIN
-    
+CREATE  FUNCTION `f_calularpagos` (`_flag` INT, `_tipo` VARCHAR(2), `_categoria` VARCHAR(200), `_modalidad` VARCHAR(2), `_nivel` VARCHAR(20), `_cantidad` INT) RETURNS DECIMAL(12,2) BEGIN
+
 	declare xpago decimal(12,2);
 	if _flag = 1 then #si es revisor
 		if (replace(_categoria, ' ', '') = 'tiempocompleto' or REPLACE(_categoria, ' ', '') = 'externo') and _modalidad <> 'I'then
@@ -1018,43 +1018,43 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `f_calularpagos` (`_flag` INT, `_tipo
 	return xpago;
     END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_ciudadanosdocumento` (`_documento` VARCHAR(80)) RETURNS TEXT CHARSET utf8 COLLATE utf8_spanish_ci BEGIN
+CREATE  FUNCTION `f_ciudadanosdocumento` (`_documento` VARCHAR(80)) RETURNS TEXT CHARSET utf8 COLLATE utf8_spanish_ci BEGIN
 	declare _ciudadanos text;
-	
-	SELECT 
-		CONCAT('<p>',GROUP_CONCAT(CONCAT('<br>',ciud_nombres,' ',ciud_apellidoPate,' ',ciud_apellidoMate)),'</p>') into _ciudadanos 
+
+	SELECT
+		CONCAT('<p>',GROUP_CONCAT(CONCAT('<br>',ciud_nombres,' ',ciud_apellidoPate,' ',ciud_apellidoMate)),'</p>') into _ciudadanos
 	FROM ciudadano
 	INNER JOIN detalle_ciudadano ON ciudadano.ciudadano_cod=detalle_ciudadano.ciudadano_cod
 	WHERE documento_cod=_documento;
-	
+
 	return _ciudadanos;
     END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_crearcodigodocumento` (`_programa` INT) RETURNS VARCHAR(80) CHARSET utf8 COLLATE utf8_spanish_ci BEGIN
+CREATE  FUNCTION `f_crearcodigodocumento` (`_programa` INT) RETURNS VARCHAR(80) CHARSET utf8 COLLATE utf8_spanish_ci BEGIN
 	DECLARE _correlativo INT;
 	DECLARE _anio CHAR(4);
 	DECLARE _codigo VARCHAR(80);
 	declare _cadena char(3);
 	DECLARE _nuevo_codigo VARCHAR(80);
 	declare _grado varchar(20);
-	
-	
+
+
 	set _grado = (SELECT modalidad FROM programa_academico WHERE id=_programa);
 	set _cadena = LEFT(_grado,3);
-	
+
 	select max(documento_cod) into _codigo from documento where anio = YEAR(NOW());
-	
+
 	if _codigo is null then
 		set _nuevo_codigo = concat(_cadena,'-',_programa,'-',YEAR(NOW()),'-',lpad('1',9,'0'));
 	else
 		set _correlativo = round(right(_codigo,9));
 		SET _nuevo_codigo = CONCAT(_cadena,'-',_programa,'-',YEAR(NOW()),'-',LPAD(_correlativo+1,9,'0'));
 	end if;
-    
+
 	RETURN _nuevo_codigo;
     END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `f_explode` (`str` VARCHAR(255), `delim` VARCHAR(12), `pos` INT) RETURNS VARCHAR(255) CHARSET utf8 COLLATE utf8_spanish_ci BEGIN
+CREATE  FUNCTION `f_explode` (`str` VARCHAR(255), `delim` VARCHAR(12), `pos` INT) RETURNS VARCHAR(255) CHARSET utf8 COLLATE utf8_spanish_ci BEGIN
 	RETURN REPLACE(SUBSTRING(SUBSTRING_INDEX(str, delim, pos),LENGTH(SUBSTRING_INDEX(str, delim, pos-1)) + 1),delim, '');
     END$$
 

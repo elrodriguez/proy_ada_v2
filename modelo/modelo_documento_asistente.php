@@ -104,9 +104,9 @@
 		}
 		function listar_documento($valor, $inicio=FALSE,$limite=FALSE){
 			if ($inicio!==FALSE && $limite!==FALSE) {
-			    $sql = "SELECT documento.documento_cod, documento.doc_asunto,documento.doc_fecha_recepcion,tipo_documento.tipodo_descripcion,area.area_nombre,documento.doc_estado,documento.doc_tipo,area.area_cod,tipo_documento.tipodocumento_cod,IFNULL(documento.doc_documento,''),documento.archivo_turniting,documento.porcentaje,documento.num_proceso,archivo_etapa1_v2,archivo_etapa1_v3,f_ciudadanosdocumento(documento.documento_cod) AS ciudadanos_nombres FROM documento INNER JOIN tipo_documento ON documento.tipoDocumento_cod = tipo_documento.tipodocumento_cod INNER JOIN area ON documento.area_cod = area.area_cod WHERE documento.documento_cod LIKE '".$valor."%' ORDER BY documento.documento_cod DESC LIMIT $inicio,$limite";
+			    $sql = "SELECT documento.documento_cod, documento.doc_asunto,documento.doc_fecha_recepcion,tipo_documento.tipodo_descripcion,area.area_nombre,documento.doc_estado,documento.doc_tipo,area.area_cod,tipo_documento.tipodocumento_cod,IFNULL(documento.doc_documento,''),documento.archivo_turniting,documento.porcentaje,documento.num_proceso,archivo_etapa1_v2,archivo_etapa1_v3,f_ciudadanosdocumento(documento.documento_cod) AS ciudadanos_nombres FROM documento INNER JOIN tipo_documento ON documento.tipoDocumento_cod = tipo_documento.tipodocumento_cod INNER JOIN area ON documento.area_cod = area.area_cod WHERE documento.num_proceso='1' AND documento.documento_cod LIKE '".$valor."%' ORDER BY documento.documento_cod DESC LIMIT $inicio,$limite";
 			}else{
-			    $sql = "SELECT documento.documento_cod, documento.doc_asunto,documento.doc_fecha_recepcion,tipo_documento.tipodo_descripcion,area.area_nombre,documento.doc_estado,documento.doc_tipo,area.area_cod,tipo_documento.tipodocumento_cod,IFNULL(documento.doc_documento,''),documento.archivo_turniting,documento.porcentaje,documento.num_proceso,archivo_etapa1_v2,archivo_etapa1_v3,f_ciudadanosdocumento(documento.documento_cod) AS ciudadanos_nombres FROM documento INNER JOIN tipo_documento ON documento.tipoDocumento_cod = tipo_documento.tipodocumento_cod INNER JOIN area ON documento.area_cod = area.area_cod WHERE documento.documento_cod LIKE '".$valor."%' ORDER BY documento.documento_cod DESC";
+			    $sql = "SELECT documento.documento_cod, documento.doc_asunto,documento.doc_fecha_recepcion,tipo_documento.tipodo_descripcion,area.area_nombre,documento.doc_estado,documento.doc_tipo,area.area_cod,tipo_documento.tipodocumento_cod,IFNULL(documento.doc_documento,''),documento.archivo_turniting,documento.porcentaje,documento.num_proceso,archivo_etapa1_v2,archivo_etapa1_v3,f_ciudadanosdocumento(documento.documento_cod) AS ciudadanos_nombres FROM documento INNER JOIN tipo_documento ON documento.tipoDocumento_cod = tipo_documento.tipodocumento_cod INNER JOIN area ON documento.area_cod = area.area_cod WHERE documento.num_proceso='1' AND documento.documento_cod LIKE '".$valor."%' ORDER BY documento.documento_cod DESC";
 			}
 			//echo $sql;exit;
 			$resultado =  $this->conexion->conexion->query($sql);
@@ -188,7 +188,7 @@
 			}
 			$this->conexion->Cerrar_Conexion();
 		}
-		
+
 		function Rechazado_documento($iddocumento){
 			$sql = "UPDATE documento SET doc_estado = 'RECHAZADO' WHERE documento_cod = '$iddocumento'";
 			if ($resultado = $this->conexion->conexion->query($sql)){
