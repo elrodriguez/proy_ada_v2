@@ -55,7 +55,8 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += "<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>"+valores[i]['dias_restantes']+" d&iacute;as</td>";
 					cadena += "<td  style = 'width: 80px;word-wrap: break-word;color:#9B0000;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"*asesor' class='btn btn-info' title='Vista previa de los Datos del asesor' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerAsesor(this)'><span class='fa fa-eye' style='color: #000000'></span></button></td>";
 					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='agregar_revisor' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' title='ASIGNAR JURADO' onclick='AbrirModalRevisorAgregar("`+valores[i][0]+`")'><i class='glyphicon glyphicon-user' style='color:#000000;'></i></button></td>`;
-					cadena += "<td style = 'text-align: center;width: 20px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"' class='btn btn-info' title='Vista previa de los Datos del remitente' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerRemitente(this)'><span class='fa fa-eye' style='color: #000000'></span>";
+					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'>`+valores[i]['ciudadanos_nombres']+`</td>`;
+
 					cadena += "&nbsp;</button> </td>";
 					cadena +="</td>";
 					let btn_ver='';
@@ -157,15 +158,15 @@ function listar_documento_vista_revisor(valor,pagina){
 				cadena += "</table>";
 				$("#listar_documento_tabla").html(cadena);
 				$("#paginador_documento_tabla").html("");
-				
+
 			}
 		},
 		error: function(XMLHttpRequest, textStatus, errorThrown, jqXHR){
 			alert("SE PRODUJO UN ERROR");
 		}
-		
+
 	});
-	
+
 }
 function generar_resolucion_word_trece(documento){
 	//alert('ddddddd')
