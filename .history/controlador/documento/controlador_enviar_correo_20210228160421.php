@@ -1,5 +1,5 @@
 <?php
-    require '../../modelo/modelo_documento_coordinador.php';
+    require '../../modelo/modelo_documento_asistente.php';
     $documento = $_REQUEST['doc'];
     $correo = $_REQUEST['correo'];
     $MC = new Modelo_documento();
@@ -8,6 +8,12 @@
     $revisores = $MC->obtenerrevisores($documento);
     $jurados = $MC->obtenerjurados($documento);
     $asesores = $MC->obtenerasesores($documento);
+
+    $to = $correo;
+    $subject = '';
+    $headers =  'MIME-Version: 1.0' . "\r\n"; 
+    $headers .= 'From: Your name <info@address.com>' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
 
     $message = '';
     if($consulta[0]['porcentaje'] >=12){
@@ -19,8 +25,8 @@
                     <body>
                         <strong>Estimado(a),</strong>
                         <p>ticket(".$consulta[0]['doc_ticket'].")</p>";
-                        foreach($ciudadanos as $item){
-                            $message .="<p>".$item['nombre_completo']."</p>";
+                        foreach($consulta as $item){
+                            $message .="<p>".$item['ciudadano_full_name']."</p>";
                         }
         $message .="<p>Presente. –</p>
 
@@ -45,8 +51,8 @@
                     <body>
                         <strong>Estimado(a),</strong>
                         <p>ticket(".$consulta[0]['doc_ticket'].")</p>";
-                        foreach($ciudadanos as $item){
-                            $message .="<p>".$item['nombre_completo']."</p>";
+                        foreach($consulta as $item){
+                            $message .="<p>".$item['ciudadano_full_name']."</p>";
                         }
                         $message .="<p>Buen día. Me comunicó con usted para informarle que luego de la evaluación de su proyecto titulado “".$consulta[0]['doc_asunto']."”, a través del sistema Turnitin, el porcentaje encontrado ha excedido el punto de corte que consideramos aceptable (".$consulta[0]['porcentaje'].") por lo que no podemos registrarlo. Le pido que corrija los textos que son observados, los cuales son similares con fuentes externas (mediante el parafraseo, la colocación de comillas o, mejor, resumiendo los párrafos y escribiéndolos de acuerdo con sus propias palabras).</p>
 
@@ -65,49 +71,6 @@
                     </body>
                     </html>";
     }
-
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\SMTP;
-    use PHPMailer\PHPMailer\Exception;
-
-    //Load Composer's autoloader
-    require '../../vendor/autoload.php';
-
-    $mail = new PHPMailer(true);
-
-    try {
-        //Server settings
-        $mail->SMTPDebug = 2;                      //Enable verbose debug output
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = '@gmail.com';                     //SMTP username
-        $mail->Password   = '';                           //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
-        //Recipients
-        $mail->setFrom('@gmail.com', 'Mailer');
-        $mail->addAddress('@gmail.com', 'el ususario');     //Add a recipient
-        // $mail->addAddress('ellen@example.com');               //Name is optional
-        // $mail->addReplyTo('info@example.com', 'Information');
-        // $mail->addCC('cc@example.com');
-        // $mail->addBCC('bcc@example.com');
-
-        //Attachments
-        //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-        //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-
-        //Content
-        $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'Here is the subject';
-        $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-        $mail->send();
-        echo 'Message has been sent';
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
-
+    //echo $message;exit;
+   mail($to, $subject, $message, $headers) ;
 ?>
