@@ -132,8 +132,8 @@
         <input type="hidden" class="form-control" id="iddocumentomodal-1" name="iddocumentomodal-1">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" onclick="enviarcorreopordocumentorevisor()">Save changes</button>
+        <button type="button" class="btn btn-cerrar" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-save_c" onclick="enviarcorreopordocumentorevisor()">Enviar Correo</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

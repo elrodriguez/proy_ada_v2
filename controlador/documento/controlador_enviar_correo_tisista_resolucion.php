@@ -4,16 +4,16 @@
     $correo = $_REQUEST['correo'];
     //echo $correo.' - '.$documento ;exit;
     $MC = new Modelo_documento();
-    $cambia = $MC->cambiar_paso_documento($documento,'6','PENDIENTE');
+    $cambia = $MC->cambiar_paso_documento($documento,'5','PENDIENTE');
     $consulta = $MC->obtenerporcentajeturniting($documento);
     $revisores = $MC->obtener_revisores($documento);
-    
+
     //print_r($cambia);exit;
     $to = $correo;
     $subject = '';
-    $headers =  'MIME-Version: 1.0' . "\r\n"; 
+    $headers =  'MIME-Version: 1.0' . "\r\n";
     $headers .= 'From: Your name <info@address.com>' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
     $message = '';
 
