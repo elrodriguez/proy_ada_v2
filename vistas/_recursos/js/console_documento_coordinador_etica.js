@@ -44,7 +44,7 @@ function listar_documento_vista_etica(valor,pagina){
 					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'>`+valores[i]['ciudadanos_nombres']+`</td>`;
 					cadena += "&nbsp;</button> </td>";
 
-					cadena += `<td><button type='button' class='btn btn-link' onclick='modalveranexos("A1","`+valores[i][0]+`","`+valores[i]['anexo_uno']+`")' >A1</button><button type='button' class='btn btn-link' onclick='modalveranexos("A6","`+valores[i][0]+`","`+valores[i]['anexo_seis']+`")' >A6</button></td>`;
+					cadena += `<td><button type='button' class='btn btn-link' onclick='modalveranexos("A1","`+valores[i][0]+`","`+valores[i]['anexo_uno_etapa_tres']+`")' >A1</button><button type='button' class='btn btn-link' onclick='modalveranexos("A6","`+valores[i][0]+`","`+valores[i]['anexo_seis']+`")' >A6</button></td>`;
 					cadena += "<td><button name='"+valores[i][0]+"*"+valores[i]['etica_anexo_uno']+"*"+valores[i]['etica_anexo_cuatro']+"*"+valores[i]['etica_anexo_cuatro_dos']+"*"+valores[i]['etica_anexo_cuatro_tres']+"' class='btn btn-turning' onclick='AbrirModalSubirArchivoAnexos(this)'><i class='fa fa-cloud-upload fa-2x'></i></button></td>";
 					if (valores[i]['anexo_uno_etapa_cuatro']==0) {
 						cadena += `<td><button class='btn-noexist'></button></td>`;
