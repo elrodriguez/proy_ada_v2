@@ -37,7 +37,7 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += "&nbsp;</button> </td>";
 					cadena += "<td  style = 'width: 30px;word-wrap: break-word;color:#9B0000;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][6]+"*asesor' class='btn btn-info' title='Vista previa de los Datos del asesor' style='background-color: #ffffff ; border-color: #ffffff' onclick='AbrirModalVerAsesor(this)'><span class='fa fa-eye' style='color: #000000'></span></button></td>";
 					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'>`+valores[i]['ciudadanos_nombres']+`</td>`;
-				
+
 					if (valores[i]['anexo_siete']==0) {
 						cadena += `<td><button class='btn-noexist'></button></td>`;
 					} else {
@@ -59,7 +59,7 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += `</td>`;
 					cadena += "&nbsp;</button> </td>";
 
-					cadena += `<td><button class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' type="button" onclick="abrirmodalcombodetalle(this)" name="`+valores[i][0]+`*`+valores[i]['tipo_publicacion']+`*`+valores[i]['nombre_revista']+`"><i class="glyphicon glyphicon-edit" style='color:#000000;'></i></button></td>`;
+					cadena += `<td><button class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' type="button" onclick="abrirmodalcombodetalle(this)" name="`+valores[i][0]+`*`+valores[i]['tipo_publicacion']+`*`+valores[i]['nombre_revista']+`*`+valores[i]['link_revista']+`"><i class="glyphicon glyphicon-edit" style='color:#000000;'></i></button></td>`;
 
 					cadena += "<td style = 'text-align: center;width: 10px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"' class='btn btn-correo' onclick='AbrirModalenviarcorreorevisor(this)'><span class='fa fa-envelope fa-2x'></span>";
 
@@ -850,23 +850,32 @@ function registrarfechas(e,t,d){
 function abrirmodalcombodetalle(control){
 	var datos = control.name;
 	var datos_split = datos.split("*");
-	if(datos_split[1] == '2' || datos_split[1] == '3'){
+	if(datos_split[1] == '2'){
 		$('#div_nombre_revista').css('display', 'block');
+	}else if(datos_split[1] == '3'){
+		$('#div_nombre_revista').css('display', 'block');
+		$('#div_nombre_link').css('display', 'block');
 	}else{
 		$('#div_nombre_revista').css('display', 'none');
+		$('#div_nombre_link').css('display', 'none');
 	}
 	$('#tipo_publicacion').val(datos_split[1]);
 	$('#nombre_revista').val(datos_split[2]);
+	$('#nombre_link').val(datos_split[3]);
 	$('#tipopublicacioniddociuemneto').val(datos_split[0]);
 	$('#myModalLabelComboDrop').html(datos_split[0]);
 	$('#myModalComboDrop').modal('show');
 }
 function abririnputadicional(){
 	var tt = $('#tipo_publicacion').val();
-	if(tt == '2' || tt == '3'){
+	if(tt== '2'){
 		$('#div_nombre_revista').css('display', 'block');
+	}else if(tt=='3'){
+		$('#div_nombre_revista').css('display', 'block');
+		$('#div_nombre_link').css('display', 'block');
 	}else{
 		$('#div_nombre_revista').css('display', 'none');
+		$('#div_nombre_link').css('display', 'none');
 	}
 }
 function registrartipopublicacion(){
@@ -880,6 +889,7 @@ function registrartipopublicacion(){
 		success:function(resp) {
 		  if(resp>0){
 			listar_documento_vista_revisor("","1");
+			$('#myModalComboDrop').modal('hide');
 		  }else{
 
 		  }
