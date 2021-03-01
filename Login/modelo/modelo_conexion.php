@@ -8,8 +8,8 @@
 		public function __construct(){
 			$this->servidor = "localhost";
 			$this->usuario = "root";
-			$this->contrasena = "";
-			$this->basedatos = "bd_tramite";
+			$this->contrasena = "hiworld2018";
+			$this->basedatos = "db_ada";
 
 		}
 		function conectar(){

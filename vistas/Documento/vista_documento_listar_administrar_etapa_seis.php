@@ -440,8 +440,12 @@
           </select>
         </div>
         <div class="form-group" style="display: none;" id="div_nombre_revista">
-          <label for="nombre_revista">Nombre de la revista / Link de acceso a la revista</label>
+          <label for="nombre_revista">Nombre de la revista</label>
           <input type="text" class="form-control" id="nombre_revista" name="nombre_revista">
+        </div>
+        <div class="form-group" style="display: none;" id="div_nombre_link">
+          <label for="nombre_link">Direcicón del link</label>
+          <input type="text" class="form-control" id="nombre_link" name="nombre_link">
         </div>
         </form>
       </div>

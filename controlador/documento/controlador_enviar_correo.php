@@ -99,10 +99,10 @@ session_start();
         // $mail->addBCC('bcc@example.com');
 
         //Attachments
-        $fichero ='C:/xampp/htdocs/proy_ada/'.$consulta[0]['archivo_turniting']; ///en local
-        $fichero ='http://proyada.local/'.$consulta[0]['archivo_turniting']; ///produccion
+        $fichero ='C:/xampp/htdocs/proy_ada_v2/'.$consulta[0]['archivo_turniting']; ///en local
+        // $fichero ='http://proyada.local/'.$consulta[0]['archivo_turniting']; ///produccion
         //print_r($fichero);exit;
-        $mail->addAttachment($fichero,"peru.pdf");                  //Add attachments
+        $mail->addAttachment($fichero,"informe_turniting.pdf");                  //Add attachments
         //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
         //Content

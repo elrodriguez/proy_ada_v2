@@ -401,9 +401,9 @@
 		}
 		function listar_documento_etapa_seis($valor, $inicio=FALSE,$limite=FALSE){
 			if ($inicio!==FALSE && $limite!==FALSE) {
-			    $sql = "SELECT documento.documento_cod, documento.doc_asunto,documento.doc_fecha_recepcion,tipo_documento.tipodo_descripcion,area.area_nombre,documento.doc_estado,documento.doc_tipo,area.area_cod,tipo_documento.tipodocumento_cod,documento.doc_documento,porcentaje,archivo_turniting,num_proceso,fecha_revisor_correo,fecha_registro_jurado,TIMESTAMPDIFF(DAY, NOW(), fecha_registro_jurado),f_ciudadanosdocumento(documento.documento_cod) AS ciudadanos_nombres, anexo_uno,anexo_seis,estado_paso_tres,num_proceso,anexo_seis_2,anexo_seis_3,archivo_etapa1_v2,archivo_etapa1_v3,anexo_siete,anexo_ocho,tipo_publicacion,nombre_revista FROM documento INNER JOIN tipo_documento ON documento.tipoDocumento_cod = tipo_documento.tipodocumento_cod INNER JOIN area ON documento.area_cod = area.area_cod WHERE documento.num_proceso='6' AND documento.documento_cod LIKE '".$valor."%' ORDER BY documento.documento_cod DESC LIMIT $inicio,$limite";
+			    $sql = "SELECT documento.documento_cod, documento.doc_asunto,documento.doc_fecha_recepcion,tipo_documento.tipodo_descripcion,area.area_nombre,documento.doc_estado,documento.doc_tipo,area.area_cod,tipo_documento.tipodocumento_cod,documento.doc_documento,porcentaje,archivo_turniting,num_proceso,fecha_revisor_correo,fecha_registro_jurado,TIMESTAMPDIFF(DAY, NOW(), fecha_registro_jurado),f_ciudadanosdocumento(documento.documento_cod) AS ciudadanos_nombres, anexo_uno,anexo_seis,estado_paso_tres,num_proceso,anexo_seis_2,anexo_seis_3,archivo_etapa1_v2,archivo_etapa1_v3,anexo_siete,anexo_ocho,tipo_publicacion,nombre_revista,link_revista FROM documento INNER JOIN tipo_documento ON documento.tipoDocumento_cod = tipo_documento.tipodocumento_cod INNER JOIN area ON documento.area_cod = area.area_cod WHERE documento.num_proceso='6' AND documento.documento_cod LIKE '".$valor."%' ORDER BY documento.documento_cod DESC LIMIT $inicio,$limite";
 			}else{
-			    $sql = "SELECT documento.documento_cod, documento.doc_asunto,documento.doc_fecha_recepcion,tipo_documento.tipodo_descripcion,area.area_nombre,documento.doc_estado,documento.doc_tipo,area.area_cod,tipo_documento.tipodocumento_cod,documento.doc_documento,porcentaje,archivo_turniting,num_proceso,fecha_revisor_correo,fecha_registro_jurado,TIMESTAMPDIFF(DAY, NOW(), fecha_registro_jurado),f_ciudadanosdocumento(documento.documento_cod) AS ciudadanos_nombres, anexo_uno,anexo_seis,estado_paso_tres,num_proceso,anexo_seis_2,anexo_seis_3,archivo_etapa1_v2,archivo_etapa1_v3,anexo_siete,anexo_ocho,tipo_publicacion,nombre_revista FROM documento INNER JOIN tipo_documento ON documento.tipoDocumento_cod = tipo_documento.tipodocumento_cod INNER JOIN area ON documento.area_cod = area.area_cod WHERE documento.num_proceso='6' AND documento.documento_cod LIKE '".$valor."%' ORDER BY documento.documento_cod DESC";
+			    $sql = "SELECT documento.documento_cod, documento.doc_asunto,documento.doc_fecha_recepcion,tipo_documento.tipodo_descripcion,area.area_nombre,documento.doc_estado,documento.doc_tipo,area.area_cod,tipo_documento.tipodocumento_cod,documento.doc_documento,porcentaje,archivo_turniting,num_proceso,fecha_revisor_correo,fecha_registro_jurado,TIMESTAMPDIFF(DAY, NOW(), fecha_registro_jurado),f_ciudadanosdocumento(documento.documento_cod) AS ciudadanos_nombres, anexo_uno,anexo_seis,estado_paso_tres,num_proceso,anexo_seis_2,anexo_seis_3,archivo_etapa1_v2,archivo_etapa1_v3,anexo_siete,anexo_ocho,tipo_publicacion,nombre_revista,link_revista FROM documento INNER JOIN tipo_documento ON documento.tipoDocumento_cod = tipo_documento.tipodocumento_cod INNER JOIN area ON documento.area_cod = area.area_cod WHERE documento.num_proceso='6' AND documento.documento_cod LIKE '".$valor."%' ORDER BY documento.documento_cod DESC";
 			}
 			$resultado =  $this->conexion->conexion->query($sql);
 			$arreglo = array();
@@ -467,8 +467,8 @@
 			}
 			//$this->conexion->Cerrar_Conexion();
 		}
-		function editar_tipo_publicacion($documento,$tipo,$nombre){
-			$sql = "CALL SP_MODIFICARTIPOPUBLICACIONDOCUMENTO('$documento','$tipo','$nombre')";
+		function editar_tipo_publicacion($documento,$tipo,$nombre,$link){
+			$sql = "CALL SP_MODIFICARTIPOPUBLICACIONDOCUMENTO('$documento','$tipo','$nombre','$link')";
 			//print_r($sql);exit;
 			if ($resultado = $this->conexion->conexion->query($sql)){
 				return 1;
