@@ -40,26 +40,28 @@ session_start();
 					<table id="tabla_horario" class="table table-bordered jambo_table">
 		                <thead>
                         <tr>
-                          <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'>ID</th>
-                          <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'>TÍTULO</th>
-                          <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'>FECHA RECEPCI&OacuteN</th>
-                          <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'>&Aacute;REA ASIGNADA</th>
-                          <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'>TIPO DOCUMENTO</th>
-                          <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'>ALUMNO</th>
+                          <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 40px;word-wrap: break-word;font-weight: bold;'>ID</th>
+                          <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 40px;word-wrap: break-word;font-weight: bold;'>TÍTULO</th>
+                  				<th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 40px;word-wrap: break-word;font-weight: bold;'>ALUMNO</th>
                           <th colspan="3" style = 'text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'>Etapa 1</th>
-                          <th colspan="2" style = 'text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'> Etapa 3 </th>
+                          <th colspan="4" style = 'text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'> Etapa 3 </th>
                           <th colspan="4" style = 'text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'> Etapa 4 </th>
                           <th colspan="2" style = 'text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'> Etapa 6 </th>
                           <th colspan="3" style = 'text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'> Etapa 7 </th>
                           <th colspan="2" style = 'text-align: center;color: #fff;width: 80px;word-wrap: break-word;font-weight: bold;'> Etapa 9 </th>
                           <th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>ESTADO</th>
-                        </tr>
+													<th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>ETAPA</th>
+													<th rowspan="2" style = 'vertical-align: middle;text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>%AVANCE</th>
+
+												</tr>
 		                    <tr>
-                            <th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;font-weight: bold;'>ARCHIVO</th>
+                            <th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;font-weight: bold;'>PT</th>
                             <th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;font-weight: bold;'>V2</th>
                             <th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;font-weight: bold;'>V3</th>
-                            <th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;font-weight: bold;'>Anexo 6</th>
-            								<th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>Subir</th>
+                            <th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;font-weight: bold;'>A6-R1</th>
+														<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;font-weight: bold;'>A6-R2</th>
+														<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;font-weight: bold;'>A6-R3</th>
+            								<th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>Subir-E3</th>
                             <th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>A1</th>
                             <th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>A4</th>
                             <th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>A1</th>
@@ -70,7 +72,7 @@ session_start();
                             <th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>V2</th>
                             <th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>V3</th>
                             <th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>Ver</th>
-                            <th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>Subir</th>
+                            <th style = 'text-align: center;color: #fff;width: 30px;word-wrap: break-word;font-weight: bold;'>Subir_E9</th>
 		                    </tr>
 		                </thead>
 		                <tbody id="tbody_tabla_seguimiento">
@@ -260,14 +262,14 @@ session_start();
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        
+
         <form enctype="multipart/form-data" id="form-upload-file-anexos-corregidos">
           <div class="form-group">
               <label for="file-ax1">Anexo 1</label>
               <div class="input-group">
                 <input type="file" class="form-control" id="file-ax1" name="file-ax1">
                 <span class="input-group-btn" id="btnverax1">
-                  
+
                 </span>
               </div>
               <input type="hidden" id="iddocumentovcorrecciones" name="iddocumentovcorrecciones">
@@ -277,20 +279,20 @@ session_start();
               <div class="input-group">
                 <input type="file" class="form-control" id="file-pc" name="file-pc">
                 <span class="input-group-btn" id="btnverpc">
-                  
+
                 </span>
               </div>
-              
+
             </div>
             <div class="form-group">
               <label for="file-carta">Carta</label>
               <div class="input-group">
               <input type="file" class="form-control" id="file-carta" name="file-carta">
                 <span class="input-group-btn" id="btnvercarta">
-                  
+
                 </span>
               </div>
-              
+
             </div>
         </form>
       </div>
@@ -309,7 +311,7 @@ session_start();
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-        
+
         <form enctype="multipart/form-data" id="form-upload-file-anexos-corregidos-etapa-cuatro">
           <div class="form-group">
               <label for="file-ax1-e4" id="file-ax1-e4-title"></label>

@@ -19,7 +19,7 @@ function listar_personal_vista(valor,pagina){
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
 				//cadena += "<th style = 'text-align: center;color:#fff;'>TESIS</th>";
-				cadena += "<th style = 'text-align: center;' hidden='true' >ID</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>ID</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Nivel</th>";
 				//cadena += "<th style = 'text-align: center;color:#fff'>Programa Académico</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Docente</th>";
@@ -66,7 +66,7 @@ function listar_personal_vista(valor,pagina){
 							}
 						}else{
 							pagar = true;
-							
+
 						}
 						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";
 						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
@@ -74,7 +74,7 @@ function listar_personal_vista(valor,pagina){
 						if(pagar){
 							cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","1","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>pagado</button>`;
 						}
-						
+
 						cadena += "</td> ";
 						cadena += "</tr>";
 
@@ -215,7 +215,7 @@ function listar_asesor_vista(valor,pagina){
 						}
 					}else{
 						pagar = true;
-						
+
 					}
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
@@ -348,7 +348,7 @@ function listar_jurado_vista(valor,pagina){
 						}else{
 							pagar = false;
 						}
-						
+
 					}else if(valores[i]['mdp'] =='I' && valores[i]['categoria'] == 'tiempo completo'){
 						if(parseInt(valores[i]['total_tesis'])>=5){
 							pagar = true;
@@ -364,7 +364,7 @@ function listar_jurado_vista(valor,pagina){
 					}else{
 						pagar = true;
 					}
-					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";	
+					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['total_tesis']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>";
 					if(pagar){
@@ -466,7 +466,7 @@ function cambiarestadoapagado(codigo,docente,flag,modalidad,categoria,tipo){
 					  if(flag=='1'){
 						listar_personal_vista('','1');
 					  }else if(flag=='2'){
-						listar_asesor_vista('','1'); 
+						listar_asesor_vista('','1');
 					  }else if(flag=='3'){
 						listar_jurado_vista('','1');
 					  }
@@ -497,7 +497,7 @@ function listar_documento_reporte_vista(valor,pagina){
 				cadena += "<table border='0' class='table table-condensed jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
-				cadena += "<th style = 'text-align: center;width: 80px;word-wrap: break-word;'>ID</th>";
+				cadena += "<th style = 'text-align: center;width: 80px;word-wrap: break-word;color:#fff;'>ID</th>";
 				cadena += "<th style = 'text-align: center;width: 20px;word-wrap: break-word;color:#fff;'>TÍTULO</th>";
 				cadena += "<th style = 'text-align: center;width: 150px;word-wrap: break-word;color:#fff;'>FECHA RECEPCI&OacuteN</th>";
 				cadena += "<th style = 'text-align: center;width: 150px;word-wrap: break-word;color:#fff;'>&Aacute;REA ASIGNADA</th>"
@@ -507,7 +507,6 @@ function listar_documento_reporte_vista(valor,pagina){
 				cadena += "<th style = 'text-align: center;width: 30px;word-wrap: break-word;color:#fff;'>ETAPA</th>";
 				cadena += "<th style = 'text-align: center;width: 30px;word-wrap: break-word;color:#fff;'>% AVANCE</th>";
 				cadena += "<th style = 'text-align: center;width: 20px;word-wrap: break-word;color:#fff;'>ESTADO</th>";
-				//cadena += "<th style = 'text-align: center;width: 10px;word-wrap: break-word;color:#fff;'>ACCI&Oacute;N</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";

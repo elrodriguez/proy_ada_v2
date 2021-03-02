@@ -10,7 +10,6 @@
 		if (!file_exists($dir)) {
 			mkdir($dir, 0777, true);
 		}
-
 		$destino1 = $dir.$imagen;
 		$nombre1 = str_replace(' ','-','Archivo/'.$iddocumento.'/'.$imagen);
 		//print_r($ruta1);exit;

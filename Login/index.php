@@ -51,7 +51,7 @@ session_start();
 						<input type="password" class="form-control" placeholder="Ingresar Contraseña" aria-label="Password" id="txt_pass">
 					</div>
 				</div>
-				<a href="alumno/index.php" class="btn btn-default" style="box-shadow: 0 0 0 .2rem rgba(0,0,0,0);font-size: 20px; font-weight:bold">Seguimiento Documentario</a><br><br>
+				<a href="alumno/index.php" class="btn btn-default" style="box-shadow: 0 0 0 .2rem rgba(0,0,0,0);font-size: 20px; font-weight:bold">Seguimiento Tesis</a><br><br>
 				<button onclick="VerificarUsuario()" style="background: #0071b4 ;border-top-color:#0071b4;border-bottom-color:#0071b4;border-left-color:#0071b4 ;border-right-color:#0071b4 ;color: white;" class="btn btn-warning btn-block btn-lg" >INGRESAR</button>
 			</div>
 		</div>
