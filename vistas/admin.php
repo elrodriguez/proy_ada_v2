@@ -247,88 +247,6 @@ session_start();
                   </li>
                 </ul>
               </li>
-              <!-- <li>
-                <a href class="auto">
-                  <span class="pull-right text-muted">
-                  <b class="badge bg-info pull-right">I</b>
-                  </span>
-                  <i class="fa fa-folder-open icon text-info-lter"></i>
-                  <span class="font-bold" translate="aside.nav.Mantenimiento">INSTITUCIÓN</span>
-                </a>
-                <ul class="nav nav-sub dk">
-                  <li ui-sref-active="active"onclick="cargar_contenido('main-content','Institucion/vista_institucion_listar.php');">
-                    <a ui-sref="app.dashboard-v2">
-                    <span>Listar Instituci&oacute;n</span>
-                    </a>
-                  </li>
-                  <li ui-sref-active="active">
-                    <a ui-sref="app.dashboard-v1"onclick="cargar_contenido('main-content','Institucion/vista_institucion_registrar.php');">
-                    <span>Nueva Instituci&oacute;n</span>
-                    </a>
-                  </li>
-                </ul>
-              </li> -->
-              <li>
-                <a href class="auto">
-                  <span class="pull-right text-muted">
-                  <b class="badge bg-info pull-right">A</b>
-                  </span>
-                  <i class="fa fa-list icon text-success"></i>
-                  <span class="font-bold">&Aacute;REA</span>
-                </a>
-                <ul class="nav nav-sub dk">
-                  <li ui-sref-active="active"onclick="cargar_contenido('main-content','Area/vista_area_listar.php');">
-                    <a ui-sref="app.dashboard-v2">
-                    <span>Listar &Aacute;reas</span>
-                    </a>
-                  </li>
-                  <li ui-sref-active="active"onclick="cargar_contenido('main-content','Area/vista_area_registrar.php');">
-                    <a ui-sref="app.dashboard-v2">
-                    <span>Nueva &Aacute;rea</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li ui-sref-active="active">
-                <a ui-sref="app.mail.list">
-                  <b class="badge bg-info pull-right">D</b>
-                  <i class="fa fa-file-text icon text-info-lter"></i>
-                  <span class="font-bold" translate="aside.nav.Venta">DOCUMENTO</span>
-                </a>
-               <ul class="nav nav-sub dk">
-                  <li ui-sref-active="active">
-                    <a ui-sref="app.mail.list" onclick="cargar_contenido('main-content','Documento/vista_documento_listar.php')">
-                    <span>Listar Documento</span>
-                    </a>
-                  </li>
-                  <li ui-sref-active="active">
-                    <a ui-sref="app.dashboard-v2 "onclick="cargar_contenido('main-content','Documento/vista_documento_registrar.php')">
-                    <span>Nuevo Documento</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-               <li>
-                <a href class="auto">
-                  <span class="pull-right text-muted">
-                  <b class="badge bg-info pull-right">TD</b>
-                  </span>
-                  <i class="fa fa-file icon text-success"></i>
-                  <span class="font-bold">T. DOCUMENTO</span>
-                </a>
-                <ul class="nav nav-sub dk">
-                  <li ui-sref-active="active">
-                    <a ui-sref="app.dashboard-v1"onclick="cargar_contenido('main-content','Tipo_Documento/vista_tipoDocumento_Listar.php');">
-                    <span>Lista de tipos de documentos</span>
-                    </a>
-                  </li>
-                  <li ui-sref-active="active"onclick="cargar_contenido('main-content','Tipo_Documento/vista_tipoDocumento_Registrar.php');">
-                    <a ui-sref="app.dashboard-v2">
-                    <span>Nuevo Tipo de documento</span>
-                    </a>
-                  </li>
-                </ul>
-                </li>
               <li class="line dk">
               <li ui-sref-active="active">
                 <a ui-sref="app.calendar">
@@ -344,16 +262,6 @@ session_start();
                         <span>Reportes de documentos - Rango Fechas</span>
                       </a>
                     </li>
-                    <!-- <li ui-sref-active="active" onclick="AbrirReporteInstitucion()"  >
-                      <a ui-sref="app.dashboard-v1">
-                      <span>Reportes de documentos institucionales</span>
-                      </a>
-                    </li>
-                    <li ui-sref-active="active"onclick="AbrirReporteCiudadano()">
-                      <a ui-sref="app.dashboard-v2">
-                      <span>Reporte de dcumento de personas</span>
-                      </a>
-                    </li> -->
                 </ul>
               </li>
             <?php }

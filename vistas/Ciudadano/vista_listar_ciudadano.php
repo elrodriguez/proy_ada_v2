@@ -98,7 +98,7 @@
 	                    </div>
 	                    <div class="col-sm-4">
 	                        <label>Email</label>
-	                        <input type="text"  class="form-control"  onkeypress="return soloNumeros(event)" id="txtemail_modal" style="width: 100%;" placeholder="Ingrese nro Documento" maxlength="13">
+	                        <input type="text"  class="form-control"  id="txtemail_modal" style="width: 100%;" placeholder="Ingrese nro Documento">
 	                    </div>
 						<div class="col-md-4">
 							<label>Contraseña </label>

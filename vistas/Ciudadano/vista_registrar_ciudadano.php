@@ -2,63 +2,58 @@
 <div class="contendor_kn">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2><b>REGISTRO DE CIUDADANOS</b></h2>
+      <h2><b>REGISTRO DE ALUMNOS</b></h2>
     </div>
     <div class="panel-body">
           <div class="col-md-12 col-lg-12 col-xs-12">
             <div class="col-sm-12">
                 <label>Nombre</label>
                 <input id="txtnombre"  onkeypress="return soloLetras(event)"  type="text" style="background-color: #FFFFFF"  placeholder="Ingrese nombre de la persona" class="form-control" >
-                <br>
+
             </div>
             <div class="col-sm-6">
                 <label >Apellido Paterno</label>
                 <input type="text" class="form-control" id="txtapellidopaterno" onkeypress="return soloLetras(event)"    style="background-color: #FFFFFF"    placeholder="Ingrese Apellido Paterno">
-                <br>
+
             </div>
             <div class="col-sm-6">
                 <label >Apellido Materno</label>
                 <input type="text" class="form-control" id="txtapellidomaterno" onkeypress="return soloLetras(event)" style="background-color: #FFFFFF" placeholder="Ingrese Apellido Materno">
-                <br>
+
             </div>
             <div class="col-sm-6">
                 <label >Direcci&oacute;n</label>
                 <input type="text" class="form-control" id="txtdireccion" style="background-color: #FFFFFF" placeholder="Ingrese Direccion">
-                <br>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
 							<label>Programa Academico </label>
 							<select name="modal_carrera" id="modal_carrera"  style="width: 100%" class="form-control select2">
 							</select>
-							<br>
 						</div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <label >Nº Documento Identidad</label>
                 <input type="text" class="form-control" id="txtdni" onkeypress="return soloNumeros(event)"   maxlength="8" style="background-color: #FFFFFF" placeholder="Ingrese Nº Documento Identidad">
-                <br>
             </div>
-            <div class="col-sm-4">
-                <label >Sexo</label>
+            <div class="col-sm-6">
+                <label >GENERO</label>
                 <select id="txtGenero" class="form-control select2" name="txtGenero">
                   <option value="M">HOMBRE</option>
                   <option value="F">MUJER</option>
                 </select>
-                <br>
-            </div><br>
-            <div class="col-md-4" style="display:none;">
+            </div>
+            <div class="col-sm-6" style="display:none;">
                 <label>Modalidad </label>
                 <select id="cbm_tipo"  style="width: 100%" class="form-control select2">
                   <option value="PREGRADO">PREGRADO</option>
                   <option value="POSGRADO">POSGRADO</option>
                 </select>
-                <br>
             </div>
           </div>
           <div class="col-md-12 col-lg-12 col-xs-12">
             <div class="col-sm-6">
                 <label >Email</label>
                 <input type="email" class="form-control"  id="txtemail" placeholder="Ingrese Email">
-                <br>
+
             </div>
             <div class="col-sm-6">
                 <label>Fecha Nacimiento</label>
@@ -67,23 +62,25 @@
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input type="date" style="padding: 0px 12px;background-color: #FFFFFF;font-weight:bold;" id="txtfecha"  class="form-control"  >
-                </div><br>
+                </div>
             </div>
             <div class="col-sm-6">
                 <label >Celular</label>
                 <input type="text" class="form-control" id="txttelefono" maxlength="9" onkeypress="return soloNumeros(event)"  placeholder="Ingrese Numero Telefonico">
-                <br>
+
             </div>
             <div class="col-md-6">
                 <label>Teléfono </label>
                 <input type="text"class="form-control" id="txtmovil"  onkeypress="return soloNumeros(event)" placeholder="Ingrese nro movil" maxlength="9">
                 <br>
             </div>
-            
+
           </div>
           <div class="col-md-12 col-lg-12 col-xs-12" style="text-align:center;">
             <div class="col-md-12">
-              <br><button class="btn btn-success" onclick="revisar_dni_ciudadano()"><strong> Registrar Ciudadano</strong></button><br><br>
+              <button class="btn btn-success" onclick="revisar_dni_ciudadano()"><strong> Registrar Alumno</strong></button>
+              <br>
+              <br>
             </div>
           </div>
     </div>

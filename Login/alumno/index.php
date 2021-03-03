@@ -1,4 +1,4 @@
-<?php 
+<?php
   $error = isset($_GET['msg'])?$_GET['msg']:'';
 ?>
 <!doctype html>
@@ -13,7 +13,7 @@
     <link rel="icon" href="../../favicon.ico">
     <link rel="canonical" href="https://getbootstrap.com/docs/3.4/examples/signin/">
 
-    <title>Signin Template for Bootstrap</title>
+    <title>Login Alumno</title>
 
     <link rel="stylesheet" href="../bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" crossorigin="anonymous">
@@ -22,7 +22,7 @@
   <body>
     <div class="container">
       <form class="form-signin" method="POST" action="validar.php">
-        <h2 class="form-signin-heading">Por Favor, identifiquese</h2>
+        <label id="titulo"class="form-signin-heading">INICIO SESIÓN</label>
         <label for="inputEmail" class="sr-only">Correo electrónico</label>
         <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Correo electrónico" required autofocus>
         <label for="inputPassword" class="sr-only">Contraseña</label>
@@ -30,7 +30,7 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
         <?php
         if($error != ''){
-        ?> 
+        ?>
         <div class="alert alert-success" role="alert">Usuario o contraseña incorrecta</div>
         <?php
         }

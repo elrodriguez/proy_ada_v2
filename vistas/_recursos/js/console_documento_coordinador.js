@@ -24,7 +24,7 @@ function listar_documento_vista(valor,pagina){
 				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>ASESOR</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>ASIGNAR REVISOR</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 30px;word-wrap: break-word;'>TESISTAS</th>";
-				cadena += "<th style = 'text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ANEXO_2</th>";
+				cadena += "<th style = 'text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>PT</th>";
 				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>INFORME TURNITING</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 10px;word-wrap: break-word;''>ENVIAR CORREO</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 200px;word-wrap: break-word;'>ACCIÓN</th>";

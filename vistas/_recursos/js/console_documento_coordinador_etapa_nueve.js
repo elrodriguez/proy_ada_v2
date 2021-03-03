@@ -23,12 +23,12 @@ function listar_documento_vista_revisor(valor,pagina){
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>ASESOR</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>REVISOR</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>JURADO</th>";
-				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 30px;word-wrap: break-word;'>ALUMNO</th>";
-				cadena += "<th colspan='5'  style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>Documentos</th>";
+				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 30px;word-wrap: break-word;'>TESISTA</th>";
+				cadena += "<th colspan='5'  style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>DOCUMENTOS</th>";
 				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>INFORME TURNITING</th>";
-				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>Corrección</th>";
-				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>Link Repositorio</th>";
-				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>GENERAR CONSTANCIA</th>";
+				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>CORRECCIÓN</th>";
+				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>LINK REPOSITORIO</th>";
+				cadena += "<th  style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>GENERAR CONSTANCIA</th>";
 				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>SUBIR CONSTANCIA</th>";
 				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>Por Pagar</th>";
 				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ENVIAR CORREO</th>";
@@ -1084,7 +1084,7 @@ function registrar_documento_repositorio(){
 		if(resp>0){
 		    $('#modal-repositorio').modal('hide');
 			document.getElementById("form-register-repositorio").reset();
-		  	swal("Anexos Registrado!", "", "success").then ( ( value ) =>  {
+		  	swal("Dirección URL Guardado", "", "success").then ( ( value ) =>  {
 				listar_documento_vista_revisor('','1');
 		  });
 		}
@@ -1115,7 +1115,7 @@ function registrar_documento_anexos(){
 		if(resp>0){
 		  $('#modal-subir-anexos').modal('hide');
 			document.getElementById("form-upload-file-anexos").reset();
-		  	swal("Anexos Registrado!", "", "success").then ( ( value ) =>  {
+		  	swal("Informe Turniting Guardado!", "", "success").then ( ( value ) =>  {
 				listar_documento_vista_revisor('','1');
 		  });
 		}
@@ -1281,7 +1281,7 @@ function registrar_documento_adicionales_ocho(){
 		if(resp>0){
 		  	$('#subir-correciones-etapa-ocho').modal('hide');
 			document.getElementById("form-upload-file-anexos-corregidos-etapa-ocho").reset();
-		  	swal("Anexos Registrado!", "", "success").then ( ( value ) =>  {
+		  	swal("Constancia Guardado!", "", "success").then ( ( value ) =>  {
 				listar_documento_vista_revisor('',1);
 		  	});
 		}

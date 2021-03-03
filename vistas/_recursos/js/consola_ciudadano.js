@@ -2,19 +2,19 @@ function Limpieza_post_ciudadano(){
 	$("#txtPersonaNombre").val("");
 	$("#txtApellidoPaterno").val("");
 	$("#txtApellidoMaterno").val("");
-	$("#txtDireccion").val("");	
+	$("#txtDireccion").val("");
 	$("#txtDNI").val("");
 	$("#txtGenero").val("");
 	$("#txtFechaNacimiento").val("");
-	$("#txtDistrito").val("");	
-	$("#txtProvincia").val("");	
+	$("#txtDistrito").val("");
+	$("#txtProvincia").val("");
 	$("#txtDepartamento").val("");
 	$("#txtDireccion").val("");
 	$("#txtTelefono").val("");
 	$("#txtEmail").val("");
 	$("#combo_TipoCiudadano").val(1);
 	$('#id_archivo_Fotografia').fileinput('reset');
-	$("#main-content").load("Ciudadano/vista_listar_ciudadano.php") 
+	$("#main-content").load("Ciudadano/vista_listar_ciudadano.php")
 }
 function listar_ciudadano_vista(valor,pagina){
 	var pagina = Number(pagina);
@@ -29,27 +29,27 @@ function listar_ciudadano_vista(valor,pagina){
 	      $("#loading_almacen").removeClass("fa fa-refresh fa-spin fa-3x fa-fw");
 	    },
 		success: function(resp){
-			var datos = resp.split("*"); 
-			var valores = eval(datos[0]); 
+			var datos = resp.split("*");
+			var valores = eval(datos[0]);
 			if(valores.length>0){
 				var cadena = "";
 				cadena += "<table  class='table table-condensed jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
 				cadena += "<th style = 'text-align: center' hidden='true' >ID</th>";
-				cadena += "<th style = 'text-align: center'>NOMBRE Y APELLIDOS</th>";
-				cadena += "<th style = 'text-align: center'>DNI</th>";
-				cadena += "<th style = 'text-align: center'>SEXO</th>";
-				cadena += "<th style = 'text-align: center'>FECHA NACIMIENTO</th>";
-				cadena += "<th style = 'text-align: center'>TIPO PERSONA</th>";
-				cadena += "<th style = 'text-align: center'>ESTADO</th>";
-				cadena += "<th>ACCI&Oacute;N</th>";
-				cadena += "<th>REPORTE</th>";
+				cadena += "<th style = 'text-align: center; color: #fff'>NOMBRE Y APELLIDOS</th>";
+				cadena += "<th style = 'text-align: center; color: #fff'>DNI</th>";
+				cadena += "<th style = 'text-align: center; color: #fff'>SEXO</th>";
+				cadena += "<th style = 'text-align: center; color: #fff'>FECHA NACIMIENTO</th>";
+				cadena += "<th style = 'text-align: center; color: #fff'>GRADO</th>";
+				cadena += "<th style = 'text-align: center; color: #fff'>ESTADO</th>";
+				cadena += "<th style = 'text-align: center; color: #fff'>ACCI&Oacute;N</th>";
+				// cadena += "<th style = 'text-align: center; color: #fff'>REPORTE</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";
 				for(var i = 0 ; i<valores.length; i++){
-					cadena += "<tr>";			
+					cadena += "<tr>";
 					cadena += "<td align='center' hidden>"+valores[i][0]+"</td>";
 					cadena += "<td>"+valores[i][1]+" "+valores[i][2]+" "+valores[i][3]+"</td>";
 					cadena += "<td align='center'>"+valores[i][4]+"</td>";
@@ -63,15 +63,15 @@ function listar_ciudadano_vista(valor,pagina){
 					}
 					cadena += "<td><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"*"+valores[i][4]+"*"+valores[i][5]+"*"+valores[i][6]+"*"+valores[i][7]+"*"+valores[i][8]+"*"+valores[i][9]+"*"+valores[i][10]+"*"+valores[i][11]+"*"+valores[i][12]+"*"+valores[i][13]+"*"+valores[i][14]+"*"+valores[i]['ciud_clave']+"' class='btn btn-primary' onclick='AbrirModalEditarCiudadano(this)'><span class='glyphicon glyphicon-pencil'></span>";
 					cadena += "</button></td> ";
-					cadena += "<td  align='center'><form method='GET' action='Reportes/php/generar_reporte_documento_ciudadano.php' target='_blank' ><input value='"+valores[i][1]+" "+valores[i][2]+" "+valores[i][3]+"' name='txtciudadano' hidden ><input value='"+valores[i][0]+"' name='txtidciudadano' hidden='true'><input value='"+valores[i][13]+"' name='txttipopersona' hidden='true' ><button  class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><span class='fa fa-print' style='color:black;'></span>";					
-						cadena += "</form></button></td> ";	
+					// cadena += "<td  align='center'><form method='GET' action='Reportes/php/generar_reporte_documento_ciudadano.php' target='_blank' ><input value='"+valores[i][1]+" "+valores[i][2]+" "+valores[i][3]+"' name='txtciudadano' hidden ><input value='"+valores[i][0]+"' name='txtidciudadano' hidden='true'><input value='"+valores[i][13]+"' name='txttipopersona' hidden='true' ><button  class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><span class='fa fa-print' style='color:black;'></span>";
+						cadena += "</form></button></td> ";
 					cadena += "</tr>";
 				}
 				cadena += "</tbody>";
 				cadena += "</table>";
 				$("#lista_ciudadano_tabla").html(cadena);
 				var totaldatos = datos[1];
-				var numero_paginas = Math.ceil(totaldatos/5); 
+				var numero_paginas = Math.ceil(totaldatos/5);
 				var paginar = "<ul class='pagination'>";
 				if(pagina>1){
 					paginar += "<li><a href='javascript:void(0)' onclick='listar_ciudadano_vista("+'"'+valor+'","'+1+'"'+")'>&laquo;</a></li>";
@@ -114,15 +114,15 @@ function listar_ciudadano_vista(valor,pagina){
 				cadena += "<table  class='table table-condensed jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
-				cadena += "<th style = 'text-align: center' hidden='true' >ID</th>";
-				cadena += "<th style = 'text-align: center'>NOMBRE Y APELLIDOS</th>";
-				cadena += "<th style = 'text-align: center'>DNI</th>";
-				cadena += "<th style = 'text-align: center'>SEXO</th>";
-				cadena += "<th style = 'text-align: center'>FECHA NACIMIENTO</th>";
-				cadena += "<th style = 'text-align: center'>TIPO PERSONA</th>";
-				cadena += "<th style = 'text-align: center'>ESTADO</th>";
-				cadena += "<th>ACCI&Oacute;N</th>";
-				cadena += "<th>REPORTE</th>";				
+				cadena += "<th style = 'text-align: center;color:#fff' hidden='true' >ID</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>NOMBRE Y APELLIDOS</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>DNI</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>SEXO</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>FECHA NACIMIENTO</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>GRADO</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>ESTADO</th>";
+				cadena += "<th style = 'text-align: center;color:#fff'>ACCI&Oacute;N</th>";
+				cadena += "<th>REPORTE</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";
@@ -175,18 +175,18 @@ function Editar_ciudadano(){
 	if(nombre.length>0 && apepat.length>0 && apemat.length>0 && direccion.length>0 && nrodocume.length>0 && email.length>0 ){
 	}
 	else{
-		return swal("Falta Llenar Datos", "", "info");	
-	}	
+		return swal("Falta Llenar Datos", "", "info");
+	}
 	$.ajax({
 		url:'../controlador/ciudadano/controlador_editar_ciudadano.php',
 		type:'POST',
 		data:{
 			codigo:codigo,
 			nombre:nombre,
-			apepat:apepat,		
+			apepat:apepat,
 			apemat:apemat,
 			tipopersona:tipoper,
-			telefono:telefono,	
+			telefono:telefono,
 			movil:movil,
 			direccion:direccion,
 			fecha:fecha,
@@ -204,7 +204,7 @@ function Editar_ciudadano(){
 			  listar_ciudadano_vista(dato_buscar,'1');
 		}
 		else{
-			swal("! Registro no completado!", "", "error");	
+			swal("! Registro no completado!", "", "error");
 		}
 	})
 	.fail(function( jqXHR, textStatus, errorThrown){
@@ -237,7 +237,7 @@ function Editar_ciudadano(){
 	    alert('Uncaught Error: ' + jqXHR.responseText);
 
 	  }
-	})			
+	})
 }
 function revisar_dni_ciudadano(){
 	var nombre    = $("#txtnombre").val();
@@ -251,7 +251,7 @@ function revisar_dni_ciudadano(){
 	var email     = $("#txtemail").val();
 	var telefono  = $("#txttelefono").val();
 	var movil     = $("#txtmovil").val();
-	
+
 	if (nombre.length>0  && apemat.length>0 && apepat.length>0 && fecha.length>0 && direccion.length>0 ) {
 	}else{
 		return swal("Faltan Llenar Datos","","info");
@@ -270,7 +270,7 @@ function revisar_dni_ciudadano(){
 		var data = JSON.parse(resp);
 		if (data.length<=0) {
 			Registrar_ciudadano();
-			
+
 		}else{
 			swal("Lo sentimos el DNI Ingresado ya esta siendo utilizado por otro Ciudadano","","warning");
 		}
@@ -294,10 +294,10 @@ function Registrar_ciudadano(){
 		type:'POST',
 		data:{
 			nombre:nombre,
-			apepat:apepat,		
+			apepat:apepat,
 			apemat:apemat,
 			tipopersona:tipo,
-			telefono:telefono,	
+			telefono:telefono,
 			movil:movil,
 			direccion:direccion,
 			fecha:fecha,
@@ -310,15 +310,15 @@ function Registrar_ciudadano(){
 	.done(function(resp){
 		if (resp > 0) {
 			 swal("Datos Registrados!", "", "success")
-			 .then ( ( value ) =>  { 
-				  $("#main-content").load("Ciudadano/vista_listar_ciudadano.php"); 
+			 .then ( ( value ) =>  {
+				  $("#main-content").load("Ciudadano/vista_listar_ciudadano.php");
 			});
-			
+
 		}
 		else{
-			swal("! Registro no completado!", "", "error");	
+			swal("! Registro no completado!", "", "error");
 		}
-	})		
+	})
 }
 function Listar_programa_academico() {
 	$.ajax({

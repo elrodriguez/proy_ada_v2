@@ -1,11 +1,17 @@
 /* stylelint-disable selector-no-qualifying-type, property-no-vendor-prefix */
-
+#titulo{
+  color: #fff;
+  text-align: right;
+}
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background-color: #eee;
+    background: lightblue url("fondo_login.jpg");
+    background-repeat: repeat-y, repeat;
+    background-size: 1400px auto;
+
   }
-  
+
   .form-signin {
     max-width: 330px;
     padding: 15px;

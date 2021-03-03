@@ -26,7 +26,7 @@ function listar_documento_vista_revisor(valor,pagina){
 				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>ASESOR</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>REVISOR</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 30px;word-wrap: break-word;'>TESISTAS</th>";
-				cadena += "<th style = 'text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ANEXO2</th>";
+				cadena += "<th style = 'text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>PT</th>";
 				cadena += "<th colspan='3' style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>CARGAR A6</th>";
 				cadena += "<th colspan='3' style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>VERSIONES REVISORES</th>";
 				cadena += "<th style = 'text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>FECHA SUBIDA</th>";
@@ -100,12 +100,12 @@ function listar_documento_vista_revisor(valor,pagina){
 					let btn_ver_uno='',btn_ver_pro='',btn_ver_car='';
 					if(valores[i]['anexo_uno_etapa_tres']==0){
 					}else {
-						btn_ver_uno += `<button type='button' class='btn btn-link' onclick='modalveranexos("A1","`+valores[i][0]+`","`+valores[i]['anexo_uno_etapa_tres']+`")' >A1</button>`;
+						btn_ver_uno += `<button type='button' class='btn btn-link' onclick='modalveranexos("A1","`+valores[i][0]+`","`+valores[i]['anexo_uno_etapa_tres']+`")' >PT_Rev.</button>`;
 					}
 					if(valores[i]['proyecto_etapa_tres']==0){
 
 					}else{
-						btn_ver_pro += `<button type='button' class='btn btn-link' onclick='modalveranexos("Proyecto","`+valores[i][0]+`","`+valores[i]['proyecto_etapa_tres']+`")' >Proyecto</button>`;
+						btn_ver_pro += `<button type='button' class='btn btn-link' onclick='modalveranexos("Proyecto","`+valores[i][0]+`","`+valores[i]['proyecto_etapa_tres']+`")' >PT_Resal</button>`;
 					}
 					if(valores[i]['carta_etapa_tres']==0){
 
@@ -123,17 +123,9 @@ function listar_documento_vista_revisor(valor,pagina){
 										<option `+(valores[i]['estado_paso_tres']=="OBSERVADO"?"selected":"")+` value="OBSERVADO">OBSERVADO</option>
 									</select
 								</td>`;
-					if(valores[i]['estado_paso_tres']=="APROBADO"){
-						btn_pagar = `<button class='btn btn-danger' onclick='pagarrevisor("`+valores[i][0]+`")'><i class='glyphicon glyphicon-usd'></i></button>`;
-					}else{
-						btn_pagar = '';
-					}
+					btn_pagar = `<button class='btn btn-danger' onclick='pagarrevisor("`+valores[i][0]+`")'><i class='glyphicon glyphicon-usd'></i></button>`;
 					cadena += "<td>"+btn_pagar+"</td>";
-					if(valores[i]['estado_paso_tres']=="APROBADO"){
-						btn_saltar  = `<button class='btn btn-success' onclick='saltaretapa("`+valores[i][0]+`")'><i class='glyphicon glyphicon-thumbs-up'></i></button>`;
-					}else{
-						btn_saltar = '';
-					}
+					btn_saltar  = `<button class='btn btn-success' onclick='saltaretapa("`+valores[i][0]+`")'><i class='glyphicon glyphicon-thumbs-up'></i></button>`;
 					cadena += "<td>"+btn_saltar+"</td>";
 					cadena += "<td style = 'text-align: center;width: 10px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"' class='btn btn-correo' onclick='AbrirModalenviarcorreorevisor(this)'><span class='fa fa-envelope fa-2x'></span>";
 					cadena += "</button></td> ";
@@ -1115,21 +1107,22 @@ function rechazarproceso(codigo,estado,etapa){
 		}
 	  });
 }
-function AbrirModalenviarcorreorevisor(control){
-	var datos = control.name;
-	var datos_split = datos.split("*");
-	$('#iddocumentomodal-1').val(datos_split[0]);
-	$('#modal-enviar-correo-revisor').modal({backdrop: 'static', keyboard: false})
-	$('#modal-enviar-correo-revisor').modal('show');
-}
-function enviarcorreopordocumentorevisor(){
-	var doc = $('#iddocumentomodal-1').val();
-	var correo = $('#correo-modal').val();
-	$.get( "../controlador/documento/controlador_enviar_correo_revisor_aprobado_observado.php?doc="+doc+'&correo='+correo, function( data ) {
-		listar_documento_vista_revisor("","1");
-		alert("El foreo se envio satisfactoriamente");
-	});
-}
+// function AbrirModalenviarcorreorevisor(control){
+// 	var datos = control.name;
+// 	var datos_split = datos.split("*");
+// 	$('#iddocumentomodal-1').val(datos_split[0]);
+// 	$('#modal-enviar-correo-revisor').modal({backdrop: 'static', keyboard: false})
+// 	$('#modal-enviar-correo-revisor').modal('show');
+// }
+// function enviarcorreopordocumentorevisor(){
+// 	var doc = $('#iddocumentomodal-1').val();
+// 	var correo = $('#correo-modal').val();
+// 	$.get( "../controlador/documento/controlador_enviar_correo_revisor_aprobado_observado.php?doc="+doc+'&correo='+correo, function( data ) {
+// 		listar_documento_vista_revisor("","1");
+// 		alert("El Correo se envio Satisfactoriamente");
+// 		$('#modal-enviar-correo-revisor').modal('hide');
+// 	});
+// }
 function AbrirModalSubirArchivoAnexos(control){
 	var datos = control.name;
 	var datos_split = datos.split("*");
@@ -1171,9 +1164,26 @@ function registrar_documento_anexos(){
 		if(resp>0){
 		  $('#modal-subir-anexos').modal('hide');
 			document.getElementById("form-upload-file-anexos").reset();
-		  	swal("Anexos Registrado!", "", "success").then ( ( value ) =>  {
+		  	swal("Revisión Registrado!", "", "success").then ( ( value ) =>  {
 				$("#main-content").load("Documento/vista_documento_listar_administrar_revisor.php");
-		  });
+				// jjra
+				function AbrirModalenviarcorreorevisor(control){
+					var datos = control.name;
+					var datos_split = datos.split("*");
+					$('#iddocumentomodal-1').val(datos_split[0]);
+					$('#modal-enviar-correo-revisor').modal({backdrop: 'static', keyboard: false})
+					$('#modal-enviar-correo-revisor').modal('show');
+				}
+				function enviarcorreopordocumentorevisor(){
+					var doc = $('#iddocumentomodal-1').val();
+					var correo = $('#correo-modal').val();
+					$.get( "../controlador/documento/controlador_enviar_correo_revisor_aprobado_observado.php?doc="+doc+'&correo='+correo, function( data ) {
+						listar_documento_vista_revisor("","1");
+						alert("El Correo se envio Satisfactoriamente");
+						$('#modal-enviar-correo-revisor').modal('hide');
+					});
+				}
+			});
 		}
 	  }
 	});

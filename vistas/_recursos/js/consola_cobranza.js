@@ -18,10 +18,7 @@ function listar_personal_vista(valor,pagina){
 				cadena += "<table  class='table table-condensed jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
-				//cadena += "<th style = 'text-align: center;color:#fff;'>TESIS</th>";
-				cadena += "<th style = 'text-align: center;color:#fff'>ID</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Nivel</th>";
-				//cadena += "<th style = 'text-align: center;color:#fff'>Programa Académico</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>Docente</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>TIPO (M;N)</th>";
 				cadena += "<th style = 'text-align: center;color:#fff'>CATEGORIA</th>";
@@ -72,7 +69,7 @@ function listar_personal_vista(valor,pagina){
 						cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 						cadena += "<td style = 'vertical-align: middle;'>";
 						if(pagar){
-							cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","1","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>pagado</button>`;
+							cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","1","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>Pagar</button>`;
 						}
 
 						cadena += "</td> ";
@@ -221,7 +218,7 @@ function listar_asesor_vista(valor,pagina){
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>";
 					if(pagar){
-						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","2","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>pagado</button>`;
+						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","2","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>Pagar</button>`;
 					}
 					cadena += "</td> ";
 					cadena += "</tr>";
@@ -368,7 +365,7 @@ function listar_jurado_vista(valor,pagina){
 					cadena += "<td style = 'vertical-align: middle;'>"+valores[i]['pago']+"</td>";
 					cadena += "<td style = 'vertical-align: middle;'>";
 					if(pagar){
-						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","3","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>pagado</button>`;
+						cadena += `<button onclick='cambiarestadoapagado("`+valores[i]['id']+`","`+valores[i]['asesor_cod']+`","3","`+valores[i]['mdp']+`","`+valores[i]['categoria']+`","`+valores[i]['tip']+`")'>Pagar</button>`;
 					}
 					cadena += "</td> ";
 					cadena += "</tr>";

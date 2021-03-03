@@ -26,18 +26,21 @@ function listar_documento_vista_revisor(valor,pagina){
 				cadena += "<th colspan='3' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>ANEXOS</th>";
 				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>RETORNAR PROCESO</th>";
 				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color: #fff;width: 20px;word-wrap: break-word;'>FECHA SUSTENTACI&Oacute;N</th>";
-				cadena += "<th  rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>CARGAR A-20</th>";
-				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>CARGAR A-22</th>";
-				cadena += "<th  rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>CARGAR TESIS</th>";
-				cadena += "<th  rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>CARGAR TESIS</th>";
-				cadena += "<th  rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>CARGAR TESIS</th>";
-				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ESTADO</th>";
+				cadena += "<th colspan='5' style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>CARGAR ANEXOS</th>";
+
+				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 20px;word-wrap: break-word;'>ENVIAR CORREO</th>";
 				cadena += "<th rowspan='2' style = 'vertical-align: middle;text-align: center;color:#fff;width: 10px;word-wrap: break-word;''>ACCI&Oacute;N</th>";
 				cadena += "</tr>";
 				cadena += "<tr>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>13</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>14</th>";
 				cadena += "<th style = 'text-align: center;color:#fff;width: 150px;word-wrap: break-word;'>15</th>";
+				cadena += "<th style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>ANEXO - 20</th>";
+				cadena += "<th  style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>ANEXO- 22</th>";
+				cadena += "<th  style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>TESIS EN WORD</th>";
+				cadena += "<th  style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>TESIS PDF</th>";
+				cadena += "<th  style = 'vertical-align: middle;text-align: center;color:#fff;width: 120px;'>ACTA</th>";
+
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";
@@ -51,7 +54,7 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += `<td style = 'text-align: center;width: 20px;word-wrap: break-word;'>`+valores[i]['ciudadanos_nombres']+`</td>`;
 
 					cadena += "&nbsp;</button> </td>";
-					cadena += `<td><button name='`+valores[i][0]+`*`+valores[i]['anexo_trece']+`' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='AbrirModalSubirArchivoAnexos(this)'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button name='`+valores[i][0]+`*`+valores[i]['anexo_trece']+`' class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff' onclick='AbrirModalSubirArchivoAnexos(this)'><i class='fa fa-cloud-upload fa-2x' style='color:orange;'></i></button></td>`;
 					let check1 = '';
 					let check2 = '';
 					if(valores[i]['anexo_catorce'] != '0'){
@@ -71,11 +74,11 @@ function listar_documento_vista_revisor(valor,pagina){
 					cadena += `<td style = 'text-align: center;width: 150px;word-wrap: break-word;'>
 						<input type="date" disabled id="date-`+valores[i][0]+`" value="`+valores[i]['fecha_sustentacion']+`">
 					</td>`;
-					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_uno']+`" onclick="modalsubiranexosetapaocho(this,'17')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
-					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_dos']+`" onclick="modalsubiranexosetapaocho(this,'18')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
-					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_tres']+`" onclick="modalsubiranexosetapaocho(this,'19')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
-					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_cuatro']+`" onclick="modalsubiranexosetapaocho(this,'20')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
-					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_cinco']+`" onclick="modalsubiranexosetapaocho(this,'25')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_uno']+`" onclick="modalsubiranexosetapaocho(this,'17')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload fa-2x' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_dos']+`" onclick="modalsubiranexosetapaocho(this,'18')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload fa-2x' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_tres']+`" onclick="modalsubiranexosetapaocho(this,'19')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload fa-2x' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_cuatro']+`" onclick="modalsubiranexosetapaocho(this,'20')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload fa-2x' style='color:orange;'></i></button></td>`;
+					cadena += `<td><button name="`+valores[i][0]+`*`+valores[i]['archivo_cinco']+`" onclick="modalsubiranexosetapaocho(this,'25')" class='btn btn-primary btn-sx' style='background-color:#fff;border-color:#fff'><i class='fa fa-cloud-upload fa-2x' style='color:orange;'></i></button></td>`;
 					cadena += "<td style = 'text-align: center;width: 10px;word-wrap: break-word;'><button name='"+valores[i][0]+"*"+valores[i][1]+"*"+valores[i][2]+"*"+valores[i][3]+"' class='btn btn-correo' onclick='AbrirModalenviarcorreorevisor(this)'><span class='fa fa-envelope fa-2x'></span></button></td>";
 
 					cadena += `<td style = 'text-align: center;' title='`+valores[i][5]+`'>`;

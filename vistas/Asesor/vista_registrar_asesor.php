@@ -5,8 +5,8 @@
       <h2><b>REGISTRO DEL ASESOR</b></h2>
     </div>
     <div class="panel-body">
-      <form id="form-registrar-docente">    
-          <div class="col-md-12 col-lg-12 col-xs-12"> 
+      <form id="form-registrar-docente">
+          <div class="col-md-12 col-lg-12 col-xs-12">
             <div class="col-sm-4">
                 <label>Nombre</label>
                 <input id="txtnombre" name="txtnombre"  onkeypress="return soloLetras(event)"  type="text" style="background-color: #FFFFFF"  placeholder="Ingrese nombre del Asesor" class="form-control" >
@@ -21,12 +21,12 @@
                 <label >Apellido Materno</label>
                 <input name="txtapellidomaterno" type="text" class="form-control" id="txtapellidomaterno" onkeypress="return soloLetras(event)" style="background-color: #FFFFFF" placeholder="Ingrese Apellido Materno">
                 <br>
-            </div>          
+            </div>
             <div class="col-sm-12">
                 <label >Direccion</label>
                 <input type="text" class="form-control" id="txtdireccion" name="txtdireccion">
                 <br>
-            </div>  
+            </div>
             <div class="col-sm-4">
                 <label >Nº Documento Identidad</label>
                 <input type="text" class="form-control" name="txtdni" id="txtdni" onkeypress="return soloNumeros(event)"   maxlength="8" style="background-color: #FFFFFF" placeholder="Ingrese Nº Documento Identidad">
@@ -41,8 +41,8 @@
                   <input type="date" style="padding: 0px 12px;background-color: #FFFFFF;font-weight:bold;" id="txtfecha"  name="txtfecha" class="form-control"  >
                 </div><br>
             </div>
-          </div>  
-          <div class="col-md-12 col-lg-12 col-xs-12">   
+          </div>
+          <div class="col-md-12 col-lg-12 col-xs-12">
             <div class="col-sm-6">
                 <label >Email Personal</label>
                 <input type="email" class="form-control" required="" name="txtemail" id="txtemail" placeholder="Ingrese Email">
@@ -53,18 +53,18 @@
                 <input type="text" class="form-control" name="txttelefono" id="txttelefono" maxlength="9" onkeypress="return soloNumeros(event)"  placeholder="Ingrese Numero Telefonico">
                 <br>
             </div>
-            
+
             <div class="col-md-6">
                 <label>Movil </label>
                 <input type="text"class="form-control" name="txtmovil" id="txtmovil"  onkeypress="return soloNumeros(event)" placeholder="Ingrese nro movil" maxlength="9">
                 <br>
-            </div> 
+            </div>
 
             <div class="col-sm-4">
                 <label >Estado</label>
                 <select id="txtEstado" class="form-control" name="txtEstado">
                   <option value="ACTIVO" selected>ACTIVO</option>
-                  <option value="INACTIVO">INACTIVO</option> 
+                  <option value="INACTIVO">INACTIVO</option>
                 </select>
                 <br>
             </div>
@@ -95,10 +95,10 @@
 
           </div>
 
-                     
+
           <div class="col-md-12 col-lg-12 col-xs-12" style="text-align:center;">
             <div class="col-md-12">
-              <br><button type="button" class="btn btn-success" onclick="revisar_dni_asesor()"><strong> Registrar Asesor</strong></button><br><br>
+              <br><button type="button" class="btn btn-success" onclick="revisar_dni_asesor()"><strong> Registrar Docente</strong></button><br><br>
             </div>
           </div>
       </form>
@@ -126,7 +126,7 @@
     }
     button{
     font-weight:bold;
-    
+
     }
     select{
        font-weight:bold;
@@ -136,7 +136,7 @@
       color: rgb(25,25,51); background-color: rgb(255,255,255);solid 5px;
     }
     .modal-open .select2-container--open {
-      z-index: 999999 !important; width:100% !important; 
+      z-index: 999999 !important; width:100% !important;
     }
 </style>
 <script>
@@ -167,7 +167,7 @@
       if (tecla==8){
           return true;
       }
-          
+
       // Patron de entrada, en este caso solo acepta numeros
       patron =/[0-9]/;
       tecla_final = String.fromCharCode(tecla);

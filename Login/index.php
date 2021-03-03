@@ -21,7 +21,7 @@ session_start();
 	<div class="main-w3ls">
 		<div class="left-content" style="text-align: center;" align="center">
       <br>
-			<img  style="width: 90%;" src="_plantilla/images/ucsur_inicio.jpg" />
+			<img  style="width: 40%;" src="_plantilla/images/ucsur_inicio.jpg" />
 			<div class="copyright">
 			</div>
 		</div>

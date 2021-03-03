@@ -2,19 +2,19 @@ function Limpieza_post_personal(){
 	$("#txtPersonaNombre").val("");
 	$("#txtApellidoPaterno").val("");
 	$("#txtApellidoMaterno").val("");
-	$("#txtDireccion").val("");	
+	$("#txtDireccion").val("");
 	$("#txtDNI").val("");
 	$("#txtGenero").val("");
 	$("#txtFechaNacimiento").val("");
-	$("#txtDistrito").val("");	
-	$("#txtProvincia").val("");	
+	$("#txtDistrito").val("");
+	$("#txtProvincia").val("");
 	$("#txtDepartamento").val("");
 	$("#txtDireccion").val("");
 	$("#txtTelefono").val("");
 	$("#txtEmail").val("");
 	$("#combo_TipoPersonal").val(1);
 	$('#id_archivo_Fotografia').fileinput('reset');
-	$("#main-content").load("Personal/vista_listar_personal.php") 
+	$("#main-content").load("Personal/vista_listar_personal.php")
 }
 function listar_asesor_vista(valor,pagina){
 	var pagina = Number(pagina);
@@ -29,26 +29,26 @@ function listar_asesor_vista(valor,pagina){
 	      $("#loading_almacen").removeClass("fa fa-refresh fa-spin fa-3x fa-fw");
 	    },
 		success: function(resp){
-			var datos = resp.split("*"); 
-			var valores = eval(datos[0]); 
+			var datos = resp.split("*");
+			var valores = eval(datos[0]);
 			if(valores.length>0){
 				var cadena = "";
 				cadena += "<table  class='table table-condensed jambo_table'>";
 				cadena += "<thead  class=''>";
 				cadena += "<tr >";
 				cadena += "<th style = 'text-align: center' hidden='true' >ID</th>";
-				cadena += "<th>NOMBRE Y APELLIDOS</th>";
-				cadena += "<th style = 'text-align: center'>DNI</th>";
-				cadena += "<th style = 'text-align: center'>EMAIL</th>";
-				cadena += "<th style = 'text-align: center'>FECHA NACIMIENTO</th>";
-				cadena += "<th style = 'text-align: center'>CELULAR</th>";
-				cadena += "<th style = 'text-align: center'>ESTADO</th>";
-				cadena += "<th>ACCI&Oacute;N</th>";
+				cadena += "<th style = 'text-align: center; color: #fff;'>NOMBRE Y APELLIDOS</th>";
+				cadena += "<th style = 'text-align: center; color: #fff;'>DNI</th>";
+				cadena += "<th style = 'text-align: center; color: #fff;'>EMAIL</th>";
+				cadena += "<th style = 'text-align: center; color: #fff;'>FECHA NACIMIENTO</th>";
+				cadena += "<th style = 'text-align: center; color: #fff;'>CELULAR</th>";
+				cadena += "<th style = 'text-align: center; color: #fff;'>ESTADO</th>";
+				cadena += "<th style = 'text-align: center; color: #fff;'>ACCI&Oacute;N</th>";
 				cadena += "</tr>";
 				cadena += "</thead>";
 				cadena += "<tbody>";
 				for(var i = 0 ; i<valores.length; i++){
-					cadena += "<tr>";			
+					cadena += "<tr>";
 					cadena += "<td align='center' hidden>"+valores[i][0]+"</td>";
 					cadena += "<td>"+valores[i][1]+" "+valores[i][2]+" "+valores[i][3]+"</td>";
 					cadena += "<td align='center'>"+valores[i][4]+"</td>";
@@ -68,7 +68,7 @@ function listar_asesor_vista(valor,pagina){
 				cadena += "</table>";
 				$("#lista_personal_tabla").html(cadena);
 				var totaldatos = datos[1];
-				var numero_paginas = Math.ceil(totaldatos/5); 
+				var numero_paginas = Math.ceil(totaldatos/5);
 				var paginar = "<ul class='pagination'>";
 				if(pagina>1){
 					paginar += "<li><a href='javascript:void(0)' onclick='listar_asesor_vista("+'"'+valor+'","'+1+'"'+")'>&laquo;</a></li>";
@@ -148,7 +148,7 @@ function AbrirModalEditarPersonal(control){
 	$('#txttelefono_modal').val(datos_split[8]);
 	$('#txtmovil_modal').val(datos_split[7]);
 	$('#txtdireccion_modal').val(datos_split[13]);
-	$('#txtfecha_modal').val(datos_split[12]);	
+	$('#txtfecha_modal').val(datos_split[12]);
 	$('#cmb_estadopersonal').val(datos_split[9]).trigger("change");
 	$('#txtGenero').val(datos_split[11]).trigger("change");
 	$('#txtcategoria').val(datos_split[14]).trigger("change");
@@ -163,7 +163,7 @@ function AbrirModalEditarPersonal(control){
 		}
 		$('#cboTipo').val(ids).change();
 	});
-	
+
 }
 function editar_asesor(){
 	var codigo    = $("#txtidciudadano").val();
@@ -177,8 +177,8 @@ function editar_asesor(){
 	if(nombre.length>0 && apepat.length>0 && apemat.length>0 && direccion.length>0 && nrodocume.length>0 && email.length>0 ){
 	}
 	else{
-		return swal("Falta Llenar Datos", "", "info");	
-	}	
+		return swal("Falta Llenar Datos", "", "info");
+	}
 	$.ajax({
 		url:'../controlador/personal/controlador_editar_docente.php',
 		type:'POST',
@@ -192,7 +192,7 @@ function editar_asesor(){
 			  listar_asesor_vista(dato_buscar,'1');
 		}
 		else{
-			swal("! Registro no completado!", "", "error");	
+			swal("! Registro no completado!", "", "error");
 		}
 	})
 	.fail(function( jqXHR, textStatus, errorThrown){
@@ -225,7 +225,7 @@ function editar_asesor(){
 	    alert('Uncaught Error: ' + jqXHR.responseText);
 
 	  }
-	})			
+	})
 }
 function revisar_dni_asesor(){
 	var nombre    = $("#txtnombre").val();
@@ -235,7 +235,7 @@ function revisar_dni_asesor(){
 	var direccion = $("#txtdireccion").val();
 	var dni       = $("#txtdni").val();
 	var tipo      = $("#cboTipo").val();
-	
+
 	if (nombre.length>0  && apemat.length>0 && apepat.length>0 && fecha.length>0 && direccion.length>0 ) {
 	}else{
 		return swal("Faltan Llenar Datos","","info");
@@ -258,7 +258,7 @@ function revisar_dni_asesor(){
 		var data = JSON.parse(resp);
 		if (data.length<=0) {
 			Registrar_personal();
-			
+
 		}else{
 			swal("Lo sentimos el DNI Ingresado ya esta siendo utilizado por otro personal","","warning");
 		}
@@ -277,16 +277,16 @@ function Registrar_personal(){
 	.done(function(resp){
 		if (resp > 0) {
 			 swal("Datos Registrados!", "", "success")
-			 .then ( ( value ) =>  { 
+			 .then ( ( value ) =>  {
 				var dato_buscar = $("#txtbuscar_personal").val();
 				listar_asesor_vista(dato_buscar,'1');
 			});
-			
+
 		}
 		else{
-			swal("! Registro no completado!", "", "error");	
+			swal("! Registro no completado!", "", "error");
 		}
-	})		
+	})
 }
 function Listar_tipousuario_combo() {
 	$.ajax({
@@ -301,7 +301,7 @@ function Listar_tipousuario_combo() {
 			for (var i = 0; i < data.length; i++) {
 				cadena += "<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
 			}
-			$("#cmbTipousuario").html(cadena);	
+			$("#cmbTipousuario").html(cadena);
 		}
 		else{
 			var cadena = "<option value='NO'>no se encontraron tipo de usuario Disponibles</option>";
@@ -322,7 +322,7 @@ function Listar_tipo_docente_combo() {
 			for (var i = 0; i < data.length; i++) {
 				cadena += "<option value='"+data[i][0]+"'>"+data[i][1]+"</option>";
 			}
-			$("#cboTipo").html(cadena);	
+			$("#cboTipo").html(cadena);
 		}
 		else{
 			var cadena = "<option value='NO'>no se encontraron tipo Disponibles</option>";
