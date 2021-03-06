@@ -11,11 +11,11 @@ session_start();
     $asesores = $MC->obtenerasesores($documento);
     $tesistas = '';
     foreach($ciudadanos as $item){
-        $tesistas .=$item['nombre_completo'].",";
+        $tesistas .=$item['nombre_completo']." // ";
     }
     $message = '';
     if($consulta[0]['porcentaje'] <=10){
-        $subject = "[DGIDI-UCSUR] Registro de proyecto de investigación – Proyecto de tesis de ".$tesistas;
+        $subject = "[DGIDI-UCSUR] REGISTRO DE PROYECTO DE INVESTIGACION – PROYECTO TESIS DE ".$tesistas;
         $message .= "<html>
                     <head>
                         <title>Proyecto de tesis aceptado</title>
@@ -41,7 +41,7 @@ session_start();
                     </body>
                     </html>";
     }elseif($consulta[0]['porcentaje'] >10){
-        $subject = "[DGIDI-UCSUR] Denegación al registro de proyecto de tesis de ".$tesistas ;
+        $subject = "[DGIDI-UCSUR] DENEGACION AL REGISTRO DE PROYECTO DE TESIS DE ".$tesistas ;
         $message .= "<html>
                     <head>
                         <title>Denegación de registro de proyecto de tesis</title>

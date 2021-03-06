@@ -6,7 +6,7 @@
 body {
     padding-top: 40px;
     padding-bottom: 40px;
-    background: lightblue url("fondo_login.jpg");
+    /* background: lightblue url("fondo_login.jpg"); */
     background-repeat: repeat-y, repeat;
     background-size: 1400px auto;
 
