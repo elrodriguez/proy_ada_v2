@@ -14,5 +14,5 @@ $sheet->setCellValue('G1', 'CANTIDAD DE TESIS');
 $sheet->setCellValue('H1', 'MONTO');
 $writer = new Xlsx($spreadsheet);
 $writer->save('hola_mundo.xlsx');
-// Redireccionamos para que descargue el archivo generado
+
 header("Location: hola_mundo.xlsx");
