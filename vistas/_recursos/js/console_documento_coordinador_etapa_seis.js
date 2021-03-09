@@ -781,7 +781,7 @@ function AbrirModalenviarcorreorevisor(control){
 function enviarcorreopordocumentorevisor(){
 	var doc = $('#iddocumentomodal-1').val();
 	var correo = $('#correo-modal').val();
-	$.get( "../controlador/documento/controlador_enviar_correo_tisista_resolucion.php?doc="+doc+'&correo='+correo, function( data ) {
+	$.get( "../controlador/documento/controlador_enviar_correo_tisista_jurado.php?doc="+doc+'&correo='+correo, function( data ) {
 		listar_documento_vista_revisor("","1");
 		alert("El foreo se envio satisfactoriamente");
 	});

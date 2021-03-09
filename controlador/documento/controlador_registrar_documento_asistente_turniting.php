@@ -11,7 +11,8 @@
 			mkdir($dir, 0777, true);
 		}
 		$destino1 = $dir.$imagen;
-		$nombre1 = str_replace(' ','-','Archivo/'.$iddocumento.'/'.$imagen);
+		// $nombre1 = str_replace(' ','-','Archivo/'.$iddocumento.'/'.$imagen);
+		$nombre1 = ('Archivo/'.$iddocumento.'/'.$imagen);
 		//print_r($ruta1);exit;
 		copy($ruta1, $destino1);
 		$cont=1;

@@ -17,7 +17,7 @@ function enviarcorreopordocumento(){
 	var doc = $('#iddocumentomodal-1').val();
 	var correo = $('#correo-modal').val();
 	$.get( "../controlador/documento/controlador_enviar_correo.php?doc="+doc+'&correo='+correo, function( data ) {
-		alert("El foreo se envio satisfactoriamente");
+		alert("El Correo se envio satisfactoriamente");
 		listar_documento_vista("","1")
 	});
 }

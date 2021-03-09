@@ -1097,7 +1097,7 @@ function rechazarproceso(codigo,estado,etapa){
 			}).done(function(resp){
 				listar_documento_vista_revisor("","1");
 				if (resp>0) {
-					 swal("fue "+estado,"", {
+					 swal("Enviado Etapa a 4", {
 						icon: "success",
 					  });
 				}else{
@@ -1107,22 +1107,22 @@ function rechazarproceso(codigo,estado,etapa){
 		}
 	  });
 }
-// function AbrirModalenviarcorreorevisor(control){
-// 	var datos = control.name;
-// 	var datos_split = datos.split("*");
-// 	$('#iddocumentomodal-1').val(datos_split[0]);
-// 	$('#modal-enviar-correo-revisor').modal({backdrop: 'static', keyboard: false})
-// 	$('#modal-enviar-correo-revisor').modal('show');
-// }
-// function enviarcorreopordocumentorevisor(){
-// 	var doc = $('#iddocumentomodal-1').val();
-// 	var correo = $('#correo-modal').val();
-// 	$.get( "../controlador/documento/controlador_enviar_correo_revisor_aprobado_observado.php?doc="+doc+'&correo='+correo, function( data ) {
-// 		listar_documento_vista_revisor("","1");
-// 		alert("El Correo se envio Satisfactoriamente");
-// 		$('#modal-enviar-correo-revisor').modal('hide');
-// 	});
-// }
+function AbrirModalenviarcorreorevisor(control){
+	var datos = control.name;
+	var datos_split = datos.split("*");
+	$('#iddocumentomodal-1').val(datos_split[0]);
+	$('#modal-enviar-correo-revisor').modal({backdrop: 'static', keyboard: false})
+	$('#modal-enviar-correo-revisor').modal('show');
+}
+function enviarcorreopordocumentorevisor(){
+	var doc = $('#iddocumentomodal-1').val();
+	var correo = $('#correo-modal').val();
+	$.get( "../controlador/documento/controlador_enviar_correo_revisor_aprobado_observado.php?doc="+doc+'&correo='+correo, function( data ) {
+		listar_documento_vista_revisor("","1");
+		alert("El Correo se envio Satisfactoriamente");
+		$('#modal-enviar-correo-revisor').modal('hide');
+	});
+}
 function AbrirModalSubirArchivoAnexos(control){
 	var datos = control.name;
 	var datos_split = datos.split("*");
@@ -1166,23 +1166,6 @@ function registrar_documento_anexos(){
 			document.getElementById("form-upload-file-anexos").reset();
 		  	swal("Revisión Registrado!", "", "success").then ( ( value ) =>  {
 				$("#main-content").load("Documento/vista_documento_listar_administrar_revisor.php");
-				// jjra
-				function AbrirModalenviarcorreorevisor(control){
-					var datos = control.name;
-					var datos_split = datos.split("*");
-					$('#iddocumentomodal-1').val(datos_split[0]);
-					$('#modal-enviar-correo-revisor').modal({backdrop: 'static', keyboard: false})
-					$('#modal-enviar-correo-revisor').modal('show');
-				}
-				function enviarcorreopordocumentorevisor(){
-					var doc = $('#iddocumentomodal-1').val();
-					var correo = $('#correo-modal').val();
-					$.get( "../controlador/documento/controlador_enviar_correo_revisor_aprobado_observado.php?doc="+doc+'&correo='+correo, function( data ) {
-						listar_documento_vista_revisor("","1");
-						alert("El Correo se envio Satisfactoriamente");
-						$('#modal-enviar-correo-revisor').modal('hide');
-					});
-				}
 			});
 		}
 	  }

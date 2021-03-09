@@ -12,12 +12,12 @@ session_start();
     $MC = new Modelo_documento();
     $consulta = $MC->obtenerdocumento($documento);
     $ciudadanos = $MC->obtenerciudadanos($documento);
-    $revisores = $MC->obtenerrevisores($documento);
-    // $jurados = $MC->obtenerjurados($documento);
+    // $revisores = $MC->obtenerrevisores($documento);
+    $jurados = $MC->obtenerjurados($documento);
     // $asesores = $MC->obtenerasesores($documento);
     $tesistas = '';
-    foreach($revisores as $item){
-        $revisores .="-".$item['full_name']." <br> ";
+    foreach($jurados as $item){
+        $jurados .="-".$item['full_name']." <br> ";
     }
     foreach($ciudadanos as $item){
         $tesistas .=$item['nombre_completo']." // ";
@@ -27,20 +27,26 @@ session_start();
     $date_past = strtotime('+14 day', strtotime($fechaActual));
     $date_past = date('d-m-Y', $date_past);
 
-    $subject = "RESOLUCION DIRECTORAL";
+    $subject = "NOMBRAMIENTO DE JURADO EXAMINADOR - Lima ".$fechaActual;
     $message .= "<html>
                     <head>
-                        <title>REVISORES</title>
+                        <title>--</title>
                     </head>
-                    <body>
-                        <strong>Estimado(a),</strong>
-                        <p>".$tesistas."</p>";
+                    <body>";
         $message .="
-                        <p>Adjunto la resolución directoral Firmada por el Decano sobre la aceptación de su tema: “".$consulta[0]['doc_asunto']."”. </p>
-                        <p>De acuerdo al Reglamento General de la Universidad Científica del Sur y los reglamentos de pregrado para obtener el título profesional de «Título que otorga el programa académico» en el programa académico de «Programa académico», se debe desarrollar un trabajo de investigación.</p>
-                        <p>Tiene plazo de tiempo hasta #Fecha final# para desarrollar el proyecto de investigación y solicitar una revisión para la sustentación.</p>
-                        <p>Estaremos a la espera de su respuesta</p>
-                        <p>Atte. # coordinador que selecciono el caso#</p>
+                        <p>Estimados docentes, Por el presente quiero comunicarles que han sido designados como miembros de jurado examinador de tesis. </p>
+                        <p>Teniendo en cuenta la importancia de este tema, esperamos su máxima colaboración para cumplir con los plazos establecido (14 días hábiles) pueden hacerlo antes. </p>
+                        <p>Fecha límite de entrega: ".$date_past."</p>
+                        <p>Procedimiento:</p>
+                        <p>- Revisar la tesis</p>
+                        <p>- Si consideran que la tesis se encuentra APTA PARA SUSTENTAR, el presidente del Jurado deberá informar a través del ANEXO 10</p>
+                        <p>- Si entre ustedes consideran que la tesis se encuentra NO APTA PARA SUSTENTAR, el presidente del Jurado deberá consolidar y listar las observaciones</p>
+                        <p>Jurado examinador de tesis:</p>
+                        <p>".$jurados."</p>
+                        <p>Agradeceré confirmar la recepción de este correo.</p>
+                        <p>Descargar Anexo en el siguiente enlace</p>
+                        <p></p>
+                        <p>Atte. responsable del área de Investigación - Facultad de Ciencias Empresariales</p>
 
                     </body>
                     </html>";
